@@ -4,7 +4,20 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="welcome-container">
+    <!--Welcome Video-->
+    <video autoplay muted loop id="welcomeVideo">
+        <source src="/video/WelcomeVideo.mp4" type="video/mp4" />
+    </video>
+
+    <!-- HTML Code -->
+    <div class="welcome-content">
+        <h1 class="h1Tag">Welcome</h1>
+        <p style="text-align:center;">This is Alfredo Marcini's, the world most popular restaurant</p>
+        <p>
+            Marcini’s is an Italian restaurant with exceptional food, kindhearted service, and affordable prices. 
+            We take your meal very seriously, and hope to make it the best experience possible. Sure, there are many 
+            Italian restaurants out there, but we believe that people make the place; and, our place also happens to make great food.
+        </p>
+    </div>
 </div>
