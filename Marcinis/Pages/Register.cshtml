@@ -1,0 +1,64 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container border" style="padding:20px">
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="customer.FirstName"></label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="customer.FirstName" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="customer.EmailAddress">Email</label>
+            </div>
+            <div class="col-4">
+                <input type="text" asp-for="customer.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+
+            <div class="col-1">
+                <label asp-for="customer.LastName"></label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="customer.LastName" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="customer.Password"></label>
+            </div>
+            <div class="col-4">
+                <input type="password" asp-for="customer.Password" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+
+            <div class="col-1">
+                <label asp-for="customer.PhoneNumber">Phone</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="customer.PhoneNumber" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+            <div class="col-1" style="display: none">
+                <label asp-for="customer.Salt"></label>
+            </div>
+            <div class="col-3" style=" display: none">
+                <input type="text" asp-for="customer.Salt" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </div>
+        </div>
+
+    </form>
+</div>
