@@ -4,20 +4,20 @@
     ViewData["Title"] = "About";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/about.css">
 
 <h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <img src="/images/pexels_about_header.jpg" class="img-fluid">
+</div>
 <!--This is the container holding everything on the about page-->
-<section class="h-100 gradient-form" style="background-color: #eee;">
-    <!--This is the header image-->
-    <div class="text-center">
-        <img src="/images/pexels_about_header.jpg" class="img-fluid">
-    </div>
-    <!--This is the container that holds the about me paragraph and the image/map to the right-->
-    <div class="container my-5">
+<section class="h-100 sample-name gradient-form" style="background-color: #eee;">
+    <!--This is the container that holds the our story paragraph and the image/map to the right-->
+    <div class="container our-story my-5">
         <div class="row justify-content-center">
             <div class="col-4">
-                <p style="font-family: Georgia, serif">Who We Are</p>
-                <p style="font-family: Georgia, serif">
+                <p>Who We Are</p>
+                <p>
                     Alfredo Marcini was a simple man, but his cooking was anything but. Using recipes handed down through generations, Marcini perfected the authentic and bold flavors of his family and opened a small restaurant in Naples, Italy.
                     The success of his restaurant has now led to over 400 franchised restaurants spanning the globe. Although the scale is much larger, Marcini's prides itself on staying true to our initial small restaurant in Naples. At Marcinis
                     you will find the freshest ingredients and the most authentic Italian experience. Let us bring Naples to you!
@@ -29,15 +29,17 @@
         </div>
     </div>
     <!--This will be a container dedicated to social media links-->
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <a href="https://www.instagram.com/marcinis.utsa/">
-                <img alt="Instagram" src="/images/ig.png" class="rounded" width="75" height="75">
-            </a>
-        </div>
-        <div class="col-4">
-            <p style="font-family: Georgia, serif">Let's Get Social!</p>
-            <p style="font-family: Georgia, serif">Follow us on our social media platforms listed below for more information, and to keep up to date with any offers or updates!</p>
+    <div class="container social-content gradient-form">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <a href="https://www.instagram.com/marcinis.utsa/">
+                    <img alt="Instagram" src="/images/ig.png" class="rounded" width="75" height="75">
+                </a>
+            </div>
+            <div class="col-4">
+                <p>Let's Get Social!</p>
+                <p>Follow us on our social media platforms listed below for more information, and to keep up to date with any offers or updates!</p>
+            </div>
         </div>
     </div>
 </section>
