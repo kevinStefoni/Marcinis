@@ -22,30 +22,37 @@
                                          style="width: 185px;" alt="logo">
                                 </div>
 
-                                <form>
-                                    <div class="form-outline mb-4">
-                                        <input type="email" id="form2Example11" class="form-control"/>
-                                        <label class="form-label" for="form2Example11">Username</label>
+                                <form method="post">
+                                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                    <div class="form-group row" style="margin-bottom:15px">
+                                        <div class="col-1">
+                                            <label asp-for="customer.EmailAddress"></label>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="text" asp-for="customer.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
+                                        </div>
                                     </div>
 
-                                    <div class="form-outline mb-4">
-                                        <input type="password" id="form2Example22" class="form-control" />
-                                        <label class="form-label" for="form2Example22">Password</label>
+                                    <div class="form-group row" style="margin-bottom:15px">
+                                        <div class="col-1">
+                                            <label asp-for="customer.Password"></label>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="password" asp-for="customer.Password" class="form-control" style="width: 250px; margin: 2px" />
+                                        </div>
                                     </div>
 
-                                    <div class="text-center pt-1 mb-5 pb-1">
-                                        <button id="loginButton" class="btn btn-block fa-lg mb-3" type="button">
-                                            Log
-                                            in
-                                        </button>
+                                    <div class="form-group row">
+                                        <div class="col-1">
+                                            <input type="submit" class="btn btn-primary" value="Login" />
+                                        </div>
                                     </div>
-
-                                    <div class="d-flex align-items-center justify-content-center pb-4">
-                                        <p class="mb-0 me-2">Don't have an account?</p>
-                                        <button type="button" class="btn btn-outline-danger">Create Account</button>
-                                    </div>
-
                                 </form>
+
+                                <div class="d-flex align-items-center justify-content-center pb-4">
+                                    <p class="mb-0 me-2">Don't have an account?</p>
+                                    <a class="text-dark" asp-area="" asp-page="./Register">Create Account</a>
+                                </div>
 
                             </div>
                         </div>
