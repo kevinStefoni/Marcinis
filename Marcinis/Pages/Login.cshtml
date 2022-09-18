@@ -22,32 +22,25 @@
                                          style="width: 185px;" alt="logo">
                                 </div>
 
-                                <form method="post">
-                                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-                                    <div class="form-group row" style="margin-bottom:15px">
-                                        <div class="col-1">
-                                            <label asp-for="customer.EmailAddress"></label>
-                                        </div>
-                                        <div class="col-4">
-                                            <input type="text" asp-for="customer.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
-                                        </div>
+                                <h4 style="text-align:center">Benevenuto!</h4>
+
+                                <form>
+                                    <div class="form-outline mb-4">
+                                        <input type="email" id="form2Example11" class="form-control"/>
+                                        <label class="form-label" for="form2Example11">Email</label>
                                     </div>
 
-                                    <div class="form-group row" style="margin-bottom:15px">
-                                        <div class="col-1">
-                                            <label asp-for="customer.Password"></label>
-                                        </div>
-                                        <div class="col-4">
-                                            <input type="password" asp-for="customer.Password" class="form-control" style="width: 250px; margin: 2px" />
-                                        </div>
+                                    <div class="form-outline mb-4">
+                                        <input type="password" id="form2Example22" class="form-control" />
+                                        <label class="form-label" for="form2Example22">Password</label>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <div class="col-1">
-                                            <input type="submit" class="btn btn-primary" value="Login" />
-                                        </div>
+                                    <div class="text-center pt-1 mb-5 pb-1">
+                                        <button id="loginButton" class="btn btn-block fa-lg mb-3" type="button">
+                                            Log
+                                            in
+                                        </button>
                                     </div>
-                                </form>
 
                                 <div class="d-flex align-items-center justify-content-center pb-4">
                                     <p class="mb-0 me-2">Don't have an account?</p>
@@ -56,12 +49,9 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-6 d-flex align-items-center">
-                            <img src='/images/naples_italy_1.jpg' style="width:400px; height=400px;">
-                            <div class="text-black px-3 py-4 p-md-5 mx-md-4 bg-image">
-                                <h4 class="mb-4">Benvenuto!</h4>
-                            </div>
-                        </div>
+
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <img src='/images/naples_italy_overview.jpeg' style="width:400px; height:400px;">
                     </div>
                 </div>
             </div>

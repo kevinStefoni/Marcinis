@@ -3,10 +3,40 @@
 @{
     ViewData["Title"] = "Order";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>This will be the page where the online ordering will happen. This is where the main functionality will be.</p>
-<p> This line changed by Jason</p>
-<p> This line changed by Brian</p>
-<p> This line changed by Daniel</p>
-<p> This line changed by Joe</p>
+<head>
+    <link rel="stylesheet" href="/css/order.css"/>
+</head>
+
+<nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm border box-shadow mb-3">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#appetizers">Appetizers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#pasta">Pasta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#pizza">Pizza</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#Desert">Desert</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<h1 id="appetizers">Appetizers</h1>
+
+
+
+
