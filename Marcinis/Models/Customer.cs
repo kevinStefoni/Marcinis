@@ -4,6 +4,7 @@ namespace Marcinis.Models
 {
     public class Customer
     {
+        [Key]
         public int CustomerId { get; set; }
         [Required]
         [DataType(DataType.Password)]
@@ -18,6 +19,6 @@ namespace Marcinis.Models
         public string PhoneNumber { get; set; }
         [Required]
         public int LoginTypeId { get; set; }
-        public string Salt { get; set; }
+        public string Salt { get; set; } = string.Empty;
     }
 }
