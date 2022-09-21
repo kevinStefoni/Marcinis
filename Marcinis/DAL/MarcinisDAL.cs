@@ -9,7 +9,7 @@ namespace Marcinis.DAL
         private static readonly string connStr = "Server=tcp:marcinis-server.database.windows.net,1433;Initial Catalog=MarcinisDB;Persist Security Info=False;User ID=cs3773group12;Password=Pa$$word1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
         private static readonly SqlConnection conn = new(connStr);
 
-        public DataSet ExecSqlGetDataSet(string sql, SqlParameter[] parameters, CommandType cmdType = CommandType.Text)
+        public DataSet ExecSqlGetDataSet(string sql, SqlParameter[]? parameters = null, CommandType cmdType = CommandType.Text)
         {
             DataSet ds = new();
 
