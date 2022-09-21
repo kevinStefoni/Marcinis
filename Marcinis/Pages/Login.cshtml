@@ -24,24 +24,21 @@
 
                                 <h4 style="text-align:center">Benevenuto!</h4>
 
-                                <form>
+                                <form method="post">                                    
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form2Example11" class="form-control"/>
+                                        <input type="text" asp-for="customer.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
                                         <label class="form-label" for="form2Example11">Email</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form2Example22" class="form-control" />
+                                        <input type="password" asp-for="customer.Password" class="form-control" style="width: 250px; margin: 2px" />
                                         <label class="form-label" for="form2Example22">Password</label>
                                     </div>
 
                                     <div class="text-center pt-1 mb-5 pb-1">
-                                        <button id="loginButton" class="btn btn-block fa-lg mb-3" type="button">
-                                            Log
-                                            in
-                                        </button>
+                                        <input type="submit" class="btn btn-primary" value="Login" />
                                     </div>
-
+                                </form>
                                 <div class="d-flex align-items-center justify-content-center pb-4">
                                     <p class="mb-0 me-2">Don't have an account?</p>
                                     <a class="text-dark" asp-area="" asp-page="./Register">Create Account</a>
