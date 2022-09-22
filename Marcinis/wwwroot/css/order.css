@@ -1,3 +1,17 @@
-﻿#menuNavBar{
-    background-color:#8BA973;
+﻿#menuNavBar {
+    background-color: #8BA973;
+}
+
+h1{
+    color: #FFF6EC;
+    font-family: Gabriola;
+}
+
+#menuLi{
+    color: #FFF6EC;
+    font-family: Georgia;
+}
+
+#aLi{
+    color: #FFF6EC;
 }
