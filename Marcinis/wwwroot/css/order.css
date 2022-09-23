@@ -2,16 +2,32 @@
     background-color: #8BA973;
 }
 
-h1{
+h1 {
     color: #FFF6EC;
     font-family: Gabriola;
 }
 
-#menuLi{
+#menuLi {
     color: #FFF6EC;
     font-family: Georgia;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
 }
 
-#aLi{
+#aLi {
     color: #FFF6EC;
 }
+
+#orderBreadsticks {
+    background-color: #4A9962;
+    color: #FFF6EC;
+    border: solid #FFF6EC;
+}
+
+#genCard {
+    background-color: #FFF6EC;
+    color: #4A9962;
+}
+
