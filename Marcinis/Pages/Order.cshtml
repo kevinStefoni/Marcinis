@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/order.css"/>
 </head>
 
+<!-- This is the menu navbar. The links take the user to headings and categories within the menu. -->
 <nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-fixed-top border box-shadow mb-3">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -34,35 +35,78 @@
 </nav>
 
 
-
+<!-- This is the row of cards for the appetizers. -->
 <h1 id="appetizers">Appetizers</h1>
+<div class="container mx-auto mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Breadsticks</h5>
+                    <p class="card-text">Enjoy breadsticks baked fresh from the oven!</p>
+                    <input id="orderBreadsticks" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/fried_ravioli.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Fried Ravioli</h5>
+                    <p class="card-text">Try our flavorful fried ravioli with delicious marinara sauce!</p>
+                    <input id="orderFriedRavioli" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/pizette.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Pizzette</h5>
+                    <p class="card-text">Who knew pizzas could get this small...and delicious?</p>
+                    <input id="orderPizzette" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/stuffed_cheesy.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Stuffed Cheesy Bread</h5>
+                    <p class="card-text">Soooooo cheeesy...</p>
+                    <input id="orderStuffedCheesyBread" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/stuffed_cheesy_pepperoni.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Cheesy Pepperoni Bread</h5>
+                    <p class="card-text">Soooooo pepperoniey...sorry.</p>
+                    <input id="orderStuffedCheesyPepperoniBread" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h1 id="pasta">Pasta</h1>
 <h1 id="pizza">Pizza</h1>
 <h1 id="dessert">Dessert</h1>
 
-<div id="genCard" class="card w-25">
-    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-        <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;"/>
-            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">Breadsticks</h5>
-        <p class="card-text">Enjoy breadsticks baked fresh from the oven!</p>
-        <input id="orderBreadsticks" type="submit" class="btn" value="Order" />
-    </div>
-</div>
 
-<div id="genCard" class="card w-25">
-    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-        <img src="/Menu Items/Appetizers/fried_ravioli.jpg" class="img-fluid" style="object-fit: cover;" />
-        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">Fried Ravioli</h5>
-        <p class="card-text">Try our crispy and flavorful fried ravioli with robust Italian marinara sauce!</p>
-        <input id="orderBreadsticks" type="submit" class="btn" value="Order" />
-    </div>
-</div>
 
 
 

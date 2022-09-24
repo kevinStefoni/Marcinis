@@ -1,5 +1,9 @@
 ﻿#menuNavBar {
     background-color: #8BA973;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 200;
 }
 
 h1 {
@@ -20,7 +24,7 @@ h1 {
     color: #FFF6EC;
 }
 
-#orderBreadsticks {
+.btn {
     background-color: #4A9962;
     color: #FFF6EC;
     border: solid #FFF6EC;
@@ -29,5 +33,9 @@ h1 {
 #genCard {
     background-color: #FFF6EC;
     color: #4A9962;
+}
+
+.card {
+    margin-bottom: 1rem;
 }
 
