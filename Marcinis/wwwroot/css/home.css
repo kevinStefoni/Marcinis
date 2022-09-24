@@ -1,26 +1,17 @@
 ﻿/* Home page */
-#welcomeVideo {
+#video {
     position: fixed;
-    width: 100%;
     z-index: 0;
     top: 75px;
+    overflow: hidden;
+    height: fit-content;
     left: 0;
 }
 
-.h1Tag {
+#videoMessage {
     position: relative;
-    text-align: center;
-    font-family: Georgia, serif;
-    font-size: 30px;
-    font-style: italic;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    color: #FFF6EC;
-    z-index: 1;
-}
-
-.welcome-content {
-    position: relative;
+    left: 0;
+    right: 0;
     font-family: Georgia, serif;
     font-size: 20px;
     font-style: italic;
@@ -28,14 +19,18 @@
     word-spacing: 1px;
     line-height: 20px;
     color: #FFF6EC;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     background-color: rgba(0,0,0,.4);
     padding: 80px;
     animation: fadeIn 7s;
     -webkit-animation: fadeIn 7s;
-    z-index: 1;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
 }
 
-/*fadeIn Animation*/
 @keyframes fadeIn {
     0% {
         opacity: 0;
