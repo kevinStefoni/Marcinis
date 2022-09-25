@@ -1,0 +1,50 @@
+﻿@page
+@model AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/admin.css"/>
+</head>
+
+<h1 id="admin">All Users</h1>
+
+<table border="2">
+    <tr>
+        <th>CustomerID</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>EmailAddress</th>
+        <th>PhoneNumber</th>
+        <th>LoginTypeId</th>
+    </tr>
+
+    @foreach (var c in Model.customer) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => c.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => c.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => c.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => c.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => c.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => c.LoginTypeId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@c.CustomerId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@c.CustomerId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@c.CustomerId">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
