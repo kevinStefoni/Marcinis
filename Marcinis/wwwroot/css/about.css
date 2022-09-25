@@ -1,11 +1,24 @@
-﻿.sample-name {
-    background-image: url("/images/pexels_about_background.jpg");
-}
-
-.our-story {
+﻿.our-story {
     font-family: Georgia, serif;
     font-size: 20px;
     font-style: italic;
-    background-color: rgba(0,0,0,.4);
-    color: #ffffff;
+    color: #000000;
+}
+
+.background-container {
+    background-image: url("/images/pexels_about_background.jpg");
+    position: relative;
+    left:10%;
+    top:10%;
+    right:10%;
+    bottom:10%;
+    margin-left: -300px;
+    margin-right: -300px;
+}
+
+.iframe-responsive {
+    position: relative;
+    padding-bottom:45%;
+    height: 0;
+    overflow: hidden;
 }
