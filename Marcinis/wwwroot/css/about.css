@@ -6,12 +6,25 @@
 }
 
 .background-container {
-    background-image: url("/images/pexels_about_background.jpg");
-    position: relative;
+    background-color: #8BA973;
     left: 10%;
     top: 10%;
     right: 10%;
-    bottom: 10%;
     margin-left: -300px;
     margin-right: -300px;
+}
+
+.header-photo-container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 200px;
+    font-style: italic;
+    font-size: 100px;
+    font-family: Georgia, serif;
 }
