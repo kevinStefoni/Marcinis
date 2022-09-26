@@ -32,3 +32,7 @@
     font-family: 'Edwardian Script ITC';
     font-size:50px;
 }
+
+.form-label{
+    padding-right: 15px;
+}

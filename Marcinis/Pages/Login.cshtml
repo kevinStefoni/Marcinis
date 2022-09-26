@@ -21,18 +21,17 @@
                                     <img src="/images/Marcini's_Logo.png"
                                          style="width: 185px;" alt="logo">
                                 </div>
-
                                 <h4 id="benevenuto">Benevenuto!</h4>
-
                                 <form method="post">                                    
                                     <div class="form-outline mb-4">
                                         <input type="text" asp-for="customer.EmailAddress" class="form-control" style="width: 350px; margin: 2px"/>
                                         <label class="form-label" for="form2Example11">Email</label>
+                                        <span asp-validation-for="customer.EmailAddress" class="text-danger"></span>
                                     </div>
-
                                     <div class="form-outline mb-4">
                                         <input type="password" asp-for="customer.Password" class="form-control" style="width: 350px; margin: 2px" />
                                         <label class="form-label" for="form2Example22">Password</label>
+                                        <span asp-validation-for="customer.Password" class="text-danger"></span>
                                     </div>
 
                                     <div class="text-center pt-1 mb-5 pb-1">
