@@ -47,7 +47,24 @@
                 <div class="card-body">
                     <h5 class="card-title">Breadsticks</h5>
                     <p class="card-text">Enjoy breadsticks baked fresh from the oven!</p>
-                    <input id="orderBreadsticks" type="submit" class="btn" value="Order" />
+                    <!--<input id="orderBreadsticks" type="submit" class="btn" value="Order" /> -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Qty, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-2">
+                            @Html.DropDownListFor(model => model.Qty, new List<SelectListItem>
+                            {
+                            new SelectListItem {Text = "0", Value = "0", Selected = true },
+                            new SelectListItem {Text = "1", Value = "1" },
+                            new SelectListItem {Text = "2", Value = "2" },
+                            new SelectListItem {Text = "3", Value = "3" },
+                            new SelectListItem {Text = "4", Value = "4" },
+                            new SelectListItem {Text = "5", Value = "5" },
+                            new SelectListItem {Text = "6", Value = "6" },
+                            new SelectListItem {Text = "7", Value = "7" },
+                            }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
