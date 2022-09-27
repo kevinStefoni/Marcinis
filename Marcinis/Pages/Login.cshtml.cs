@@ -4,6 +4,7 @@ using Marcinis.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Data.SqlClient;
 
 namespace Marcinis.Pages
@@ -14,7 +15,7 @@ namespace Marcinis.Pages
 
         [BindProperty]
         public Login login { get; set; }
-
+        public Customer customer = new Customer();
         public ActionResult OnPost()
         {
 
