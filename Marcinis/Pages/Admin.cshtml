@@ -10,7 +10,7 @@
 
 <h1 id="admin">All Users</h1>
 
-<table border="2">
+<table border="1">
     <tr>
         <th>CustomerID</th>
         <th>FirstName</th>
@@ -32,7 +32,7 @@
                 @Html.DisplayFor(modelItem => c.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => c.EmailAddress)
+                @Html.DisplayFor(modelItem => c.LoginCredentials.EmailAddress)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => c.PhoneNumber)

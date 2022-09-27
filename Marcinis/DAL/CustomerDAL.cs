@@ -21,11 +21,11 @@ namespace Marcinis.DAL
 
                 // guest logintypes will not have passwords
                 if (customer.LoginTypeId != (int)Enums.LoginType.Guest)
-                    cmd.Parameters.AddWithValue("@Password", customer.Password);
+                    cmd.Parameters.AddWithValue("@Password", customer.LoginCredentials.Password);
 
                 cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
                 cmd.Parameters.AddWithValue("@LastName", customer.LastName);
-                cmd.Parameters.AddWithValue("@EmailAddress", customer.EmailAddress);
+                cmd.Parameters.AddWithValue("@EmailAddress", customer.LoginCredentials.EmailAddress);
                 cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
                 cmd.Parameters.AddWithValue("@LoginTypeId", customer.LoginTypeId);
                 cmd.Parameters.AddWithValue("@Salt", customer.Salt);

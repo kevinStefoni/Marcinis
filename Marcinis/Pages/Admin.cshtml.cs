@@ -26,14 +26,15 @@ namespace Marcinis.Pages
 
                 foreach(DataRow dr in customerDt.Rows)
                 {
-                    Customer _cust = new Customer();
+                    Customer _cust = new Customer(); // allocate memory for customer
+                    _cust.LoginCredentials = new Login(); // have to allocate memory for new Login object
                     _cust.CustomerId = Convert.ToInt32(dr["CustomerId"]);
                     _cust.FirstName = dr["FirstName"].ToString();
                     _cust.LastName = dr["LastName"].ToString();
-                    _cust.EmailAddress = dr["EmailAddress"].ToString();
+                    _cust.LoginCredentials.EmailAddress = dr["EmailAddress"].ToString();
                     _cust.PhoneNumber = dr["PhoneNumber"].ToString();
                     _cust.LoginTypeId = Convert.ToInt32(dr["LoginTypeId"]);
-                    _cust.Password = string.Empty;
+                    _cust.LoginCredentials.Password = string.Empty;
                     customer.Add(_cust);
                 }
             }
