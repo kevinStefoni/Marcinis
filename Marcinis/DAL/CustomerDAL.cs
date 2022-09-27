@@ -20,7 +20,7 @@ namespace Marcinis.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // guest logintypes will not have passwords
-                if (customer.LoginTypeId != (int)Enums.LoginType.Guest)
+                if (customer.LoginTypeId != (int)LoginType.Guest)
                     cmd.Parameters.AddWithValue("@Password", customer.Password);
 
                 cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
@@ -37,7 +37,7 @@ namespace Marcinis.DAL
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"{System.DateTime.Now.ToString()} - AddCustomer() - ex:" + ex.Message);
+                    Console.WriteLine($"{DateTime.Now} - AddCustomer() - ex:" + ex.Message);
                 }
                 finally
                 {
