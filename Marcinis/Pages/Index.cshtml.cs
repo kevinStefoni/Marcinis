@@ -1,4 +1,5 @@
-﻿using Marcinis.Models;
+﻿using Marcinis.Helpers;
+using Marcinis.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,12 +8,11 @@ namespace Marcinis.Pages
     public class IndexModel : PageModel
     {
         [BindProperty]
-        public Customer customer { get; set; }
+        public Customer? customer { get; set; }
 
-        public void OnGet(Customer _cust)
+        public void OnGet()
         {
-            customer = _cust;
+            customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "customer");
         }
-
     }
 }
