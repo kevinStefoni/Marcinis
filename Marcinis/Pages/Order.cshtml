@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/css/order.css"/>
 </head>
 
-<nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm border box-shadow mb-3">
+<!-- This is the menu navbar. The links take the user to headings and categories within the menu. -->
+<nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-fixed-top border box-shadow mb-3">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -16,17 +17,17 @@
         </button>
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#appetizers">Appetizers</a>
+                <li id=menuLi class="nav-item">
+                    <a id=aLi class="nav-link" href="#appetizers">Appetizers</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#pasta">Pasta</a>
+                <li id=menuLi class="nav-item">
+                    <a id=aLi class="nav-link" href="#pasta">Pasta</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#pizza">Pizza</a>
+                <li id=menuLi class="nav-item">
+                    <a id=aLi class="nav-link" href="#pizza">Pizza</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#Desert">Desert</a>
+                <li id=menuLi class="nav-item">
+                    <a id=aLi class="nav-link" href="#dessert">Dessert</a>
                 </li>
             </ul>
         </div>
@@ -34,8 +35,97 @@
 </nav>
 
 
-
+<!-- This is the row of cards for the appetizers. -->
 <h1 id="appetizers">Appetizers</h1>
+<div class="container mx-auto mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Breadsticks</h5>
+                    <p class="card-text">Enjoy breadsticks baked fresh from the oven!</p>
+                    <!--<input id="orderBreadsticks" type="submit" class="btn" value="Order" /> -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Qty, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-2">
+                            @Html.DropDownListFor(model => model.Qty, new List<SelectListItem>
+                            {
+                            new SelectListItem {Text = "0", Value = "0", Selected = true },
+                            new SelectListItem {Text = "1", Value = "1" },
+                            new SelectListItem {Text = "2", Value = "2" },
+                            new SelectListItem {Text = "3", Value = "3" },
+                            new SelectListItem {Text = "4", Value = "4" },
+                            new SelectListItem {Text = "5", Value = "5" },
+                            new SelectListItem {Text = "6", Value = "6" },
+                            new SelectListItem {Text = "7", Value = "7" },
+                            }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/fried_ravioli.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Fried Ravioli</h5>
+                    <p class="card-text">Try our flavorful fried ravioli with delicious marinara sauce!</p>
+                    <input id="orderFriedRavioli" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/pizette.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Pizzette</h5>
+                    <p class="card-text">Who knew pizzas could get this small...and delicious?</p>
+                    <input id="orderPizzette" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/stuffed_cheesy_pepperoni.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Cheesy Pepperoni Bread</h5>
+                    <p class="card-text">Soooooo cheeeesy and pepperoniey...</p>
+                    <input id="orderStuffedCheesyPepperoniBread" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div id="genCard" class="card" style="width: 18rem;">
+                <div class="bg-image">
+                    <img src="/Menu Items/Appetizers/stuffed_cheesy.jpg" class="img-fluid" style="object-fit: cover;" />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Stuffed Cheesy Bread</h5>
+                    <p class="card-text">Soooooo cheeesy...</p>
+                    <input id="orderStuffedCheesyBread" type="submit" class="btn" value="Order" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<h1 id="pasta">Pasta</h1>
+<h1 id="pizza">Pizza</h1>
+<h1 id="dessert">Dessert</h1>
+
+
 
 
 

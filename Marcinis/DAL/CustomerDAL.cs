@@ -20,12 +20,12 @@ namespace Marcinis.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 // guest logintypes will not have passwords
-                if (customer.LoginTypeId != (int)LoginType.Guest)
-                    cmd.Parameters.AddWithValue("@Password", customer.Password);
+                if (customer.LoginTypeId != (int)Enums.LoginType.Guest)
+                    cmd.Parameters.AddWithValue("@Password", customer.LoginCredentials.Password);
 
                 cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
                 cmd.Parameters.AddWithValue("@LastName", customer.LastName);
-                cmd.Parameters.AddWithValue("@EmailAddress", customer.EmailAddress);
+                cmd.Parameters.AddWithValue("@EmailAddress", customer.LoginCredentials.EmailAddress);
                 cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
                 cmd.Parameters.AddWithValue("@LoginTypeId", customer.LoginTypeId);
                 cmd.Parameters.AddWithValue("@Salt", customer.Salt);
@@ -49,6 +49,8 @@ namespace Marcinis.DAL
 
         public void GetAllCustomers()
         {
+            // NOT IMPLEMENTED!
+
             List<Customer> customerList = new();
 
             string sql = "SELECT CustomerId, Password, FirstName, LastName, EmailAddress, PhoneNumber, LoginTypeId FROM Customers";

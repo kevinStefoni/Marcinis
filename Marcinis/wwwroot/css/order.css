@@ -1,3 +1,40 @@
-﻿#menuNavBar{
-    background-color:#8BA973;
+﻿#menuNavBar {
+    background-color: #8BA973;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+}
+
+h1 {
+    color: #FFF6EC;
+    font-family: Gabriola;
+}
+
+#menuLi {
+    color: #FFF6EC;
+    font-family: Georgia;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+}
+
+#aLi {
+    color: #FFF6EC;
+}
+
+.btn {
+    background-color: #4A9962;
+    color: #FFF6EC;
+    border: solid #FFF6EC;
+}
+
+#genCard {
+    background-color: #FFF6EC;
+    color: #4A9962;
+}
+
+.card {
+    margin-bottom: 1rem;
 }

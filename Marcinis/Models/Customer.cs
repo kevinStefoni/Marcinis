@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Marcinis.Models
 {
@@ -7,14 +8,11 @@ namespace Marcinis.Models
         [Key]
         public int CustomerId { get; set; }
         [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public Login? LoginCredentials { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [Required]
-        public string EmailAddress { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
         [Required]

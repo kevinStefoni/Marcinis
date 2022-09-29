@@ -25,3 +25,7 @@ body {
 .footer {
     background-color: #FFF6EC;
 }
+
+#cart {
+    margin-right: 75px;
+}

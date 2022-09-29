@@ -1,23 +1,30 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
+<head>
+    <link rel="stylesheet" href="/css/home.css" type="text/css" />
+</head>
 
-<div class="welcome-container">
-    <!--Welcome Video-->
-    <video autoplay muted loop id="welcomeVideo">
+
+<div id="headContent">
+    <video autoplay muted loop id="video">
         <source src="/video/WelcomeVideo.mp4" type="video/mp4" />
     </video>
 
-    <!-- HTML Code -->
-    <div class="welcome-content">
-        <h1 class="h1Tag">Welcome</h1>
-        <p style="text-align:center;">This is Alfredo Marcini's, the world most popular restaurant</p>
+    <div id="videoMessage">
+        @if (Model.customer is not null)
+        {
+            <h1>Welcome to Marcini's, @Model.customer.FirstName</h1>
+        }
+        else
+        {
+            <h1>Welcome to Marcini's</h1>
+        }
+        <p>The world's most popular restaurant since 1998!</p>
         <p>
-            Marcini’s is an Italian restaurant with exceptional food, kindhearted service, and affordable prices. 
-            We take your meal very seriously, and hope to make it the best experience possible. Sure, there are many 
-            Italian restaurants out there, but we believe that people make the place; and, our place also happens to make great food.
+            Marcini’s is an Italian restaurant with exceptional food, kindhearted service, and affordable prices. We take your meal very seriously, and hope to make it the best experience possible. Sure, there are many Italian restaurants out there, but we believe that people make the place; and, our place also happens to make great food.
         </p>
     </div>
 </div>
