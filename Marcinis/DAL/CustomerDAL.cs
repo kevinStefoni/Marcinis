@@ -49,6 +49,8 @@ namespace Marcinis.DAL
 
         public void GetAllCustomers()
         {
+            // NOT IMPLEMENTED!
+
             List<Customer> customerList = new();
 
             string sql = "SELECT CustomerId, Password, FirstName, LastName, EmailAddress, PhoneNumber, LoginTypeId FROM Customers";

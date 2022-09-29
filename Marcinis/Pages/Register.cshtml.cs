@@ -18,9 +18,6 @@ namespace Marcinis.Pages
 
         public ActionResult OnPost()
         {
-            if (!ModelState.IsValid)
-                return Page();
-
             // generate salt and hash password
             customer.Salt = Utilities.GeneratePasswordSalt();
             customer.LoginCredentials.Password = Utilities.GeneratePasswordHash(Convert.FromBase64String(customer.Salt), customer.LoginCredentials.Password);
@@ -28,9 +25,12 @@ namespace Marcinis.Pages
             // registration via this page will be customer logintypes
             customer.LoginTypeId = (int)LoginType.Customer;
 
+            if (!ModelState.IsValid)
+                return Page();
+
             customerRepo.AddCustomer(customer);
 
-            return RedirectToPage("./Login");
+            return Redirect("./Login");
         }
     }
 }
