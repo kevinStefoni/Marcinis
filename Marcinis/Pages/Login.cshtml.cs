@@ -21,7 +21,6 @@ namespace Marcinis.Pages
 
             if (!ModelState.IsValid)
             {
-                Console.WriteLine("ERROR");
                 return Page();
             }
             string sql = "uspSelectCustomerByEmailAddress";
@@ -39,7 +38,8 @@ namespace Marcinis.Pages
 
                 if(hashToCompare.Equals(customerDt.Rows[0]["Password"].ToString()))
                 {
-                    return Redirect("./Index");
+                    customer.FirstName = customerDt.Rows[0]["FirstName"].ToString();
+                    return RedirectToPage("./Index", customer);
                 }
             }
             return RedirectToPage("./Login");

@@ -1,20 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Marcinis.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Marcinis.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        [BindProperty]
+        public Customer customer { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public void OnGet(Customer _cust)
         {
-            _logger = logger;
+            customer = _cust;
         }
 
-        public void OnGet()
-        {
-
-        }
     }
 }
