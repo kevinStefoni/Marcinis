@@ -4,8 +4,7 @@
 @using Newtonsoft.Json
 
 @{
-    var temp = Context.Session.GetString("customer");
-    Customer? customer = temp == null ? default : JsonConvert.DeserializeObject<Customer>(temp);
+    Customer customer = SessionHelper.GetObjectFromJson<Customer>(Context.Session, "customer");
 }
 
 <!DOCTYPE html>
@@ -38,6 +37,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/About">About Us</a>
                         </li>
+                        @if (customer != null && customer.LoginTypeId == 1)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item" style:"align:center;">
