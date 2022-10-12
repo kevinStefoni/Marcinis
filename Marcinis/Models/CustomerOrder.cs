@@ -2,7 +2,7 @@
 
 namespace Marcinis.Models
 {
-    public class Order
+    public class CustomerOrder
     {
         [Key]
         public int ORDER_ID { get; set; }
@@ -28,7 +28,7 @@ namespace Marcinis.Models
         [Required]
         public DateOnly ORDER_DATE { get; set; }
         [Required]
-        public Dictionary<MenuItem, int> ORDER_ITEMS { get; set; }
+        public Dictionary<string, string> ORDER_ITEMS = new Dictionary<string, string>();
 
         
 

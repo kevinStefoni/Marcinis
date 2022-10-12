@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
 using Marcinis.Models;
 using Marcinis.DAL;
+using Marcinis.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Marcinis.Pages
 {
@@ -10,7 +11,8 @@ namespace Marcinis.Pages
 
         private readonly OrderDAL DAL = new();
 
-        public int Qty { get; set; }    
+        [BindProperty]
+        public CustomerOrder CusOrder { get; set; } = new CustomerOrder();
 
         public IList<MenuItem> menu = new List<MenuItem>();
         public IList<string> categories = new List<string>();
@@ -20,10 +22,12 @@ namespace Marcinis.Pages
         {
             // only change if something is returned
             menu = DAL.GetMenu() ?? menu;
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
             categories = DAL.GetCategories() ?? categories;
 
             // always have Dessert category at end
             categories = categories.OrderBy(i => i == "Dessert").ThenBy(i => i).ToList();
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "categories", categories);
 
         }
 

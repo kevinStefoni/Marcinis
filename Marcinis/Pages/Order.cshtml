@@ -1,5 +1,6 @@
 ﻿@page
-@using Marcinis.Models
+@using Marcinis.Models;
+@using Marcinis.Helpers;
 @model Order
 @{
     ViewData["Title"] = "Order";
@@ -20,7 +21,7 @@
             <ul class="navbar-nav flex-grow-1">
                 
                 <!--Add every category on menu from database into the navbar.-->
-                @foreach(string category in Model.categories)
+                @foreach(string category in SessionHelper.GetObjectFromJson<IList<string>>(HttpContext.Session, "categories"))
                 {                
                     <li id=menuLi class="nav-item">
                         <a id=aLi class="nav-link" href="#@category">@category</a>
@@ -33,55 +34,63 @@
 
 
 <!-- This is where all the menu item cards are generated. -->
-<div class="container mx-auto mt-4">
-    <div class="row">
+<form method="post">
+    <div class="container mx-auto mt-4">
+        <div class="row">
 
-        <!--Loop through each category on the menu, like appetizers, pasta, pizza, and dessert.-->
-        @foreach(string category in Model.categories)
-        {
-            // set the header
-            <h1 id="@category">@category</h1>
-
-            // loop through every item in the menu--fairly inefficient because it is O(n^2)
-            foreach(MenuItem item in Model.menu)
+            <!--Loop through each category on the menu, like appetizers, pasta, pizza, and dessert.-->
+            @foreach (string category in SessionHelper.GetObjectFromJson<IList<string>>(HttpContext.Session, "categories"))
             {
-                // check if the item is in the category currently being populated
-                if (item.PROD_CATEGORY != null && item.PROD_CATEGORY.Equals(category))
+                // set the header
+                <h1 id="@category">@category</h1>
+
+                // loop through every item in the menu--fairly inefficient because it is O(n^2)
+                foreach (MenuItem item in SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu"))
                 {
-                    <div class="col-md-3">
-                        <div id="genCard" class="card" style="width: 18rem;">
-                        <div class="bg-image">
-                            <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
-                        </div>
-                            <div class="card-body">
-                                <h5 class="card-title">@item.PROD_NAME</h5>
-                                <p class="card-text">@item.PROD_DESC</p>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Qty, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-2">
-                                        @Html.DropDownListFor(model => model.Qty, new List<SelectListItem>
-                                    {
-                                    new SelectListItem {Text = "0", Value = "0", Selected = true },
-                                    new SelectListItem {Text = "1", Value = "1" },
-                                    new SelectListItem {Text = "2", Value = "2" },
-                                    new SelectListItem {Text = "3", Value = "3" },
-                                    new SelectListItem {Text = "4", Value = "4" },
-                                    new SelectListItem {Text = "5", Value = "5" },
-                                    new SelectListItem {Text = "6", Value = "6" },
-                                    new SelectListItem {Text = "7", Value = "7" },
-                                    }, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+                    // check if the item is in the category currently being populated
+                    if (item.PROD_CATEGORY != null && item.PROD_CATEGORY.Equals(category))
+                    {
+                        <div class="col-md-3">
+                            <div id="genCard" class="card" style="width: 18rem;">
+                            <div class="bg-image">
+                                <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
+                            </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.PROD_NAME</h5>
+                                    <p class="card-text">@item.PROD_DESC</p>
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+
+                                            @if(!Model.CusOrder.ORDER_ITEMS.ContainsKey(item.PROD_NAME))
+                                            {
+
+                                                Model.CusOrder.ORDER_ITEMS.Add(item.PROD_NAME, "0");
+
+                                            }
+
+                                            @Html.DropDownListFor(model => model.CusOrder.ORDER_ITEMS[item.PROD_NAME], new List<SelectListItem>
+                                            {
+                                                new SelectListItem {Text = "0", Value = "0", Selected = true },
+                                                new SelectListItem {Text = "1", Value = "1" },
+                                                new SelectListItem {Text = "2", Value = "2" },
+                                                new SelectListItem {Text = "3", Value = "3" },
+                                                new SelectListItem {Text = "4", Value = "4" },
+                                                new SelectListItem {Text = "5", Value = "5" },
+                                                new SelectListItem {Text = "6", Value = "6" },
+                                                new SelectListItem {Text = "7", Value = "7" },
+                                            }, new { onchange="this.form.submit();" })
+                                            @Html.ValidationMessageFor(model => model.CusOrder.ORDER_ITEMS[item.PROD_NAME], "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
             }
-        }
+        </div>
     </div>
-</div>
-
+</form>
 
 
 
