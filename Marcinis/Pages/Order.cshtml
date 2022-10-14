@@ -61,25 +61,24 @@
                                     <div class="form-group">
                                         <div class="col-md-2">
 
-                                            @if(!Model.CusOrder.ORDER_ITEMS.ContainsKey(item.PROD_NAME))
+                                            @if(item.PROD_NAME != null && !Model.OrderDetails.ContainsKey(item.PROD_NAME))
                                             {
-
-                                                Model.CusOrder.ORDER_ITEMS.Add(item.PROD_NAME, "0");
-
+                                                Model.OrderDetails.Add(item.PROD_NAME, "0");
                                             }
-
-                                            @Html.DropDownListFor(model => model.CusOrder.ORDER_ITEMS[item.PROD_NAME], new List<SelectListItem>
+                                            @if (item.PROD_NAME != null)
                                             {
-                                                new SelectListItem {Text = "0", Value = "0", Selected = true },
-                                                new SelectListItem {Text = "1", Value = "1" },
-                                                new SelectListItem {Text = "2", Value = "2" },
-                                                new SelectListItem {Text = "3", Value = "3" },
-                                                new SelectListItem {Text = "4", Value = "4" },
-                                                new SelectListItem {Text = "5", Value = "5" },
-                                                new SelectListItem {Text = "6", Value = "6" },
-                                                new SelectListItem {Text = "7", Value = "7" },
-                                            }, new { onchange="this.form.submit();" })
-                                            @Html.ValidationMessageFor(model => model.CusOrder.ORDER_ITEMS[item.PROD_NAME], "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], new List<SelectListItem>
+                                                {
+                                                    new SelectListItem {Text = "0", Value = "0", Selected = true },
+                                                    new SelectListItem {Text = "1", Value = "1" },
+                                                    new SelectListItem {Text = "2", Value = "2" },
+                                                    new SelectListItem {Text = "3", Value = "3" },
+                                                    new SelectListItem {Text = "4", Value = "4" },
+                                                    new SelectListItem {Text = "5", Value = "5" },
+                                                    new SelectListItem {Text = "6", Value = "6" },
+                                                    new SelectListItem {Text = "7", Value = "7" },
+                                                }, new { onchange = "this.form.submit()" })
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -90,9 +89,5 @@
             }
         </div>
     </div>
+    <input id="goToCart" type="submit" class="btn" value="Cart" />
 </form>
-
-
-
-
-
