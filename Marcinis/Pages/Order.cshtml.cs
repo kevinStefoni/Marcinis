@@ -49,6 +49,9 @@ namespace Marcinis.Pages
 
             // save the CusOrder in the session
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CusOrder", CusOrder);
+
+            // save the OrderDetails in the session too
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
         }
 
 
