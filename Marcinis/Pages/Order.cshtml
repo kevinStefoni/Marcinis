@@ -24,7 +24,7 @@
                 @foreach(string category in SessionHelper.GetObjectFromJson<IList<string>>(HttpContext.Session, "categories"))
                 {                
                     <li id=menuLi class="nav-item">
-                        <a id=aLi class="nav-link" href="#@category">@category</a>
+                        <a id="aLi" class="nav-link" href="#@category">@category</a>
                     </li>
                 }
             </ul>
@@ -41,8 +41,8 @@
             <!--Loop through each category on the menu, like appetizers, pasta, pizza, and dessert.-->
             @foreach (string category in SessionHelper.GetObjectFromJson<IList<string>>(HttpContext.Session, "categories"))
             {
-                // set the header
-                <h1 id="@category">@category</h1>
+                <p style="visibility: hidden; margin-bottom: 35px;" id="@category">-</p>
+                <h1>@category</h1>
 
                 // loop through every item in the menu--fairly inefficient because it is O(n^2)
                 foreach (MenuItem item in SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu"))
@@ -58,11 +58,16 @@
                                 <div class="card-body">
                                     <h5 class="card-title">@item.PROD_NAME</h5>
                                     <p class="card-text">@item.PROD_DESC</p>
+                                    <p>@item.PROD_QOH left</p>
                                     <div class="form-group">
                                         <div class="col-md-2">
                                             @if(item.PROD_NAME != null && !Model.OrderDetails.ContainsKey(item.PROD_NAME))
                                             {
                                                 Model.OrderDetails.Add(item.PROD_NAME, "0");
+                                            }
+                                            @{
+                                                // make OrderDetails persistent across OnGet() requests using session
+                                                Model.OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? Model.OrderDetails;
                                             }
                                             @if (item.PROD_NAME != null)
                                             {
