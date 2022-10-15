@@ -60,7 +60,6 @@
                                     <p class="card-text">@item.PROD_DESC</p>
                                     <div class="form-group">
                                         <div class="col-md-2">
-
                                             @if(item.PROD_NAME != null && !Model.OrderDetails.ContainsKey(item.PROD_NAME))
                                             {
                                                 Model.OrderDetails.Add(item.PROD_NAME, "0");
@@ -69,7 +68,7 @@
                                             {
                                                 @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], new List<SelectListItem>
                                                 {
-                                                    new SelectListItem {Text = "0", Value = "0", Selected = true },
+                                                    new SelectListItem {Text = "0", Value = "0" },
                                                     new SelectListItem {Text = "1", Value = "1" },
                                                     new SelectListItem {Text = "2", Value = "2" },
                                                     new SelectListItem {Text = "3", Value = "3" },
@@ -77,9 +76,10 @@
                                                     new SelectListItem {Text = "5", Value = "5" },
                                                     new SelectListItem {Text = "6", Value = "6" },
                                                     new SelectListItem {Text = "7", Value = "7" },
-                                                }, new { onchange = "this.form.submit()" })
+                                                }, new { onchange = "this.form.submit()" , @class = "form-control" })
                                             }
                                         </div>
+                                        <span id="prodPrice">$@item.PROD_PRICE</span>
                                     </div>
                                 </div>
                             </div>

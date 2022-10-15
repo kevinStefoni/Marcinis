@@ -38,3 +38,15 @@ h1 {
 .card {
     margin-bottom: 1rem;
 }
+
+#prodPrice {
+    padding-top: 4px;
+    position: absolute;
+    right: 10px;
+}
+
+
+.form-group {
+    display: flex;
+    position: relative;
+}
