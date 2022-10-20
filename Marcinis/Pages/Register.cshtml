@@ -5,8 +5,10 @@
 }
 
 <div class="container border" style="padding:20px">
-    <form method="post">
+        <form method="post">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <!-- first name -->
         <div class="form-group row" style="margin-bottom:15px">
             <div class="col-1">
                 <label asp-for="customer.FirstName"></label>
@@ -16,30 +18,38 @@
             </div>
         </div>
 
+        <!-- last name -->
         <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="customer.LoginCredentials.EmailAddress">Email</label>
-            </div>
-            <div class="col-4">
-                <input type="text" asp-for="customer.LoginCredentials.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-
             <div class="col-1">
                 <label asp-for="customer.LastName"></label>
             </div>
             <div class="col-3">
-                <input type="text" asp-for="customer.LastName" class="form-control" style="width: 250px; margin: 2px"/>
+                <input type="text" asp-for="customer.LastName" class="form-control" style="width: 250px; margin: 2px" />
             </div>
         </div>
 
+        <!-- email -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="customer.LoginCredentials.EmailAddress">Email</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="customer.LoginCredentials.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- password -->
         <div class="form-group row" style="margin-bottom:15px">
             <div class="col-1">
                 <label asp-for="customer.LoginCredentials.Password"></label>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <input type="password" asp-for="customer.LoginCredentials.Password" class="form-control" style="width: 250px; margin: 2px" />
             </div>
+        </div>
 
+        <!-- phone number -->
+        <div class="form-group row" style="margin-bottom:15px">
             <div class="col-1">
                 <label asp-for="customer.PhoneNumber">Phone</label>
             </div>
@@ -48,6 +58,7 @@
             </div>
         </div>
 
+        <!-- submit bt -->
         <div class="form-group row">
             <div class="col-1">
                 <input type="submit" class="btn btn-primary" value="Register" />
@@ -55,4 +66,4 @@
         </div>
 
     </form>
-</div>
+</div> 
