@@ -22,14 +22,12 @@ hr {
 #guestLabel {
     color: #FFF6EC;
     font-family: Gabriola;
-
 }
 
 #guestCheckoutDiv {
     text-align: center;
     align-content: center;
     justify-content: center;
-    margin: 30px;
 }
 
 #guestButton {
@@ -43,7 +41,6 @@ label {
 }
 
 input {
-    margin-bottom: 25px;
     color: #4A9962;
     background-color: #FFF6EC;
     border-radius: 15px 50px;
@@ -52,4 +49,8 @@ input {
     border: solid #FFF6EC;
     text-align: center;
     outline: none;
+}
+
+p {
+    margin-bottom: 20px;
 }
