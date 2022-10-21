@@ -1,0 +1,55 @@
+﻿#loginButton {
+    background-color: #4A9962;
+    color: #FFF6EC;
+    border: solid #FFF6EC;
+    width: 550px;
+    height: 55px;
+}
+
+hr {
+    color: #FFF6EC;
+    opacity: 1;
+    height: 5px;
+}
+
+#lButtonDiv {
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#guestLabel {
+    color: #FFF6EC;
+    font-family: Gabriola;
+
+}
+
+#guestCheckoutDiv {
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    margin: 30px;
+}
+
+#guestButton {
+    background-color: #4A9962;
+    color: #FFF6EC;
+    border: solid #FFF6EC;
+}
+
+label {
+    color: #FFF6EC;
+}
+
+input {
+    margin-bottom: 25px;
+    color: #4A9962;
+    background-color: #FFF6EC;
+    border-radius: 15px 50px;
+    height: 40px;
+    width: 300px;
+    border: solid #FFF6EC;
+    text-align: center;
+    outline: none;
+}

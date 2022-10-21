@@ -8,7 +8,7 @@ namespace Marcinis.Models
         [Key]
         public int CustomerId { get; set; }
         [Required]
-        public Login? LoginCredentials { get; set; }
+        public Login LoginCredentials { get; set; } = new Login();
         [Required]
         public string FirstName { get; set; }
         [Required]
