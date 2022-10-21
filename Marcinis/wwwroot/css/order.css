@@ -3,7 +3,8 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 200;
+    width: 100%;
+    z-index: 100;
 }
 
 h1 {
@@ -24,12 +25,6 @@ h1 {
     color: #FFF6EC;
 }
 
-
-.btn {
-    background-color: #4A9962;
-    color: #FFF6EC;
-    border: solid #FFF6EC;
-}
 
 #genCard {
     background-color: #FFF6EC;

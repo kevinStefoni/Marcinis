@@ -44,14 +44,21 @@ namespace Marcinis.Pages
 
         public void OnPost()
         {
-            // copy the data from OrderDetails to CusOrder.ORDER_ITEMS
-            CusOrder.ORDER_ITEMS = OrderDetails;
+            // save the OrderDetails in the session too
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
+
+            // add all items that customer selected with their respective quantities to CusOrder
+            foreach(string items in OrderDetails.Keys)
+            {
+                // only add items that customer ordered
+                if (OrderDetails[items] != "0")
+                {
+                    CusOrder.ORDER_ITEMS[items] = Int32.Parse(OrderDetails[items]); // convert to int
+                }
+            }
 
             // save the CusOrder in the session
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CusOrder", CusOrder);
-
-            // save the OrderDetails in the session too
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
         }
 
 

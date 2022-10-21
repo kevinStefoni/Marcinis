@@ -28,7 +28,7 @@ namespace Marcinis.Models
         [Required]
         public DateOnly ORDER_DATE { get; set; }
         [Required]
-        public Dictionary<string, string> ORDER_ITEMS = new Dictionary<string, string>();
+        public Dictionary<string, int> ORDER_ITEMS = new Dictionary<string, int>();
 
         
 
