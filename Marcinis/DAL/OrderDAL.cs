@@ -65,7 +65,7 @@ namespace Marcinis.DAL
             DataSet inventoryDs = DAL.ExecSqlGetDataSet(sql);
 
             // avoid empty data exception--null handled in calling function
-            if (inventoryDs.Tables == null || inventoryDs.Tables[0].Rows.Count == 0)
+            if (inventoryDs.Tables == null || inventoryDs.Tables[0] == null || inventoryDs.Tables[0].Rows.Count == 0)
                 return null;
 
             DataTable inventoryDt = inventoryDs.Tables[0];
