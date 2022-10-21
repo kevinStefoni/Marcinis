@@ -3,8 +3,6 @@ using Marcinis.Models;
 using Marcinis.DAL;
 using Marcinis.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
-using System.Net;
 
 namespace Marcinis.Pages
 {
