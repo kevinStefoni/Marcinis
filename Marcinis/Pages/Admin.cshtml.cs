@@ -10,15 +10,19 @@ namespace Marcinis.Pages
     public class AdminModel : PageModel
     {
         private readonly MarcinisDAL DAL = new();
+        private readonly OrderDAL itemRepo = new();
 
         [BindProperty]
         public IList<Customer> customer { get; set; }
 
+        [BindProperty]
+        public MenuItem item { get; set; }
+
         public void OnGet()
         {
-            string sql = "SELECT CustomerId, FirstName, LastName, EmailAddress, PhoneNumber, LoginTypeId FROM Customers";
+            string customerSql = "SELECT CustomerId, FirstName, LastName, EmailAddress, PhoneNumber, LoginTypeId FROM Customers";
 
-            DataTable customerDt = DAL.ExecSqlGetDataSet(sql).Tables[0];
+            DataTable customerDt = DAL.ExecSqlGetDataSet(customerSql).Tables[0];
 
             if(customerDt.Rows.Count > 0)
             {
@@ -38,6 +42,28 @@ namespace Marcinis.Pages
                     customer.Add(_cust);
                 }
             }
+        }
+
+        public ActionResult OnPost()
+        {
+            // handles the conversion of the image to base64
+            byte[] bytes = null;
+            if (item.ImageFile != null)
+            {
+                using (Stream fs = item.ImageFile.OpenReadStream())
+                {
+                    using (BinaryReader br = new BinaryReader(fs))
+                    {
+                        bytes = br.ReadBytes((Int32)fs.Length);
+                    }
+                }
+                //item.PROD_IMG = Convert.ToBase64String(bytes, 0, bytes.Length);
+                item.PROD_IMG = bytes;
+            }
+
+            itemRepo.AddMenuItem(item);
+
+            return Redirect("./Admin");
         }
     }
 }
