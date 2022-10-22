@@ -62,7 +62,19 @@
                                 <div class="col-md-3">
                                     <div id="genCard" class="card" style="width: 18rem;">
                                         <div class="bg-image">
-                                            <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
+                                            @{
+                                                string imgSrc;
+                                                if(item.PROD_IMG != null)
+                                                {
+                                                    var base64 = Convert.ToBase64String(item.PROD_IMG, 0, item.PROD_IMG.Length);
+                                                    imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                }
+                                                else
+                                                {
+                                                    imgSrc = "/Menu Items/Appetizers/breadsticks.jpg";
+                                                }
+                                            }
+                                            <img src="@imgSrc" class ="img-fluid" style="object-fit: cover;" />
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">@item.PROD_NAME</h5>
@@ -88,8 +100,6 @@
                                                             new SelectListItem {Text = "3", Value = "3" },
                                                             new SelectListItem {Text = "4", Value = "4" },
                                                             new SelectListItem {Text = "5", Value = "5" },
-                                                            new SelectListItem {Text = "6", Value = "6" },
-                                                            new SelectListItem {Text = "7", Value = "7" },
                                                         }, new { onchange = "this.form.submit()" , @class = "form-control" })
                                                     }
                                                 </div>
