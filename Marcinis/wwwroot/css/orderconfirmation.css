@@ -1,4 +1,34 @@
-﻿body {
+﻿.body {
     background-color: #FFF6EC;
     color: #8BA973;
+    font-family: Georgia, serif;
+    font-size: 20px;
+}
+
+.header {
+    text-align: center;
+}
+
+.tab {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+hr {
+    border: none;
+    border-top: 3px double #8BA973;
+    color: #8BA973;
+    overflow: visible;
+    margin: auto;
+    text-align: center;
+    height: 5px;
+    width: 50%;
+}
+
+hr:after {
+    background: #FFF6EC;
+    content: '\2666';
+    padding: 0 4px;
+    position: relative;
+    top: -17px;
 }
