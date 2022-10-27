@@ -13,31 +13,29 @@
 </head>
 
 <!-- This is the menu navbar. The links take the user to headings and categories within the menu. -->
-<div id="bgNav">
-    <nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-fixed-top box-shadow mb-3">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+<nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-fixed-top box-shadow mb-3">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
                 
-                    <!--Add every category on menu from database into the navbar.-->
-                    @if(categories != null)
-                    {
-                        @foreach(string category in categories)
-                        {                
-                            <li id=menuLi class="nav-item">
-                                <a id="aLi" class="nav-link" href="#@category">@category</a>
-                            </li>
-                        }
+                <!--Add every category on menu from database into the navbar.-->
+                @if(categories != null)
+                {
+                    @foreach(string category in categories)
+                    {                
+                        <li id=menuLi class="nav-item">
+                            <a id="aLi" class="nav-link" href="#@category">@category</a>
+                        </li>
                     }
-                </ul>
-            </div>
+                }
+            </ul>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>
 
 <!-- This is where all the menu item cards are generated. -->
 <form method="post">
@@ -85,10 +83,6 @@
                                                     @if (item.PROD_NAME != null && !Model.OrderDetails.ContainsKey(item.PROD_NAME))
                                                     {
                                                         Model.OrderDetails.Add(item.PROD_NAME, "0");
-                                                    }
-                                                    @{
-                                                        // make OrderDetails persistent across OnGet() requests using session
-                                                        Model.OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? Model.OrderDetails;
                                                     }
                                                     @if (item.PROD_NAME != null)
                                                     {
