@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Marcinis.Validators
 {
-    public class RegisteredEmail : ValidationAttribute
+    public class UnregisteredEmail : ValidationAttribute
     {
         private readonly CustomerDAL DAL = new();
 
@@ -14,7 +14,7 @@ namespace Marcinis.Validators
         {
             var login = (Login) validationContext.ObjectInstance;
 
-            if (login.EmailAddress != null && DAL.EmailExists(login.EmailAddress) == false)
+            if (login.EmailAddress != null && DAL.EmailExists(login.EmailAddress) == true)
                 return new ValidationResult(GetErrorMessage());
             else if (login.EmailAddress == null)
                 return new ValidationResult(GetErrorMessage());

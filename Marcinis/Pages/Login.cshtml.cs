@@ -8,44 +8,66 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
 using Marcinis.Helpers;
+using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Marcinis.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly MarcinisDAL DAL = new();
+        private readonly CustomerDAL DAL = new();
 
         [BindProperty]
-        public Customer customer { get; set; } = new Customer();
+        public Customer Customer { get; set; } = new Customer();
 
         public ActionResult OnPostLogin()
         {
+            // validate input if user is just logging in
+            ValidateLogin();
             if (!ModelState.IsValid)
                 return Page();
 
-            string sql = "uspSelectCustomerByEmailAddress";
+            Customer = DAL.GetCustomer(Customer.LoginCredentials.EmailAddress) ?? Customer;
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
+            
+            return (Customer != null) ? Redirect("./Index") : Redirect("./Login");
+            
+        }
 
-            SqlParameter[] spParams =
+        public void ValidateLogin()
+        {
+            // make a list of all fields that are not needed
+            IList<string> fields = new List<string>();
+            fields.Add("Customer.FirstName");
+            fields.Add("Customer.LastName");
+            fields.Add("Customer.PhoneNumber");
+
+            // make all unnecessary fields valid to prevent false negative on validation
+            foreach (string f in fields)
             {
-                new SqlParameter("@EmailAddress", customer.LoginCredentials.EmailAddress)
-            };
-
-            DataTable customerDt = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure).Tables[0];
-
-            if (customerDt.Rows.Count > 0)
-            {
-                customer.LoginCredentials.Password = customerDt.Rows[0]["Password"].ToString();
-                customer.CustomerId = Convert.ToInt32(customerDt.Rows[0]["CustomerId"]);
-                customer.FirstName = customerDt.Rows[0]["FirstName"].ToString();
-                customer.LastName = customerDt.Rows[0]["LastName"].ToString();
-                customer.PhoneNumber = customerDt.Rows[0]["PhoneNumber"].ToString();
-                customer.LoginTypeId = Convert.ToInt32(customerDt.Rows[0]["LoginTypeId"]);
-
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "customer", customer);
-                return Redirect("./Index");
-
+                ModelState.ClearValidationState(f);
+                ModelState.MarkFieldValid(f);
             }
-            return Redirect("./Login");
+
+            // re-match email pattern, effectively removing UnregisteredEmail attribute, but keeping the others
+            Regex regex = new (".*@.*[.].*");
+            if (ModelState.GetFieldValidationState("Customer.LoginCredentials.EmailAddress") == ModelValidationState.Invalid
+                && regex.IsMatch(Customer.LoginCredentials.EmailAddress))
+            {
+                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
+                ModelState.MarkFieldValid("Customer.LoginCredentials.EmailAddress");
+            }
+            // email is not registered or is not valid, so cannot login with it
+            else
+            {
+                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
+                ModelState.AddModelError("Customer.LoginCredentials.EmailAddress", "Please enter a valid email.");
+            }
+        }
+
+        public void ValidateRegister()
+        {
+
         }
     }
 }

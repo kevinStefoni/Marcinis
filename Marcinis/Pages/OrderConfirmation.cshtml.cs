@@ -21,7 +21,7 @@ namespace Marcinis.Pages
 
         public void OnGet()
         {
-            Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "customer");
+            Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer");
             //Login = SessionHelper.GetObjectFromJson<Login>(HttpContext.Session, "login");
             //Order = SessionHelper.GetObjectFromJson<Order>(HttpContext.Session, "order");
         }

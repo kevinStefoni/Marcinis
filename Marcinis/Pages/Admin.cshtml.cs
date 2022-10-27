@@ -30,7 +30,7 @@ namespace Marcinis.Pages
 
                 foreach(DataRow dr in customerDt.Rows)
                 {
-                    Customer _cust = new Customer(); // allocate memory for customer
+                    Customer _cust = new Customer(); // allocate memory for Customer
                     _cust.LoginCredentials = new Login(); // have to allocate memory for new Login object
                     _cust.CustomerId = Convert.ToInt32(dr["CustomerId"]);
                     _cust.FirstName = dr["FirstName"].ToString();

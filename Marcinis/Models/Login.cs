@@ -7,7 +7,8 @@ namespace Marcinis.Models
     public class Login
     {
         [Required(ErrorMessage = "Please enter an email.")]
-        [RegisteredEmail]
+        [RegularExpression (".*@.*[.].*", ErrorMessage = "Please enter a valid email.")]
+        [UnregisteredEmail]
         public string EmailAddress { get; set; }
 
         [Required(ErrorMessage = "Please enter a password.")]
