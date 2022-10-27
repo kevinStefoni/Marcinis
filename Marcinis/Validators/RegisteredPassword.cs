@@ -7,25 +7,22 @@ using System.Diagnostics.Eventing.Reader;
 
 namespace Marcinis.Validators
 {
-    public static class RegisteredPassword
+    public class RegisteredPassword : ValidationAttribute
     {
-        private static readonly CustomerDAL DAL = new();
+        private readonly CustomerDAL DAL = new();
 
-        public static string GetErrorMessage() => "Please enter the correct password.";
-        static public ValidationResult? IsValid(Customer customer)
+        public  string GetErrorMessage() => "Please enter the correct password.";
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            // if it is a guest, then password always passes validation
-            if (customer.LoginTypeId == 3)
-            {
-                return ValidationResult.Success;
-            }
+            var login = (Login) validationContext.ObjectInstance;
+
             // if an email and password are provided, then check if they match
-            else if (customer.LoginCredentials.EmailAddress != null &&
-                customer.LoginCredentials.Password != null &&
-                DAL.PasswordExists(customer.LoginCredentials.EmailAddress, customer.LoginCredentials.Password) == false)
+            if (login.EmailAddress != null &&
+                login.Password != null &&
+                DAL.PasswordExists(login.EmailAddress, login.Password) == false)
                     return new ValidationResult(GetErrorMessage());
             // email provided, but no password provided
-            else if (customer.LoginCredentials.Password == null)
+            else if (login.Password == null)
                     return new ValidationResult(GetErrorMessage());
 
             // successful validation
