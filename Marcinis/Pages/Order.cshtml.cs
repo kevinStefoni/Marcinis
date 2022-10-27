@@ -49,10 +49,10 @@ namespace Marcinis.Pages
             // save the OrderDetails in the session too
             SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
 
-            // add all items that customer selected with their respective quantities to CusOrder
+            // add all items that Customer selected with their respective quantities to CusOrder
             foreach(string items in OrderDetails.Keys)
             {
-                // only add items that customer ordered
+                // only add items that Customer ordered
                 if (OrderDetails[items] != "0")
                 {
                     CusOrder.ORDER_ITEMS[items] = Int32.Parse(OrderDetails[items]); // convert to int

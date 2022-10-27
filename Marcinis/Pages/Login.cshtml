@@ -21,14 +21,14 @@
         
             <label>
                 <span>Email</span>
-                <input type="email" />
-                <p><span asp-validation-for="customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
+                <input type="text" asp-for="Customer.LoginCredentials.EmailAddress" />
+                <p><span asp-validation-for="Customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
             </label>
 
             <label>
                 <span>Password</span>
-                <input type="password" />
-                <p><span asp-validation-for="customer.LoginCredentials.Password" class="text-danger"></span></p>
+                <input type="password" asp-for="Customer.LoginCredentials.Password" />
+                <p><span asp-validation-for="Customer.LoginCredentials.Password" class="text-danger"></span></p>
             </label>
 
             <button asp-page-handler="Login" class="submit">Sign In</button>
@@ -40,7 +40,7 @@
         <div class="img">
             <div class="img__text m--up">
                 <h2>New customer?</h2>
-                <p>Sign up and discover great amount of Italian cuisine!</p>
+                <p>Sign up and discover great Italian cuisine!</p>
             </div>
             <div class="img__text m--in">
                 <h2>Coming back?</h2>

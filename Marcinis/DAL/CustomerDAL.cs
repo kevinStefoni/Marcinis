@@ -4,12 +4,13 @@ using Marcinis.Enums;
 using Marcinis.Models;
 using System.Data.SqlTypes;
 using Microsoft.Data.SqlClient;
-
+using System.Reflection.Metadata.Ecma335;
 
 namespace Marcinis.DAL
 {
     public class CustomerDAL
     {
+        private readonly MarcinisDAL DAL = new();
         private readonly string connStr = "Server=tcp:marcinis-server.database.windows.net,1433;Initial Catalog=MarcinisDB;Persist Security Info=False;User ID=cs3773group12;Password=Pa$$word1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
 
         public void AddCustomer(Customer customer)
@@ -74,6 +75,42 @@ namespace Marcinis.DAL
                     Console.WriteLine(ex.Message);
                 }
             }
+        }
+
+        public Customer GetCustomer(string email)
+        {
+            string sql = "uspSelectCustomerByEmailAddress";
+
+            SqlParameter[] spParams =
+            {
+                new SqlParameter("@EmailAddress", email)
+            };
+
+            DataTable customerDt = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure).Tables[0];
+
+            if (customerDt.Rows.Count > 0)
+            {
+                Login login = new()
+                {
+                    EmailAddress = email,
+                    Password = customerDt.Rows[0]["Password"].ToString()
+                };
+                Customer Customer = new()
+                {
+                    LoginCredentials = login,
+                    CustomerId = Convert.ToInt32(customerDt.Rows[0]["CustomerId"]),
+                    FirstName = customerDt.Rows[0]["FirstName"].ToString(),
+                    LastName = customerDt.Rows[0]["LastName"].ToString(),
+                    PhoneNumber = customerDt.Rows[0]["PhoneNumber"].ToString(),
+                    LoginTypeId = Convert.ToInt32(customerDt.Rows[0]["LoginTypeId"])
+                };
+
+                return Customer;
+                
+            }
+
+            return null; 
+
         }
 
         public bool EmailExists(string email)

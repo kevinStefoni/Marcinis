@@ -12,7 +12,7 @@ namespace Marcinis.Pages
 
         public void OnGet()
         {
-            customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "customer");
+            customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer");
         }
     }
 }
