@@ -3,6 +3,7 @@ using Marcinis.Models;
 using Marcinis.DAL;
 using Marcinis.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace Marcinis.Pages
 {
@@ -23,6 +24,9 @@ namespace Marcinis.Pages
 
         public void OnGet()
         {
+            // retrieve OrderDetails
+            OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
+
             // only change if something is returned from DAL
             menu = DAL.GetMenu() ?? menu;
 

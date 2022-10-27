@@ -76,6 +76,59 @@ namespace Marcinis.DAL
             }
         }
 
+        public bool EmailExists(string email)
+        {
+            string sql = $"SELECT EmailAddress FROM Customers WHERE EmailAddress='{email}'";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                try
+                {
+                    conn.Open();
+                    if ((string)cmd.ExecuteScalar() != null)
+                        return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                return false;
+            }
+        }
+
+        public bool PasswordExists(string email, string password)
+        {
+            string getpassword = $"SELECT Password FROM Customers WHERE EmailAddress='{email}'";
+            string getsalt = $"SELECT Salt FROM Customers WHERE EmailAddress='{email}'";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd1 = new SqlCommand(getsalt, conn);
+                SqlCommand cmd2 = new SqlCommand(getpassword, conn);
+                try
+                {
+                    conn.Open();
+                    string hashToCompare;
+                    string? salt = cmd1.ExecuteScalar().ToString();
+                    if (salt != null)
+                    {
+                        hashToCompare = Utilities.GeneratePasswordHash(Convert.FromBase64String(salt), password);
+
+                        if (hashToCompare.Equals(cmd2?.ExecuteScalar().ToString()))
+                            return true;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                return false;
+            }
+        }
 
     }
 }

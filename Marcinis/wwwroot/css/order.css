@@ -1,19 +1,12 @@
 ﻿#menuNavBar {
     background-color: #8BA973;
-    width: 100vw;
+    width: 100%;
     z-index: 100;
-}
-
-#bgNav {
-    background-color: #8BA973;
-    width: 200vw;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
     left: 0;
     margin-top: -15px;
-    margin-left: -125px;
-    z-index: 99;
 }
 
 h1 {

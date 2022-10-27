@@ -12,24 +12,28 @@
 <div class="cont">
 
     <!-- sign part-->
-    <div class="form sign-in">
-        <div class="text-center">
-            <img src="/images/Marcini's_Logo.png" style="width: 185px;" alt="logo">
-        </div>
-        <h2 class="HelloTitle">Benevenuto!</h2>
+    <form method="post">
+        <div class="form sign-in">
+            <div class="text-center">
+                <img src="/images/Marcini's_Logo.png" style="width: 185px;" alt="logo">
+            </div>
+            <h2 class="HelloTitle">Benevenuto!</h2>
         
-        <label>
-            <span>Email</span>
-            <input type="email" />
-        </label>
+            <label>
+                <span>Email</span>
+                <input type="email" />
+                <p><span asp-validation-for="customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
+            </label>
 
-        <label>
-            <span>Password</span>
-            <input type="password" />
-        </label>
+            <label>
+                <span>Password</span>
+                <input type="password" />
+                <p><span asp-validation-for="customer.LoginCredentials.Password" class="text-danger"></span></p>
+            </label>
 
-        <button type="button" class="submit">Sign In</button>
-    </div>
+            <button asp-page-handler="Login" class="submit">Sign In</button>
+        </div>
+    </form>
 
     <!-- hidden part for sign up-->
     <div class="sub-cont">

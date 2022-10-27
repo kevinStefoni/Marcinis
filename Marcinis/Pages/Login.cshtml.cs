@@ -16,45 +16,34 @@ namespace Marcinis.Pages
         private readonly MarcinisDAL DAL = new();
 
         [BindProperty]
-        public Login login { get; set; }
+        public Customer customer { get; set; } = new Customer();
 
-        public ActionResult OnPost()
+        public ActionResult OnPostLogin()
         {
             if (!ModelState.IsValid)
                 return Page();
 
             string sql = "uspSelectCustomerByEmailAddress";
 
-            SqlParameter[] spParams = 
+            SqlParameter[] spParams =
             {
-                new SqlParameter("@EmailAddress", login.EmailAddress)
+                new SqlParameter("@EmailAddress", customer.LoginCredentials.EmailAddress)
             };
 
             DataTable customerDt = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure).Tables[0];
 
             if (customerDt.Rows.Count > 0)
             {
-                string hashToCompare = Utilities.GeneratePasswordHash(Convert.FromBase64String(customerDt.Rows[0]["Salt"].ToString()), login.Password);
+                customer.LoginCredentials.Password = customerDt.Rows[0]["Password"].ToString();
+                customer.CustomerId = Convert.ToInt32(customerDt.Rows[0]["CustomerId"]);
+                customer.FirstName = customerDt.Rows[0]["FirstName"].ToString();
+                customer.LastName = customerDt.Rows[0]["LastName"].ToString();
+                customer.PhoneNumber = customerDt.Rows[0]["PhoneNumber"].ToString();
+                customer.LoginTypeId = Convert.ToInt32(customerDt.Rows[0]["LoginTypeId"]);
 
-                if(hashToCompare.Equals(customerDt.Rows[0]["Password"].ToString()))
-                {
-                    // we don't want to store plain text password
-                    // store the hash we just compared since we know it's correct
-                    login.Password = hashToCompare;
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "customer", customer);
+                return Redirect("./Index");
 
-                    Customer customer = new()
-                    {
-                        CustomerId = Convert.ToInt32(customerDt.Rows[0]["CustomerId"]),
-                        LoginCredentials = login,
-                        FirstName = customerDt.Rows[0]["FirstName"].ToString(),
-                        LastName = customerDt.Rows[0]["LastName"].ToString(),
-                        PhoneNumber = customerDt.Rows[0]["PhoneNumber"].ToString(),
-                        LoginTypeId = Convert.ToInt32(customerDt.Rows[0]["LoginTypeId"])
-                    };
-
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customer", customer);
-                    return Redirect("./Index");
-                }
             }
             return Redirect("./Login");
         }
