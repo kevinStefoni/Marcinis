@@ -280,3 +280,9 @@ input {
     left: auto;
     right: 5px;
 }
+
+/*kill the transitions on any descendant elements of .notransition*/
+.notransition * {
+    
+    transition: transform 0.1s !important;
+} 

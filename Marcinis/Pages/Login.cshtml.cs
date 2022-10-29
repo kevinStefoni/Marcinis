@@ -25,7 +25,10 @@ namespace Marcinis.Pages
             // validate input if user is just logging in
             ValidateLogin();
             if (!ModelState.IsValid)
+            {
+                ViewData["LAST_BUTTON"] = "Login";
                 return Page();
+            }
 
             Customer = DAL.GetCustomer(Customer.LoginCredentials.EmailAddress) ?? Customer;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
@@ -39,7 +42,10 @@ namespace Marcinis.Pages
             // validate input if user is just logging in
             ValidateRegister();
             if (!ModelState.IsValid)
+            {
+                ViewData["LAST_BUTTON"] = "Register";
                 return Page();
+            }
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
             //DAL.AddCustomer(Customer);
