@@ -32,6 +32,7 @@ input, button {
 
 .form {
     position: relative;
+    display: flex;
     width: 750px;
     height: 100%;
     transition: transform 1.2s ease-in-out;
@@ -40,8 +41,9 @@ input, button {
 }
 
 .sub-cont {
-    overflow: hidden;
+    overflow: scroll;
     position: absolute;
+    display: flex;
     left: 750px;
     top: 0;
     width: 1000px;
@@ -199,9 +201,9 @@ h2 {
 }
 
 label {
-    display: block;
+    display: inline-flex;
     width: 260px;
-    margin: 25px auto 0;
+    margin: 0 auto 0;
     text-align: center;
 }
 
@@ -212,7 +214,7 @@ label span {
 }
 
 input {
-    display: block;
+    display: inline-flex;
     width: 100%;
     margin-top: 5px;
     padding-bottom: 5px;

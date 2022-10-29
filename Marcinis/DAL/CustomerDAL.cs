@@ -151,12 +151,12 @@ namespace Marcinis.DAL
                 {
                     conn.Open();
                     string hashToCompare;
-                    string? salt = cmd1.ExecuteScalar().ToString();
+                    string? salt = cmd1?.ExecuteScalar()?.ToString();
                     if (salt != null)
                     {
                         hashToCompare = Utilities.GeneratePasswordHash(Convert.FromBase64String(salt), password);
 
-                        if (hashToCompare.Equals(cmd2?.ExecuteScalar().ToString()))
+                        if (hashToCompare.Equals(cmd2?.ExecuteScalar()?.ToString()))
                             return true;
 
                     }
