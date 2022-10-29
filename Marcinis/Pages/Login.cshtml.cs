@@ -41,7 +41,6 @@ namespace Marcinis.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
             //DAL.AddCustomer(Customer);
 
@@ -67,6 +66,7 @@ namespace Marcinis.Pages
             // re-match email pattern, effectively removing UnregisteredEmail attribute, but keeping the others
             Regex regex = new (".*@.*[.].*");
             if (ModelState.GetFieldValidationState("Customer.LoginCredentials.EmailAddress") == ModelValidationState.Invalid
+                && Customer.LoginCredentials.EmailAddress != null
                 && regex.IsMatch(Customer.LoginCredentials.EmailAddress))
             {
                 ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
@@ -82,9 +82,13 @@ namespace Marcinis.Pages
 
         public void ValidateRegister()
         {
-            // password is being set, so it does not need to be validated
+            // password is being set, so it just has to not be empty
             ModelState.ClearValidationState("Customer.LoginCredentials.Password");
-            ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
+
+            if(Customer.LoginCredentials.Password != null)
+                ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
+            else
+                ModelState.AddModelError("Customer.LoginCredentials.Password", "Please enter a password.");
         }
     }
 }
