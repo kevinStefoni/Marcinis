@@ -48,33 +48,36 @@ namespace Marcinis.DAL
             }
         }
 
-        public void GetAllCustomers()
+        public IList<Customer> GetAllCustomers()
         {
-            // NOT IMPLEMENTED!
+            IList<Customer> customers = new List<Customer>();
 
-            List<Customer> customerList = new();
+            string customerSql = "SELECT CustomerId, FirstName, LastName, EmailAddress, PhoneNumber, LoginTypeId FROM Customers";
 
-            string sql = "SELECT CustomerId, Password, FirstName, LastName, EmailAddress, PhoneNumber, LoginTypeId FROM Customers";
+            DataTable customerDt = DAL.ExecSqlGetDataSet(customerSql).Tables[0];
 
-            using (SqlConnection conn = new(connStr))
+            if (customerDt.Rows.Count > 0)
             {
-                SqlCommand cmd = new(sql, conn);
-
-                try
+                foreach (DataRow dr in customerDt.Rows)
                 {
-                    conn.Open();
-                    SqlDataReader sdr = cmd.ExecuteReader();
-
-                    while (sdr.Read())
+                    Customer _cust = new()
                     {
-                        Console.WriteLine("{0}\t{1}\t{2}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
+                        LoginCredentials = new Login(),
+                        CustomerId = Convert.ToInt32(dr["CustomerId"]),
+                        FirstName = dr["FirstName"].ToString() ?? string.Empty,
+                        LastName = dr["LastName"].ToString() ?? string.Empty,
+                        PhoneNumber = dr["PhoneNumber"].ToString() ?? string.Empty,
+                        LoginTypeId = Convert.ToInt32(dr["LoginTypeId"]),
+                        
+                    };
+                    _cust.LoginCredentials.EmailAddress = dr["EmailAddress"].ToString() ?? string.Empty;
+                    _cust.LoginCredentials.Password = string.Empty;
+
+                    customers.Add(_cust);
                 }
             }
+
+            return customers;
         }
 
         public Customer GetCustomer(string email)

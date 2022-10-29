@@ -12,10 +12,7 @@ namespace Marcinis.Models
         public decimal PROD_PRICE { get; set; }
         public int PROD_QOH { get; set; }
         public string? PROD_CATEGORY { get; set; }
-
         public byte[]? PROD_IMG { get; set; }
-        [NotMapped]
-        public IFormFile ImageFile { get; set; }
 
     }
 }
