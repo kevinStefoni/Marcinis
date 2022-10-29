@@ -11,7 +11,7 @@
 
 <div class="cont">
 
-    <!-- sign part-->
+    <!-- sign-in part-->
     <form method="post">
         <div class="form sign-in">
             <div class="text-center">
@@ -21,7 +21,7 @@
         
             <label>
                 <span>Email</span>
-                <input type="text" asp-for="Customer.LoginCredentials.EmailAddress" />
+                <input type="email" asp-for="Customer.LoginCredentials.EmailAddress" />
                 <p><span asp-validation-for="Customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
             </label>
 
@@ -53,33 +53,40 @@
         </div>
 
         <div class="form sign-up">
-            <h2>Time to start order &#127836</h2>
-            <label>
-                <span>Fisrt Name</span>
-                <input type="text" />
-            </label>
+            <h2>Register Account</h2>
+            <form method="post">
+                <label>
+                    <span>Fisrt Name</span>
+                    <input type="text" asp-for="Customer.FirstName" />
+                    <p><span asp-validation-for="Customer.FirstName" class="text-danger"></span></p>
+                </label>
 
-            <label>
-                <span>Last Name</span>
-                <input type="text" />
-            </label>
+                <label>
+                    <span>Last Name</span>
+                    <input type="text" asp-for="Customer.LastName" />
+                    <p><span asp-validation-for="Customer.LastName" class="text-danger"></span></p>
+                </label>
             
-            <label>
-                <span>Email</span>
-                <input type="email" />
-            </label>
+                <label>
+                    <span>Email</span>
+                    <input type="email" asp-for="Customer.LoginCredentials.EmailAddress" />
+                    <p><span asp-validation-for="Customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
+                </label>
 
-            <label>
-                <span>Phone Number</span>
-                <input type="text" />
-            </label>
-            
-            <label>
-                <span>Password</span>
-                <input type="password" />
-            </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" asp-for="Customer.LoginCredentials.Password" />
+                    <p><span asp-validation-for="Customer.LoginCredentials.Password" class="text-danger"></span></p>
+                </label>
 
-            <button type="button" class="submit">Sign Up</button>
+                <label>
+                    <span>Phone Number</span>
+                    <input type="text" asp-for="Customer.PhoneNumber" />
+                    <p><span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span></p>
+                </label>
+
+                <button asp-page-handler="Register" class="submit">Sign Up</button>
+            </form>
         </div>
     </div>
 

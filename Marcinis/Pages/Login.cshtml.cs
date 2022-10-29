@@ -34,6 +34,21 @@ namespace Marcinis.Pages
             
         }
 
+        public ActionResult OnPostRegister()
+        {
+            // validate input if user is just logging in
+            ValidateRegister();
+            if (!ModelState.IsValid)
+                return Page();
+
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
+            //DAL.AddCustomer(Customer);
+
+            return (Customer != null) ? Redirect("./Index") : Redirect("./Login");
+
+        }
+
         public void ValidateLogin()
         {
             // make a list of all fields that are not needed
@@ -67,7 +82,9 @@ namespace Marcinis.Pages
 
         public void ValidateRegister()
         {
-
+            // password is being set, so it does not need to be validated
+            ModelState.ClearValidationState("Customer.LoginCredentials.Password");
+            ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
         }
     }
 }
