@@ -98,3 +98,8 @@ hr:after {
     height: 200px;
     object-fit: cover;
 }
+
+.items-ordered {
+    height: 350px;
+    overflow: scroll;
+}
