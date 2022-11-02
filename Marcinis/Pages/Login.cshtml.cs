@@ -30,6 +30,8 @@ namespace Marcinis.Pages
                 return Page();
             }
 
+            CleanUpPhoneNumber();
+
             Customer = DAL.GetCustomer(Customer.LoginCredentials.EmailAddress) ?? Customer;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
             
@@ -47,8 +49,11 @@ namespace Marcinis.Pages
                 return Page();
             }
 
+            CleanUpPhoneNumber();
+            Customer.LoginTypeId = 2;
+
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
-            //DAL.AddCustomer(Customer);
+            DAL.AddCustomer(Customer);
 
             return (Customer != null) ? Redirect("./Index") : Redirect("./Login");
 
@@ -95,6 +100,19 @@ namespace Marcinis.Pages
                 ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
             else
                 ModelState.AddModelError("Customer.LoginCredentials.Password", "Please enter a password.");
+        }
+
+        public void CleanUpPhoneNumber()
+        {
+            // remove all (, ), -, and spaces from phone number, to make it have only digits
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains('('))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace("(", "");
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains(')'))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace(")", "");
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains('-'))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace("-", "");
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains(' '))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace(" ", "");
         }
     }
 }

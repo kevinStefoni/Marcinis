@@ -17,11 +17,6 @@ namespace Marcinis.Pages
         [BindProperty]
         public Customer Customer { get; set; } = new Customer();
 
-        public void OnGet()
-        {
-
-        }
-
         public ActionResult OnPost()
         {
             // set the LoginTypeId to Guest
@@ -44,6 +39,22 @@ namespace Marcinis.Pages
             // since guest account doesn't have password, set password field to valid
             ModelState.ClearValidationState("Customer.LoginCredentials.Password");
             ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
+
+            // re-match email pattern, effectively removing UnregisteredEmail attribute, but keeping the others
+            Regex regex = new(".*@.*[.].*");
+            if (ModelState.GetFieldValidationState("Customer.LoginCredentials.EmailAddress") == ModelValidationState.Invalid
+                && Customer.LoginCredentials.EmailAddress != null
+                && regex.IsMatch(Customer.LoginCredentials.EmailAddress))
+            {
+                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
+                ModelState.MarkFieldValid("Customer.LoginCredentials.EmailAddress");
+            }
+            // email is not registered or is not valid, so cannot login with it
+            else
+            {
+                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
+                ModelState.AddModelError("Customer.LoginCredentials.EmailAddress", "Please enter a valid email.");
+            }
 
         }
     }

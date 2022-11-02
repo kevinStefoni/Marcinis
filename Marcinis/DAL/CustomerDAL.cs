@@ -17,8 +17,10 @@ namespace Marcinis.DAL
         {
             using (SqlConnection conn = new(connStr))
             {
-                SqlCommand cmd = new("uspInsertCustomer", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new("uspInsertCustomer", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
 
                 // guest logintypes will not have passwords
                 if (customer.LoginTypeId != (int)Enums.LoginType.Guest)
