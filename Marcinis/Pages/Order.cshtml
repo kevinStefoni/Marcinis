@@ -12,30 +12,29 @@
     <link rel="stylesheet" href="/css/order.css"/>
 </head>
 
-<!-- This is the menu navbar. The links take the user to headings and categories within the menu. -->
-<nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-fixed-top box-shadow mb-3">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                
-                <!--Add every category on menu from database into the navbar.-->
-                @if(categories != null)
-                {
-                    @foreach(string category in categories)
-                    {                
-                        <li id=menuLi class="nav-item">
-                            <a id="aLi" class="nav-link" href="#@category">@category</a>
-                        </li>
-                    }
-                }
-            </ul>
+<!-- This is the menu button group. The links take the user to headings and categories within the menu. -->
+<div id="stick">
+    <div id=menuNavBar class="btn-group d-flex" role="group">
+        @if (categories != null)
+        {
+            @foreach (string category in categories)
+            {
+                <a id="ll" class=w-100 href="#@category">@category</a>
+            }
+        }
+        <a id="ll" data-bs-toggle="collapse" href="#SearchAndSort" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <img id="search" src="~/images/searchIcon.png" width="30" height="25" />
+        </a>
+    </div>
+    <div class="collapse" id="SearchAndSort">
+        <div id="DropDiv">
+            <button asp-page-handler="SortByPrice" class="submit">Sort by Price</button>
+            <button asp-page-handler="SortByAvailability" class="submit">Sort by Availability</button>
+            <input type="text" asp-for="Search" placeholder="Search..."/>
+            <button asp-page-handler="Search" class="submit searchit"><img id="search" src="~/images/arrow.png" width="30" height="25" /></button>
         </div>
     </div>
-</nav>
+</div>
 
 <!-- This is where all the menu item cards are generated. -->
 <form method="post">

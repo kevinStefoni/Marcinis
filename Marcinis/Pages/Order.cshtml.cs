@@ -18,6 +18,9 @@ namespace Marcinis.Pages
         [BindProperty]
         public Dictionary<string, string> OrderDetails { get; set; } = new Dictionary<string, string>();
 
+        [BindProperty]
+        public string? Search { get; set; }
+
         public IList<MenuItem> menu = new List<MenuItem>();
         public IList<string> categories = new List<string>();
         
