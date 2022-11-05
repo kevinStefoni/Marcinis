@@ -85,6 +85,7 @@
                                                     }
                                                     @if (item.PROD_NAME != null)
                                                     {
+
                                                         @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], new List<SelectListItem>
                                                         {
                                                             new SelectListItem {Text = "0", Value = "0" },
@@ -93,7 +94,7 @@
                                                             new SelectListItem {Text = "3", Value = "3" },
                                                             new SelectListItem {Text = "4", Value = "4" },
                                                             new SelectListItem {Text = "5", Value = "5" },
-                                                        }, new { onchange = "this.form.submit()" , @class = "form-control" })
+                                                        }, new { onchange = "this.form.submit();" , @class = "form-control" })
                                                     }
                                                 </div>
                                                 <span id="prodPrice">$@item.PROD_PRICE</span>

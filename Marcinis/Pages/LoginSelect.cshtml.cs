@@ -34,6 +34,11 @@ namespace Marcinis.Pages
             return Redirect("./Checkout");
         }
 
+        public ActionResult OnPostGoToLogin()
+        {
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Origin", "LoginSelect");
+            return Redirect("./Login");
+        }
         public void LoginSelectValidation()
         {
             // since guest account doesn't have password, set password field to valid
