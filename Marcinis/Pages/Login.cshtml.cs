@@ -34,9 +34,18 @@ namespace Marcinis.Pages
 
             Customer = DAL.GetCustomer(Customer.LoginCredentials.EmailAddress) ?? Customer;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
-            
-            return (Customer != null) ? Redirect("./Index") : Redirect("./Login");
-            
+
+            // retrieve the origin
+            string origin = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "Origin") ?? string.Empty;
+
+            // reset the origin to any string
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Origin", "woohoo!");
+
+            // if the login request is from guest checkout, take the user to the checkout page--else take them to home page
+            if (origin.Equals("LoginSelect"))
+                return Redirect("./Checkout");
+            else
+                return Redirect("./Index");
         }
 
         public ActionResult OnPostRegister()
@@ -55,7 +64,17 @@ namespace Marcinis.Pages
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
             DAL.AddCustomer(Customer);
 
-            return (Customer != null) ? Redirect("./Index") : Redirect("./Login");
+            // retrieve the origin
+            string origin = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "Origin") ?? string.Empty;
+
+            // reset the origin to any string
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Origin", "woohoo!");
+
+            // if the login request is from guest checkout, take the user to the checkout page--else take them to home page
+            if (origin.Equals("LoginSelect"))
+                return Redirect("./Checkout");
+            else
+                return Redirect("./Index");
 
         }
 

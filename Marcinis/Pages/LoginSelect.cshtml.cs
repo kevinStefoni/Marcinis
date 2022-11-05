@@ -36,7 +36,10 @@ namespace Marcinis.Pages
 
         public ActionResult OnPostGoToLogin()
         {
+            // set the origin page for the login request
             SessionHelper.SetObjectAsJson(HttpContext.Session, "Origin", "LoginSelect");
+
+            // go to the login page
             return Redirect("./Login");
         }
         public void LoginSelectValidation()
