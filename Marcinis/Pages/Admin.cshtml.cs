@@ -38,7 +38,7 @@ namespace Marcinis.Pages
                 item.PROD_IMG = bytes;
             }
 
-            itemRepo.AddMenuItem(item);
+            itemRepo.AddPicture(item);
 
             return Redirect("./Admin");
         }

@@ -80,32 +80,34 @@ h1 {
 }
 
 #DropDiv {
-    display: flex;
+    display: inline-flex;
     background-color: #FFF6EC;
     width: 100%;
-    justify-content: center;
+    justify-content: end;
+    align-content: center;
 }
 
 .submit {
     width: fit-content;
-    display: flex;
-    margin: 10px 0px 15px 15px;
+    display: inline;
+    margin: 8px auto 3px 15px;
     background: #287740;
     color: #FFF6EC;
     border: none;
     height: 30px;
+    align-self: end;
 }
 
 input {
     color: #287740;
-    display: flex;
-    margin-top: 10px;
-    margin-left: 15px;
-    margin-right: -17px;
+    display: inline;
+    margin: 8px -22px 3px 15px;
     height: fit-content;
-    width: 25%;
+    width: 37%;
+    align-self: end;
 }
 
 #searchit {
-    margin-left: -17px;
+    display: inline;
+    margin: -2px auto 6px auto;
 }
