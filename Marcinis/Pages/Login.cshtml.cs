@@ -8,55 +8,130 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
 using Marcinis.Helpers;
+using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Marcinis.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly MarcinisDAL DAL = new();
+        private readonly CustomerDAL DAL = new();
 
         [BindProperty]
-        public Login login { get; set; }
+        public Customer Customer { get; set; } = new Customer();
 
-        public ActionResult OnPost()
+        public ActionResult OnPostLogin()
         {
+            // validate input if user is just logging in
+            ValidateLogin();
             if (!ModelState.IsValid)
+            {
+                ViewData["LAST_BUTTON"] = "Login";
                 return Page();
-
-            string sql = "uspSelectCustomerByEmailAddress";
-
-            SqlParameter[] spParams = 
-            {
-                new SqlParameter("@EmailAddress", login.EmailAddress)
-            };
-
-            DataTable customerDt = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure).Tables[0];
-
-            if (customerDt.Rows.Count > 0)
-            {
-                string hashToCompare = Utilities.GeneratePasswordHash(Convert.FromBase64String(customerDt.Rows[0]["Salt"].ToString()), login.Password);
-
-                if(hashToCompare.Equals(customerDt.Rows[0]["Password"].ToString()))
-                {
-                    // we don't want to store plain text password
-                    // store the hash we just compared since we know it's correct
-                    login.Password = hashToCompare;
-
-                    Customer customer = new()
-                    {
-                        CustomerId = Convert.ToInt32(customerDt.Rows[0]["CustomerId"]),
-                        LoginCredentials = login,
-                        FirstName = customerDt.Rows[0]["FirstName"].ToString(),
-                        LastName = customerDt.Rows[0]["LastName"].ToString(),
-                        PhoneNumber = customerDt.Rows[0]["PhoneNumber"].ToString(),
-                        LoginTypeId = Convert.ToInt32(customerDt.Rows[0]["LoginTypeId"])
-                    };
-
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customer", customer);
-                    return Redirect("./Index");
-                }
             }
-            return Redirect("./Login");
+
+            CleanUpPhoneNumber();
+
+            Customer = DAL.GetCustomer(Customer.LoginCredentials.EmailAddress) ?? Customer;
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
+
+            // retrieve the origin
+            string origin = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "Origin") ?? string.Empty;
+
+            // reset the origin to any string
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Origin", "woohoo!");
+
+            // if the login request is from guest checkout, take the user to the checkout page--else take them to home page
+            if (origin.Equals("LoginSelect"))
+                return Redirect("./Checkout");
+            else
+                return Redirect("./Index");
+        }
+
+        public ActionResult OnPostRegister()
+        {
+            // validate input if user is just logging in
+            ValidateRegister();
+            if (!ModelState.IsValid)
+            {
+                ViewData["LAST_BUTTON"] = "Register";
+                return Page();
+            }
+
+            CleanUpPhoneNumber();
+            Customer.LoginTypeId = 2;
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", Customer);
+            DAL.AddCustomer(Customer);
+
+            // retrieve the origin
+            string origin = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "Origin") ?? string.Empty;
+
+            // reset the origin to any string
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Origin", "woohoo!");
+
+            // if the login request is from guest checkout, take the user to the checkout page--else take them to home page
+            if (origin.Equals("LoginSelect"))
+                return Redirect("./Checkout");
+            else
+                return Redirect("./Index");
+
+        }
+
+        public void ValidateLogin()
+        {
+            // make a list of all fields that are not needed
+            IList<string> fields = new List<string>();
+            fields.Add("Customer.FirstName");
+            fields.Add("Customer.LastName");
+            fields.Add("Customer.PhoneNumber");
+
+            // make all unnecessary fields valid to prevent false negative on validation
+            foreach (string f in fields)
+            {
+                ModelState.ClearValidationState(f);
+                ModelState.MarkFieldValid(f);
+            }
+
+            // re-match email pattern, effectively removing UnregisteredEmail attribute, but keeping the others
+            Regex regex = new (".*@.*[.].*");
+            if (ModelState.GetFieldValidationState("Customer.LoginCredentials.EmailAddress") == ModelValidationState.Invalid
+                && Customer.LoginCredentials.EmailAddress != null
+                && regex.IsMatch(Customer.LoginCredentials.EmailAddress))
+            {
+                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
+                ModelState.MarkFieldValid("Customer.LoginCredentials.EmailAddress");
+            }
+            // email is not registered or is not valid, so cannot login with it
+            else
+            {
+                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
+                ModelState.AddModelError("Customer.LoginCredentials.EmailAddress", "Please enter a valid email.");
+            }
+        }
+
+        public void ValidateRegister()
+        {
+            // password is being set, so it just has to not be empty
+            ModelState.ClearValidationState("Customer.LoginCredentials.Password");
+
+            if(Customer.LoginCredentials.Password != null)
+                ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
+            else
+                ModelState.AddModelError("Customer.LoginCredentials.Password", "Please enter a password.");
+        }
+
+        public void CleanUpPhoneNumber()
+        {
+            // remove all (, ), -, and spaces from phone number, to make it have only digits
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains('('))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace("(", "");
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains(')'))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace(")", "");
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains('-'))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace("-", "");
+            if (Customer != null && Customer.PhoneNumber != null && Customer.PhoneNumber.Contains(' '))
+                Customer.PhoneNumber = Customer.PhoneNumber.Replace(" ", "");
         }
     }
 }

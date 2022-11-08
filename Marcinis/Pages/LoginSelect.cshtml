@@ -1,0 +1,52 @@
+﻿@page
+@model Marcinis.Pages.LoginSelectModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/loginselect.css" />
+</head>
+
+<form method="post">
+    <div id="lButtonDiv">
+        <input asp-page-handler="GoToLogin" id="loginButton" type="submit" class="btn" value="Login" />
+    </div>
+</form>
+
+<hr/>
+
+<div id="guestCheckoutDiv">
+    <h1 id="guestLabel">Guest Checkout</h1>
+
+    <form method="post">
+        <div>
+            <label>First Name</label>
+            <br />
+            <input type="text" asp-for="Customer.FirstName"/>
+            <p><span asp-validation-for="Customer.FirstName" class="text-danger"></span></p>
+        </div>
+        <div>
+            <label>Last Name</label>
+            <br />
+            <input type="text" asp-for="Customer.LastName"/>
+            <p><span asp-validation-for="Customer.LastName" class="text-danger"></span></p>
+        </div>
+        <div>
+            <label>Email Address</label>
+            <br />
+            <input type="text" asp-for="Customer.LoginCredentials.EmailAddress"/>
+            <p><span asp-validation-for="Customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
+        </div>
+        <div>
+            <label>Phone Number</label>
+            <br />
+            <input type="text" asp-for="Customer.PhoneNumber"/>
+            <p><span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span></p>
+        </div>
+
+        <div>
+            <input id="guestButton" type="submit" class="btn" value="Guest Checkout" />
+        </div>
+    </form>
+</div>

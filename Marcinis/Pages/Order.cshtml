@@ -1,89 +1,111 @@
 ﻿@page
-@using Marcinis.Models
+@using Marcinis.Models;
+@using Marcinis.Helpers;
 @model Order
 @{
     ViewData["Title"] = "Order";
+    IList<string>? categories = SessionHelper.GetObjectFromJson<IList<string>>(HttpContext.Session, "categories");
+    IList<MenuItem>? menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu");
 }
 
 <head>
     <link rel="stylesheet" href="/css/order.css"/>
 </head>
 
-<!-- This is the menu navbar. The links take the user to headings and categories within the menu. -->
-<nav id="menuNavBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-fixed-top border box-shadow mb-3">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                
-                <!--Add every category on menu from database into the navbar.-->
-                @foreach(string category in Model.categories)
-                {                
-                    <li id=menuLi class="nav-item">
-                        <a id=aLi class="nav-link" href="#@category">@category</a>
-                    </li>
-                }
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-<!-- This is where all the menu item cards are generated. -->
-<div class="container mx-auto mt-4">
-    <div class="row">
-
-        <!--Loop through each category on the menu, like appetizers, pasta, pizza, and dessert.-->
-        @foreach(string category in Model.categories)
+<!-- This is the menu button group. The links take the user to headings and categories within the menu. -->
+<div id="stick">
+    <div id=menuNavBar class="btn-group d-flex" role="group">
+        @if (categories != null)
         {
-            // set the header
-            <h1 id="@category">@category</h1>
-
-            // loop through every item in the menu--fairly inefficient because it is O(n^2)
-            foreach(MenuItem item in Model.menu)
+            @foreach (string category in categories)
             {
-                // check if the item is in the category currently being populated
-                if (item.PROD_CATEGORY != null && item.PROD_CATEGORY.Equals(category))
-                {
-                    <div class="col-md-3">
-                        <div id="genCard" class="card" style="width: 18rem;">
-                        <div class="bg-image">
-                            <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
-                        </div>
-                            <div class="card-body">
-                                <h5 class="card-title">@item.PROD_NAME</h5>
-                                <p class="card-text">@item.PROD_DESC</p>
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Qty, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-2">
-                                        @Html.DropDownListFor(model => model.Qty, new List<SelectListItem>
-                                    {
-                                    new SelectListItem {Text = "0", Value = "0", Selected = true },
-                                    new SelectListItem {Text = "1", Value = "1" },
-                                    new SelectListItem {Text = "2", Value = "2" },
-                                    new SelectListItem {Text = "3", Value = "3" },
-                                    new SelectListItem {Text = "4", Value = "4" },
-                                    new SelectListItem {Text = "5", Value = "5" },
-                                    new SelectListItem {Text = "6", Value = "6" },
-                                    new SelectListItem {Text = "7", Value = "7" },
-                                    }, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                <a id="ll" class=w-100 href="#@category">@category</a>
             }
         }
+        <a id="ll" data-bs-toggle="collapse" href="#SearchAndSort" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <img id="search" src="~/images/searchIcon.png" width="30" height="25" />
+        </a>
+    </div>
+    <div class="collapse" id="SearchAndSort">
+        <div id="DropDiv">
+            <button asp-page-handler="SortByPrice" class="submit">Sort by Price</button>
+            <button asp-page-handler="SortByAvailability" class="submit">Sort by Availability</button>
+            <input type="text" asp-for="Search" placeholder="Search..."/>
+            <button asp-page-handler="Search" class="submit searchit"><img id="search" src="~/images/arrow.png" width="30" height="25" /></button>
+        </div>
     </div>
 </div>
 
+<!-- This is where all the menu item cards are generated. -->
+<form method="post">
+    <div class="container mx-auto mt-4">
+        <div class="row">
 
+            <!--Loop through each category on the menu, like appetizers, pasta, pizza, and dessert.-->
+            @if(categories != null)
+                @foreach (string category in categories)
+                {
+                    <p style="visibility: hidden; margin-bottom: 35px;" id="@category">-</p>
+                    <h1>@category</h1>
 
+                    // loop through every item in the menu--fairly inefficient because it is O(n^2)
+                    if (menu != null)
+                    {
+                        foreach (MenuItem item in menu)
+                        {
+                            // check if the item is in the category currently being populated
+                            if (item.PROD_CATEGORY != null && item.PROD_CATEGORY.Equals(category))
+                            {
+                                <div class="col-md-3">
+                                    <div id="genCard" class="card" style="width: 18rem;">
+                                        <div class="bg-image">
+                                            @{
+                                                string imgSrc;
+                                                if(item.PROD_IMG != null)
+                                                {
+                                                    var base64 = Convert.ToBase64String(item.PROD_IMG, 0, item.PROD_IMG.Length);
+                                                    imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                                                }
+                                                else
+                                                {
+                                                    imgSrc = "/Menu Items/Appetizers/breadsticks.jpg";
+                                                }
+                                            }
+                                            <img src="@imgSrc" class ="img-fluid" style="object-fit: cover;" />
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">@item.PROD_NAME</h5>
+                                            <p class="card-text">@item.PROD_DESC</p>
+                                            <p>@item.PROD_QOH left</p>
+                                            <div class="form-group">
+                                                <div class="col-md-2">
+                                                    @if (item.PROD_NAME != null && !Model.OrderDetails.ContainsKey(item.PROD_NAME))
+                                                    {
+                                                        Model.OrderDetails.Add(item.PROD_NAME, "0");
+                                                    }
+                                                    @if (item.PROD_NAME != null)
+                                                    {
 
-
-
+                                                        @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], new List<SelectListItem>
+                                                        {
+                                                            new SelectListItem {Text = "0", Value = "0" },
+                                                            new SelectListItem {Text = "1", Value = "1" },
+                                                            new SelectListItem {Text = "2", Value = "2" },
+                                                            new SelectListItem {Text = "3", Value = "3" },
+                                                            new SelectListItem {Text = "4", Value = "4" },
+                                                            new SelectListItem {Text = "5", Value = "5" },
+                                                        }, new { onchange = "this.form.submit();" , @class = "form-control" })
+                                                    }
+                                                </div>
+                                                <span id="prodPrice">$@item.PROD_PRICE</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                }
+        </div>
+    </div>
+</form>
