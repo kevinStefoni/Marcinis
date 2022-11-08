@@ -12,12 +12,19 @@ namespace Marcinis.Pages
 
         public int Qty { get; set; }    
 
-        public IList<MenuItem> appetizers = new List<MenuItem>(); 
+        public IList<MenuItem> menu = new List<MenuItem>();
+        public IList<string> categories = new List<string>();
+        
 
         public void OnGet()
         {
-            // only change appetizers if something is returned
-            appetizers = DAL.GetAllAppetizers() ?? appetizers;
+            // only change if something is returned
+            menu = DAL.GetMenu() ?? menu;
+            categories = DAL.GetCategories() ?? categories;
+
+            // always have Dessert category at end
+            categories = categories.OrderBy(i => i == "Dessert").ThenBy(i => i).ToList();
+
         }
 
         public void OnPost()

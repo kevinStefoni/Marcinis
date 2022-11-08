@@ -18,68 +18,69 @@
         </button>
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav flex-grow-1">
-                <li id=menuLi class="nav-item">
-                    <a id=aLi class="nav-link" href="#appetizers">Appetizers</a>
-                </li>
-                <li id=menuLi class="nav-item">
-                    <a id=aLi class="nav-link" href="#pasta">Pasta</a>
-                </li>
-                <li id=menuLi class="nav-item">
-                    <a id=aLi class="nav-link" href="#pizza">Pizza</a>
-                </li>
-                <li id=menuLi class="nav-item">
-                    <a id=aLi class="nav-link" href="#dessert">Dessert</a>
-                </li>
+                
+                <!--Add every category on menu from database into the navbar.-->
+                @foreach(string category in Model.categories)
+                {                
+                    <li id=menuLi class="nav-item">
+                        <a id=aLi class="nav-link" href="#@category">@category</a>
+                    </li>
+                }
             </ul>
         </div>
     </div>
 </nav>
 
 
-<!-- This is the row of cards for the appetizers. -->
-<h1 id="appetizers">Appetizers</h1>
+<!-- This is where all the menu item cards are generated. -->
 <div class="container mx-auto mt-4">
     <div class="row">
-        @foreach(MenuItem appetizer in Model.appetizers)
+
+        <!--Loop through each category on the menu, like appetizers, pasta, pizza, and dessert.-->
+        @foreach(string category in Model.categories)
         {
-            <div class="col-md-3">
-                <div id="genCard" class="card" style="width: 18rem;">
-                    <div class="bg-image">
-                        <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@appetizer.PROD_NAME</h5>
-                        <p class="card-text">@appetizer.PROD_DESC</p>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Qty, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-2">
-                                @Html.DropDownListFor(model => model.Qty, new List<SelectListItem>
-                            {
-                            new SelectListItem {Text = "0", Value = "0", Selected = true },
-                            new SelectListItem {Text = "1", Value = "1" },
-                            new SelectListItem {Text = "2", Value = "2" },
-                            new SelectListItem {Text = "3", Value = "3" },
-                            new SelectListItem {Text = "4", Value = "4" },
-                            new SelectListItem {Text = "5", Value = "5" },
-                            new SelectListItem {Text = "6", Value = "6" },
-                            new SelectListItem {Text = "7", Value = "7" },
-                            }, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+            // set the header
+            <h1 id="@category">@category</h1>
+
+            // loop through every item in the menu--fairly inefficient because it is O(n^2)
+            foreach(MenuItem item in Model.menu)
+            {
+                // check if the item is in the category currently being populated
+                if (item.PROD_CATEGORY != null && item.PROD_CATEGORY.Equals(category))
+                {
+                    <div class="col-md-3">
+                        <div id="genCard" class="card" style="width: 18rem;">
+                        <div class="bg-image">
+                            <img src="/Menu Items/Appetizers/breadsticks.jpg" class="img-fluid" style="object-fit: cover;" />
+                        </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@item.PROD_NAME</h5>
+                                <p class="card-text">@item.PROD_DESC</p>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Qty, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(model => model.Qty, new List<SelectListItem>
+                                    {
+                                    new SelectListItem {Text = "0", Value = "0", Selected = true },
+                                    new SelectListItem {Text = "1", Value = "1" },
+                                    new SelectListItem {Text = "2", Value = "2" },
+                                    new SelectListItem {Text = "3", Value = "3" },
+                                    new SelectListItem {Text = "4", Value = "4" },
+                                    new SelectListItem {Text = "5", Value = "5" },
+                                    new SelectListItem {Text = "6", Value = "6" },
+                                    new SelectListItem {Text = "7", Value = "7" },
+                                    }, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Qty, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                }
+            }
         }
-
     </div>
 </div>
-
-
-
-<h1 id="pasta">Pasta</h1>
-<h1 id="pizza">Pizza</h1>
-<h1 id="dessert">Dessert</h1>
 
 
 

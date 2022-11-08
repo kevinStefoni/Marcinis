@@ -53,7 +53,6 @@ namespace Marcinis.Pages
                     };
 
                     SessionHelper.SetObjectAsJson(HttpContext.Session, "customer", customer);
-
                     return Redirect("./Index");
                 }
             }
