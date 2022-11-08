@@ -6,6 +6,7 @@
     ViewData["Title"] = "Order";
     IList<string>? categories = SessionHelper.GetObjectFromJson<IList<string>>(HttpContext.Session, "categories");
     IList<MenuItem>? menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu");
+    Model.OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? Model.OrderDetails;
 }
 
 <head>
@@ -28,10 +29,12 @@
     </div>
     <div class="collapse" id="SearchAndSort">
         <div id="DropDiv">
-            <button asp-page-handler="SortByPrice" class="submit">Sort by Price</button>
-            <button asp-page-handler="SortByAvailability" class="submit">Sort by Availability</button>
-            <input type="text" asp-for="Search" placeholder="Search..."/>
-            <button asp-page-handler="Search" class="submit searchit"><img id="search" src="~/images/arrow.png" width="30" height="25" /></button>
+            <form method="post">
+                <button asp-page-handler="SortByPrice" class="submit">&nbsp;Sort by Price&nbsp;</button>
+                <button asp-page-handler="SortByAvailability" class="submit">&nbsp;Sort by Availability&nbsp;</button>
+                <input type="text" asp-for="Search" asp-page-handler="Search" id="s" placeholder="Search..." />
+                <button asp-page-handler="Search" class="submit searchit" id="searchButton"><img id="search" src="~/images/arrow.png" width="27" height="24" /></button>
+            </form>
         </div>
     </div>
 </div>
@@ -85,7 +88,6 @@
                                                     }
                                                     @if (item.PROD_NAME != null)
                                                     {
-
                                                         @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], new List<SelectListItem>
                                                         {
                                                             new SelectListItem {Text = "0", Value = "0" },
@@ -109,3 +111,8 @@
         </div>
     </div>
 </form>
+
+
+@section scripts{
+    <script src="/js/order.js" type="text/javascript"></script>
+}

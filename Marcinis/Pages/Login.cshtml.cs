@@ -1,15 +1,10 @@
-using System.Data;
 using Marcinis.DAL;
 using Marcinis.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Data.SqlClient;
-using Microsoft.AspNetCore.Http;
 using Marcinis.Helpers;
 using System.Text.RegularExpressions;
-using System.ComponentModel.DataAnnotations;
 
 namespace Marcinis.Pages
 {
