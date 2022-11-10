@@ -111,3 +111,7 @@ input {
     display: inline;
     margin: -2px auto 6px auto;
 }
+
+.clearbutton {
+    background-color: #C42138;
+}
