@@ -27,6 +27,8 @@ namespace Marcinis.Pages
 
         public void OnGet()
         {
+            ViewData["DISPLAY"] = "POST";
+
             // retrieve OrderDetails
             OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
 
@@ -52,7 +54,15 @@ namespace Marcinis.Pages
             // save the OrderDetails in the session too
             SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
 
-/*            // add all items that Customer selected with their respective quantities to CusOrder
+            ViewData["DISPLAY"] = "POST";
+
+            // only change if something is returned from DAL
+            menu = DAL.GetMenu() ?? menu;
+
+            // save the menu for use in the frontend, when the page has to be remade after POST
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
+
+/*          // add all items that Customer selected with their respective quantities to CusOrder
             foreach(string items in OrderDetails.Keys)
             {
                 if (Int32.TryParse(OrderDetails[items], out int temp))
@@ -68,6 +78,8 @@ namespace Marcinis.Pages
 
         public void OnPostSearch()
         {
+            ViewData["DISPLAY"] = "SEARCH";
+
             if (OrderDetails.ContainsKey("Search"))
                 OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
             else
@@ -86,6 +98,8 @@ namespace Marcinis.Pages
 
         public void OnPostSortByPrice()
         {
+            ViewData["DISPLAY"] = "PRICE";
+
             if (OrderDetails.ContainsKey("Search"))
                 OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
             else
@@ -97,6 +111,8 @@ namespace Marcinis.Pages
 
         public void OnPostSortByAvailability()
         {
+            ViewData["DISPLAY"] = "AVAILABILITY";
+
             if (OrderDetails.ContainsKey("Search"))
                 OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
             else
