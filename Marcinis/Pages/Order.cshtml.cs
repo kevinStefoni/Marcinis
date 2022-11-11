@@ -131,7 +131,7 @@ namespace Marcinis.Pages
             else
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
             menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu") ?? menu;
-            menu = menu.OrderBy(o => o.PROD_QOH).Reverse().ToList();
+            menu = menu.OrderBy(o => -1 * o.PROD_QOH).ToList();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
         }
 
