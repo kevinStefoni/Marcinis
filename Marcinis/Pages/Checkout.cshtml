@@ -14,13 +14,13 @@
                 <form method="post">
                     <h1 class="header">Schedule Pickup Time</h1>
                     <!--FIXME GET THE ACTUAL IMPLEMENTATION OF THIS WORKING AND MAKE IT THE SAME SIZE AS THE REST OF THE INPUT AREAS-->
-                    @Html.DropDownListFor(m => Model.OrderDetails, new List<SelectListItem>
+                    @Html.DropDownListFor(m => Model.CustomerOrder.ORDER_PICKUP_TIME, new List<SelectListItem>
                     {
-                        new SelectListItem {Text = "15 min", Value = "0" },
-                        new SelectListItem {Text = "30 min", Value = "1" },
-                        new SelectListItem {Text = "45 min", Value = "2" },
-                        new SelectListItem {Text = "1 hour", Value = "3" },
-                    }, new { onchange = "this.form.submit();" , @class = "form-control" })
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 15, 0)).ToString("hh:mm"), Value = "0" },
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 30, 0)).ToString("hh:mm"), Value = "0" },
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 45, 0)).ToString("hh:mm"), Value = "0" },
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 60, 0)).ToString("hh:mm"), Value = "0" },
+                    }, new { @class = "form-control" })
 
                     <!--Form section to enter Customer payment details-->
                     <h1 class="header">Payment Information</h1>
