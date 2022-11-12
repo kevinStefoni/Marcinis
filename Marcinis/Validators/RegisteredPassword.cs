@@ -1,9 +1,6 @@
 ﻿using Marcinis.DAL;
-using Marcinis.Helpers;
 using Marcinis.Models;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Marcinis.Validators
 {
