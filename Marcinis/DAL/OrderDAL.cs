@@ -115,11 +115,10 @@ namespace Marcinis.DAL
 
         public IList<string> GetCategories()
         {
-            IList<string> categories = new List<string>(); // create a list of MenuItems
+            IList<string> categories = new List<string>(); // create a list of categories
 
-            // select all the appetizers from the table
+            // select all categories in the DB
             string sql = "SELECT Inventory.PROD_CATEGORY FROM Inventory GROUP BY PROD_CATEGORY";
-
 
             // retrieve the result set
             DataSet inventoryDs = DAL.ExecSqlGetDataSet(sql);
@@ -133,7 +132,6 @@ namespace Marcinis.DAL
             // if there is any data to add, add it
             if (inventoryDt.Rows.Count > 0)
             {
-                // for every appetizer, create a new MenuItem, initialzie its fields and then add it to the list
                 foreach (DataRow dr in inventoryDt.Rows)
                 {
                     categories.Add(dr["PROD_CATEGORY"].ToString());

@@ -11,14 +11,16 @@ namespace Marcinis.Pages
         public Customer? Customer { get; set; }
 
         [BindProperty]
-        public CustomerOrder? CustomerOrder { get; set; }
-
-        [BindProperty]
-        public Dictionary<string, string> OrderDetails { get; set; } = new Dictionary<string, string>();
+        public CustomerOrder CustomerOrder { get; set; } = new CustomerOrder();
 
         public void OnGet()
         {
-            OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
+            CustomerOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
+        }
+
+        public void OnPost()
+        {
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
         }
     }
 }
