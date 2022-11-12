@@ -176,5 +176,20 @@ namespace Marcinis.DAL
             }
         }
 
+        public void DeleteCustomer(int id)
+        {
+            string sql = "uspDeleteCustomerById";
+
+            SqlParameter[] spParams =
+            {
+                new SqlParameter("@CustomerId", id)
+            };
+
+            DataSet ds = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure);
+
+            Console.WriteLine(ds);
+
+        }
+
     }
 }

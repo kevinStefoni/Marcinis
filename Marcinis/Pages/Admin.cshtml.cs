@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Marcinis.DAL;
+using Marcinis.Helpers;
 using Marcinis.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,9 +19,13 @@ namespace Marcinis.Pages
         [BindProperty]
         public MenuItem item { get; set; }
 
+        [BindProperty]
+        public int id { get; set; }
+
         public void OnGet()
         {
             customer = customerRepo.GetAllCustomers();
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
         }
 
         public ActionResult OnPost()
@@ -38,9 +43,17 @@ namespace Marcinis.Pages
                 item.PROD_IMG = bytes;
             }
 
+
             itemRepo.AddMenuItem(item);
 
             return Redirect("./Admin");
+        }
+
+        public void OnPostCustomerDelete()
+        {
+            customerRepo.DeleteCustomer(id);
+            customer = customerRepo.GetAllCustomers();
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
         }
     }
 }
