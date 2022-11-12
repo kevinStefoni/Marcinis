@@ -30,8 +30,25 @@
     <div class="collapse" id="SearchAndSort">
         <div id="DropDiv">
             <form method="post">
-                <button asp-page-handler="SortByPrice" class="submit">&nbsp;Sort by Price&nbsp;</button>
-                <button asp-page-handler="SortByAvailability" class="submit">&nbsp;Sort by Availability&nbsp;</button>
+
+                @if ((string?)ViewData["DISPLAY"] != "PRICE")
+                {
+                    <button asp-page-handler="SortByPrice" class="submit">&nbsp;Sort by Price&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;Clear&nbsp;</button>
+                }
+
+                @if ((string?)ViewData["DISPLAY"] != "AVAILABILITY")
+                {
+                    <button asp-page-handler="SortByAvailability" class="submit">&nbsp;Sort by Availability&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;Clear&nbsp;</button>
+                }
+
                 <input type="text" asp-for="Search" asp-page-handler="Search" id="s" placeholder="Search..." />
                 <button asp-page-handler="Search" class="submit searchit" id="searchButton"><img id="search" src="~/images/arrow.png" width="27" height="24" /></button>
             </form>
@@ -99,7 +116,7 @@
                                                         }, new { onchange = "this.form.submit();" , @class = "form-control" })
                                                     }
                                                 </div>
-                                                <span id="prodPrice">$@item.PROD_PRICE</span>
+                                                <span id="prodPrice"><strong>$@item.PROD_PRICE</strong></span>
                                             </div>
                                         </div>
                                     </div>

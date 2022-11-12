@@ -3,7 +3,6 @@ using Marcinis.Models;
 using Marcinis.DAL;
 using Marcinis.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 
 namespace Marcinis.Pages
 {
@@ -27,6 +26,8 @@ namespace Marcinis.Pages
 
         public void OnGet()
         {
+            ViewData["DISPLAY"] = "POST";
+
             // retrieve OrderDetails
             OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
 
@@ -49,10 +50,20 @@ namespace Marcinis.Pages
 
         public void OnPost()
         {
-            // save the OrderDetails in the session too
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
+            if (OrderDetails.ContainsKey(Search ?? "Search"))
+                OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
+            else
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
 
-/*            // add all items that Customer selected with their respective quantities to CusOrder
+            ViewData["DISPLAY"] = "POST";
+
+            // only change if something is returned from DAL
+            menu = DAL.GetMenu() ?? menu;
+
+            // save the menu for use in the frontend, when the page has to be remade after POST
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
+
+/*          // add all items that Customer selected with their respective quantities to CusOrder
             foreach(string items in OrderDetails.Keys)
             {
                 if (Int32.TryParse(OrderDetails[items], out int temp))
@@ -68,10 +79,23 @@ namespace Marcinis.Pages
 
         public void OnPostSearch()
         {
-            if (OrderDetails.ContainsKey("Search"))
+            ViewData["DISPLAY"] = "SEARCH";
+
+            if (OrderDetails.ContainsKey("Search") || OrderDetails.ContainsValue(Search ?? "Search"))
                 OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
             else
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
+            {
+                Dictionary<string, string> OldOrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
+                foreach (string item in OrderDetails.Keys)
+                {
+                    if (!OrderDetails[item].Equals("0"))
+                    {
+                        OldOrderDetails[item] = OrderDetails[item];
+
+                    }
+                }
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OldOrderDetails);
+            }
 
             menu = DAL.SearchMenu(Search ?? string.Empty) ?? menu;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
@@ -86,7 +110,9 @@ namespace Marcinis.Pages
 
         public void OnPostSortByPrice()
         {
-            if (OrderDetails.ContainsKey("Search"))
+            ViewData["DISPLAY"] = "PRICE";
+
+            if (OrderDetails.ContainsKey(Search ?? "Search"))
                 OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
             else
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
@@ -97,12 +123,14 @@ namespace Marcinis.Pages
 
         public void OnPostSortByAvailability()
         {
-            if (OrderDetails.ContainsKey("Search"))
+            ViewData["DISPLAY"] = "AVAILABILITY";
+
+            if (OrderDetails.ContainsKey(Search ?? "Search"))
                 OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? OrderDetails;
             else
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "OrderDetails", OrderDetails);
             menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu") ?? menu;
-            menu = menu.OrderBy(o => o.PROD_QOH).Reverse().ToList();
+            menu = menu.OrderBy(o => -1 * o.PROD_QOH).ToList();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
         }
 
