@@ -10,9 +10,6 @@ namespace Marcinis.Pages
     {
         [BindProperty]
         public Customer? Customer { get; set; }
-
-        //[BindProperty]
-        //public Login Login { get; set; }
         
         /*
          * [BindProperty]
@@ -22,7 +19,6 @@ namespace Marcinis.Pages
         public void OnGet()
         {
             Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer");
-            //Login = SessionHelper.GetObjectFromJson<Login>(HttpContext.Session, "login");
             //Order = SessionHelper.GetObjectFromJson<Order>(HttpContext.Session, "order");
         }
       

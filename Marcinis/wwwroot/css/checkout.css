@@ -1,0 +1,159 @@
+﻿.body {
+    background-color: #8BA973;
+    color: #000000;
+    font-family: Georgia;
+    font-size: 18px;
+    margin: auto;
+}
+
+h1 {
+    font-family: Georgia;
+    font-size: 50px;
+    text-align: center;
+}
+
+.form {
+    position: relative;
+    width: 750px;
+    height: 100%;
+    transition: transform 1.2s ease-in-out;
+    padding: 50px 30px 0;
+    background-color: #FFF6EC;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    width: 260px;
+    height: 36px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 15px;
+    background-color: #4A9962;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    width: 260px;
+    margin: 25px auto 0;
+    text-align: center;
+}
+
+.fb-btn {
+    border: 2px solid #d3dae9;
+    color: #8fa1c7;
+}
+
+.fb-btn span {
+    font-weight: bold;
+    color: #455a81;
+}
+
+label span {
+    font-size: 16px;
+    color: black;
+    font-family: Georgia, serif;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.submit {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    position: sticky;
+    bottom: 10;
+}
+
+.background-container {
+    background-color: #8BA973;
+    left: 10%;
+    top: 10%;
+    right: 10%;
+    margin-left: -10%;
+    margin-right: -10%;
+}
+
+iframe {
+    width: 103.5%;
+    display: block;
+    height: 200px;
+    margin: auto auto -1.75% -1.75%;
+}
+
+.header {
+    text-align: center;
+    font-weight: 500;
+    font-size: 40px;
+}
+
+.tab {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+hr {
+    border: none;
+    border-top: 3px double #8BA973;
+    color: #000000;
+    overflow: visible;
+    margin: auto;
+    text-align: center;
+    height: 5px;
+    width: 50%;
+}
+
+hr:after {
+    background: #FFF6EC;
+    content: '\2666';
+    padding: 0 4px;
+    position: relative;
+    top: -17px;
+}
+
+.column-custom {
+    background-color: #FFF6EC;
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.cart-total {
+    flex: 0.25;
+    margin-left: 20px;
+    padding: 20px;
+    height: 240px;
+    border-radius: 5px;
+}
+
+.cart-total p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-left: -3%;
+}
+
+.cart {
+    display: flex;
+}
+
+.items-ordered {
+    height: 50vh;
+    overflow: scroll;
+    margin-left: 3%;
+}
