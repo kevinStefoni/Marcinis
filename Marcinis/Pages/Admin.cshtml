@@ -5,6 +5,9 @@
 @{
     ViewData["Title"] = "Admin";
     IList<Customer>? Customers = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers");
+    IList<MenuItem>? Menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu");
+    IList<CustomerOrder>? Orders = SessionHelper.GetObjectFromJson<IList<CustomerOrder>>(HttpContext.Session, "orders");
+    IList<DiscountCode>? Discounts = SessionHelper.GetObjectFromJson<IList<DiscountCode>>(HttpContext.Session, "discounts");
 }
 
 <head>
@@ -59,6 +62,139 @@
 </table>
 
 </form>
+<div class="container border" style="padding:20px">
+    <form method="post" asp-page-handler="AddCustomer" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <!-- Customer ID -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="cust.CustomerId">Customer ID:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="cust.CustomerId" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- First Name -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="cust.FirstName">First Name:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="cust.FirstName" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="cust.LastName">Last Name:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="cust.LastName" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="cust.LoginCredentials.EmailAddress">Email Address:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="cust.LoginCredentials.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="cust.PhoneNumber">Phone Number:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="cust.PhoneNumber" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <label>
+            <span>Password</span>
+            <input type="password" asp-for="cust.LoginCredentials.Password" />
+            <p><span asp-validation-for="cust.LoginCredentials.Password" class="text-danger"></span></p>
+        </label>
+
+        <!-- Login Type ID -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="cust.LoginTypeId">Login Type Id:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="cust.LoginTypeId" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- submit bt -->
+        <div class="form-group row">
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" value="Add Customer" />
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<form method="post">
+    <table border="1">
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>QOH</th>
+            <th>Category</th>
+        </tr>
+
+        @if (Menu != null)
+        {
+            @foreach (var i in Menu)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.PROD_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.PROD_NAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.PROD_DESC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.PROD_TYPE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.PROD_PRICE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.PROD_QOH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => i.PROD_CATEGORY)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@i.PROD_ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@i.PROD_ID">Details</a> |
+                        <Button class="submit" asp-page-handler="MenuItemDelete" asp-route-id="@i.PROD_ID">Delete</Button>
+
+                    </td>
+                </tr>
+
+            }
+        }
+    </table>
+
+</form>
+
+
 
 <div></div>
 
@@ -152,6 +288,182 @@
         <div class="form-group row">
             <div class="col-1">
                 <input type="submit" class="btn btn-primary" value="Add Item" />
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<form method="post">
+    <table border="1">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>CC Number</th>
+            <th>CC CVV</th>
+            <th>CC Exp Month</th>
+            <th>CC Exp Year</th>
+            <th>CC Zip Code</th>
+            <th>Pickup Time</th>
+            <th>Sub Total</th>
+            <th>Tax</th>
+            <th>Total</th>
+            <th>Order Date</th>
+        </tr>
+
+        @if (Orders != null)
+        {
+            @foreach (var o in Orders)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_CUST_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_CREDIT_CARD_NUM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_CREDIT_CARD_CVV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_CREDIT_CARD_EXP_MONTH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_CREDIT_CARD_EXP_YEAR)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_CREDIT_CARD_ZIP_CODE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_PICKUP_TIME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_SUBTOTAL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_TAX)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_TOTAL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => o.ORDER_DATE)
+                    </td>
+
+
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@o.ORDER_ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@o.ORDER_ID">Details</a> |
+                        <Button class="submit" asp-page-handler="OrderDelete" asp-route-id="@o.ORDER_ID">Delete</Button>
+
+                    </td>
+                </tr>
+
+            }
+        }
+    </table>
+
+</form>
+
+
+
+<form method="post">
+    <table border="1">
+        <tr>
+            <th>Discount Code ID</th>
+            <th>Customer Code</th>
+            <th>Percentage Off</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+
+        @if (Discounts != null)
+        {
+            @foreach (var d in Discounts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => d.DiscountId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => d.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => d.Percentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => d.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => d.EndDate)
+                    </td>
+
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@d.DiscountId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@d.DiscountId">Details</a> |
+                        <Button class="submit" asp-page-handler="DiscountCodeDelete" asp-route-id="@d.DiscountId">Delete</Button>
+
+                    </td>
+                </tr>
+
+            }
+        }
+    </table>
+
+</form>
+
+                        
+<div class="container border" style="padding:20px">
+    <form method="post" asp-page-handler="AddDiscountCode" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <!-- Discount Code -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="disc.Code">Discount Code:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="disc.Code" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Discount Code -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="disc.Percentage">Percentage Off:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="disc.Percentage" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Start Date -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="disc.StartDate">Start Date:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="disc.StartDate" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- End Date -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="disc.EndDate">End Date:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="disc.EndDate" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- submit bt -->
+        <div class="form-group row">
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" value="Add Discount Code" />
             </div>
         </div>
 
