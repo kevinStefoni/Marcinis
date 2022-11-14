@@ -1,7 +1,10 @@
 ﻿@page
+@using Marcinis.Helpers
+@using Marcinis.Models
 @model AdminModel
 @{
     ViewData["Title"] = "Admin";
+    IList<Customer>? Customers = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers");
 }
 
 <head>
@@ -10,6 +13,7 @@
 
 <h1 id="admin">All Users</h1>
 
+<form method="post">
 <table border="1">
     <tr>
         <th>CustomerID</th>
@@ -20,31 +24,136 @@
         <th>LoginTypeId</th>
     </tr>
 
-    @foreach (var c in Model.customer) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => c.CustomerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => c.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => c.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => c.LoginCredentials.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => c.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => c.LoginTypeId)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@c.CustomerId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@c.CustomerId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@c.CustomerId">Delete</a>
-            </td>
-        </tr>
+    @if(Customers != null)
+    {
+        @foreach (var c in Customers) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => c.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => c.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => c.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => c.LoginCredentials.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => c.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => c.LoginTypeId)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@c.CustomerId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@c.CustomerId">Details</a> |
+                    <Button class="submit" asp-page-handler="CustomerDelete" asp-route-id="@c.CustomerId" >Delete</Button>
+                
+                </td>
+            </tr>
+        
+        }
     }
 </table>
+
+</form>
+
+<div></div>
+
+<div class="container border" style="padding:20px">
+    <form method="post" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <!-- Product ID -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.PROD_ID">Product ID:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="item.PROD_ID" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+
+        <!-- Product Name -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.PROD_NAME">Product Name:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="item.PROD_NAME" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Product Description -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.PROD_DESC">Product Description:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="item.PROD_DESC" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Product Type -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.PROD_TYPE">Product Type:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="item.PROD_TYPE" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Product Price -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.PROD_PRICE">Product Price:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="item.PROD_PRICE" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Product Quantity on Hand -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.PROD_QOH">Product Initial Quantity on Hand:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="item.PROD_QOH" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Product Category -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.PROD_CATEGORY">Product Category:</label>
+            </div>
+            <div class="col-3">
+                <input type="text" asp-for="item.PROD_CATEGORY" class="form-control" style="width: 250px; margin: 2px" />
+            </div>
+        </div>
+
+        <!-- Product Image -->
+        <div class="form-group row" style="margin-bottom:15px">
+            <div class="col-1">
+                <label asp-for="item.ImageFile">Upload Product Image:</label>
+            </div>
+            <div class="col-3">
+                <input type="file" asp-for="item.ImageFile" class="form-control" style="width: 250px; margin: 2px" />
+                <span asp-validation-for="item.ImageFile" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- submit bt -->
+        <div class="form-group row">
+            <div class="col-1">
+                <input type="submit" class="btn btn-primary" value="Add Item" />
+            </div>
+        </div>
+
+    </form>
+</div>

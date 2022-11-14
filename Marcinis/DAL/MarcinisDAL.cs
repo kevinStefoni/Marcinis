@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Marcinis.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
@@ -38,5 +39,6 @@ namespace Marcinis.DAL
             }
             return ds;
         }
+
     }
 }

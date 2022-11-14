@@ -29,3 +29,9 @@ body {
 #cart {
     margin-right: 75px;
 }
+
+/* Make all text highlighting a cream color */
+::selection, ::-moz-selection {
+    background-color: #DFC197;
+}
+

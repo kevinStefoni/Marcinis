@@ -1,4 +1,74 @@
 ﻿@page
 @model Marcinis.Pages.CheckoutModel
 @{
+    ViewData["Title"] = "Checkout";
 }
+
+<link rel="stylesheet" href="css/checkout.css">
+
+<div class="background-container">
+
+    <div class="row">
+        <div class="column-custom">
+            <div class="form sign-in">
+                <form method="post">
+                    <h1 class="header">Schedule Pickup Time</h1>
+                    <!--FIXME GET THE ACTUAL IMPLEMENTATION OF THIS WORKING AND MAKE IT THE SAME SIZE AS THE REST OF THE INPUT AREAS-->
+                    @Html.DropDownListFor(m => Model.CustomerOrder.ORDER_PICKUP_TIME, new List<SelectListItem>
+                    {
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 15, 0)).ToString("hh:mm"), Value = "0" },
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 30, 0)).ToString("hh:mm"), Value = "0" },
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 45, 0)).ToString("hh:mm"), Value = "0" },
+                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 60, 0)).ToString("hh:mm"), Value = "0" },
+                    }, new { @class = "form-control" })
+
+                    <!--Form section to enter Customer payment details-->
+                    <h1 class="header">Payment Information</h1>
+                    <label>
+                        <span>Credit Card Number</span>
+                        <input type="ORDER_CREDIT_CARD_NUM" asp-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" />
+                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" class="text-danger"></span></p>
+                    </label>
+                    <label>
+                        <span>Expiration Date</span>
+                        <input type="ORDER_CREDIT_CARD_DATE" asp-for="CustomerOrder.ORDER_CREDIT_CARD_DATE" />
+                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_DATE" class="text-danger"></span></p>
+                    </label>
+                    <label>
+                        <span>CVV</span>
+                        <input type="ORDER_CREDIT_CARD_CVV" asp-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" />
+                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" class="text-danger"></span></p>
+                    </label>
+
+                    <!--Button to finalize their order which should then send them to the order confirmation page-->
+                    <button asp-page-handler="Place your order" class="submit place-order" style="position:sticky; bottom:0;">Place your order</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="column-custom">
+            <div class="form sign-in">
+                <h1 class="header">Cart</h1>
+                <!--Bring in the items from the order page to be shown in this section. Add functionality to remove them-->
+                <div class="items-ordered">
+                    <p>gabbagoool</p>
+                </div>
+                <div class="cart-total">
+                    <p>
+                        <span>Subtotal</span>
+                        <span>420.00</span>
+                    </p>
+                    <p>
+                        <span>Tax</span>
+                        <span>0.69</span>
+                    </p>
+                    <p>
+                        <span>Total</span>
+                        <span>420.69</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

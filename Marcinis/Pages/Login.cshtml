@@ -6,52 +6,106 @@
 
 <head>
     <link rel="stylesheet" href="/css/login.css" />
+    <meta charset="UTF-8">
 </head>
 
-<section class="h-100 gradient-form" style="background-color: #8BA973;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-xl-10">
-                <div class="card rounded-3 text-black" style="background-color: #FFF6EC;">
-                    <div class="row g-0">
-                        <div class="col-lg-6">
-                            <div class="card-body p-md-5 mx-md-4">
+<div class="cont">
 
-                                <div class="text-center">
-                                    <img src="/images/Marcini's_Logo.png"
-                                         style="width: 185px;" alt="logo">
-                                </div>
-                                <h4 id="benevenuto">Benevenuto!</h4>
-                                <form method="post">                                    
-                                    <div class="form-outline mb-4">
-                                        <input type="text" asp-for="login.EmailAddress" class="form-control" style="width: 350px; margin: 2px"/>
-                                        <label class="form-label" for="form2Example11">Email</label>
-                                        <span asp-validation-for="login.EmailAddress" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-outline mb-4">
-                                        <input type="password" asp-for="login.Password" class="form-control" style="width: 350px; margin: 2px" />
-                                        <label class="form-label" for="form2Example22">Password</label>
-                                        <span asp-validation-for="login.Password" class="text-danger"></span>
-                                    </div>
+    <!-- sign-in part-->
+    <div class="form sign-in">
+        <form method="post">
+            <div class="text-center">
+                <img src="/images/Marcini's_Logo.png" style="width: 185px;" alt="logo">
+            </div>
+            <h2 class="HelloTitle">Benevenuto!</h2>
+        
+            <label>
+                <span>Email</span>
+                <input type="email" asp-for="Customer.LoginCredentials.EmailAddress" />
+                <p><span asp-validation-for="Customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
+            </label>
 
-                                    <div class="text-center pt-1 mb-5 pb-1">
-                                        <input id="loginButton" type="submit" class="btn" value="Login"/>
-                                    </div>
-                                </form>
-                                <div class="d-flex align-items-center justify-content-center pb-4">
-                                    <p class="mb-0 me-2">Don't have an account?</p>
-                                    <a class="text-dark" asp-area="" asp-page="./Register">Create Account</a>
-                                </div>
+            <label>
+                <span>Password</span>
+                <input type="password" asp-for="Customer.LoginCredentials.Password" />
+                <p><span asp-validation-for="Customer.LoginCredentials.Password" class="text-danger"></span></p>
+            </label>
 
-                            </div>
-                        </div>
+            <button asp-page-handler="Login" class="submit">Sign In</button>
+        </form>
+    </div>
 
-                    <div class="col-lg-6 d-flex align-items-center">
-                        <img src='/images/naples_italy_overview.jpeg' style="width:400px; height:400px;">
-                    </div>
-                </div>
+    <!-- hidden part for sign up-->
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h1>Sign in</h1>
+            </div>
+            <div class="img__text m--in">
+                <h1>Register</h1>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">Sign Up</span>
+                <span class="m--in">Sign In</span>
             </div>
         </div>
+
+        <div style="margin-top: -15px;" class="form sign-up">
+            <form method="post">
+                <label style="margin-top: -15px">
+                    <span>First Name</span>
+                    <input type="text" asp-for="Customer.FirstName" />
+                    <p style="margin-bottom: -8px;"><span asp-validation-for="Customer.FirstName" class="text-danger"></span></p>
+                </label>
+
+                <label>
+                    <span>Last Name</span>
+                    <input type="text" asp-for="Customer.LastName" />
+                    <p style="margin-bottom: -8px;"><span asp-validation-for="Customer.LastName" class="text-danger"></span></p>
+                </label>
+            
+                <label>
+                    <span>Email</span>
+                    <input type="email" asp-for="Customer.LoginCredentials.EmailAddress" />
+                    <p style="margin-bottom: -8px;"><span asp-validation-for="Customer.LoginCredentials.EmailAddress" class="text-danger"></span></p>
+                </label>
+
+                <label>
+                    <span>Password</span>
+                    <input type="password" asp-for="Customer.LoginCredentials.Password" />
+                    <p style="margin-bottom: -8px;"><span asp-validation-for="Customer.LoginCredentials.Password" class="text-danger"></span></p>
+                </label>
+
+                <label>
+                    <span>Phone Number</span>
+                    <input type="text" asp-for="Customer.PhoneNumber" />
+                    <p style="margin-bottom: -8px;"><span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span></p>
+                </label>
+
+                <button asp-page-handler="Register" class="submit register" style="position:sticky; bottom:0;">Sign Up</button>
+            </form>
+        </div>
     </div>
-    </div>
-</section>
+</div>
+
+<script src="/js/login.js" type="text/javascript"></script>
+
+
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @if (!ModelState.IsValid && (string?) ViewData["LAST_BUTTON"] == "Register")
+    {
+        <script>
+            $("*").css("transition", "none");
+            $(function () {
+                document.querySelector('.cont').classList.toggle('s--signup')
+            });
+        </script>
+    }
+    
+    <script>
+        document.querySelector('.img__btn').addEventListener('click', function () {
+            $("*").css("transition", "transform 1.2s");
+         });
+    </script>
+}

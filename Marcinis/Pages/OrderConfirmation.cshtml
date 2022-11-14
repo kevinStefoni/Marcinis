@@ -1,5 +1,147 @@
 ﻿@page
 @model Marcinis.Pages.OrderConfirmationModel
 @{
-
+    ViewData["Title"] = "Confirmation";
 }
+
+
+<link rel="stylesheet" href="css/orderconfirmation.css">
+
+<section class="background-container">
+    &nbsp;
+
+    <div class="row body">
+
+        <div class="col"> <!--This is the beginning of the left column that will hold the thank you message and pickup location/time-->
+            <div class="row left-column">
+                @if (Model.Customer != null)
+                {
+                    <div col>
+                        <h1 class="header">Grazie @Model.Customer.FirstName!</h1>
+                        <hr>
+                        <p>Order #</p> <!--FIX ME Will need to get order number from order DAL FIX ME-->
+                        <hr>
+                        <!--<p>A confirmation email has been sent to EmailAddress</p>-->
+                    </div>
+
+                }
+                else {
+                    <div col>
+                        <h1 class="header">Grazie!</h1>
+                        <hr>
+                        <p>Order #</p> <!--FIX ME Will need to get order number from order DAL FIX ME-->
+                    </div>
+                }
+            </div>
+            &nbsp;
+
+            <div id="botleft" class="row left-column">
+                <div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3469.0047750294884!2d-98.44498838399718!3d29.60354744621813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865c8a2d06a55555%3A0x8395f6d4ccf49f3d!2s2903%20N%20Loop%201604%20E%20Suite%20134%2C%20San%20Antonio%2C%20TX%2078259!5e0!3m2!1sen!2sus!4v1663228321112!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded"></iframe>
+                </div>
+                <p></p>
+                <div class="col left-column">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <img src="~/images/Location-icon.png" height="75px" width="75px">
+                            </div>
+                        <div class="col" style="padding-left:45px">
+                            <p>Location</p>
+                            <p>2903 N Loop 1604 E</p>
+                            <p>San Antonio, Texas, 78259</p>
+                            <p>512-968-8024</p>
+                        </div>
+                    </div>
+                    <hr>
+                    &nbsp;
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <img src="~/images/Time-icon.png" height="75px" width="75px">
+                        </div>
+                        <div class="col" style="padding-left:45px">
+                            <p>Pickup Time</p>
+                            <!--FIX ME ADD THE PICKUP DATE AND TIME FROM THE ORDER DAL-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col"> <!--This is the beginning of the right column that will hold the details of the order (items ordered, price, etc.)-->
+            <div class="right-column">
+                <h2 class="header">Order Details</h2>
+                <hr>
+                &nbsp;
+
+                <div><!--this will hold all of the order details and price and at bottom will have sub tax and total-->
+                    <div class="items-ordered">
+                        <p>this will be a list of the items ordered</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+                        <p>item</p>
+
+                    </div>
+
+                    <div class="cart-total">
+                        <p>
+                            <span>Subtotal</span>
+                            <span>420.00</span>
+                        </p>
+                        <p>
+                            <span>Tax</span>
+                            <span>0.69</span>
+                        </p>
+                        <p>
+                            <span>Total</span>
+                            <span>420.69</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    &nbsp;
+</section>
