@@ -12,9 +12,6 @@ namespace Marcinis.Pages
         private readonly OrderDAL DAL = new();
 
         [BindProperty]
-        public CustomerOrder CusOrder { get; set; } = new CustomerOrder();
-
-        [BindProperty]
         public Dictionary<string, string> OrderDetails { get; set; } = new Dictionary<string, string>();
 
         [BindProperty]
@@ -63,18 +60,6 @@ namespace Marcinis.Pages
             // save the menu for use in the frontend, when the page has to be remade after POST
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
 
-/*          // add all items that Customer selected with their respective quantities to CusOrder
-            foreach(string items in OrderDetails.Keys)
-            {
-                if (Int32.TryParse(OrderDetails[items], out int temp))
-                {
-                    CusOrder.ORDER_ITEMS[items] = temp;
-
-                }
-            }
-
-            // save the CusOrder in the session
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "CusOrder", CusOrder);*/
         }
 
         public void OnPostSearch()
