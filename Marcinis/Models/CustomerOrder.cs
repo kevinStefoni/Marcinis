@@ -19,12 +19,14 @@ namespace Marcinis.Models
         [StringLength(3, ErrorMessage = "CVV should be 3 digits.")]
         public string ORDER_CREDIT_CARD_CVV { get; set; }
         [Required]
-        public DateOnly ORDER_CREDIT_CARD_DATE { get; set; }
+        public int ORDER_CREDIT_CARD_EXP_MONTH { get; set; }
+        [Required]
+        public int ORDER_CREDIT_CARD_EXP_YEAR { get; set; }
         [Required]
         [StringLength(5, ErrorMessage = "Zip code should be 5 digits.")]
         public string ORDER_CREDIT_CARD_ZIP_CODE { get; set; }
         [Required]
-        public TimeOnly ORDER_PICKUP_TIME { get; set; }
+        public DateTime ORDER_PICKUP_TIME { get; set; }
         [Required]
         public decimal ORDER_SUBTOTAL { get; set; }
         [Required]
@@ -32,7 +34,7 @@ namespace Marcinis.Models
         [Required]
         public decimal ORDER_TOTAL { get; set; }
         [Required]
-        public DateOnly ORDER_DATE { get; set; }
+        public DateTime ORDER_DATE { get; set; }
         [Required]
         public Dictionary<string, int> ORDER_ITEMS = new Dictionary<string, int>();
 

@@ -31,8 +31,13 @@
                     </label>
                     <label>
                         <span>Expiration Date</span>
-                        <input type="ORDER_CREDIT_CARD_DATE" asp-for="CustomerOrder.ORDER_CREDIT_CARD_DATE" />
-                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_DATE" class="text-danger"></span></p>
+                        <input type="ORDER_CREDIT_CARD_EXP_MONTH" asp-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_MONTH" />
+                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_MONTH" class="text-danger"></span></p>
+                    </label>
+                    <label>
+                        <span>Expiration Date</span>
+                        <input type="ORDER_CREDIT_CARD_EXP_YEAR" asp-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_YEAR" />
+                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_YEAR" class="text-danger"></span></p>
                     </label>
                     <label>
                         <span>CVV</span>

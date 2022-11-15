@@ -14,7 +14,7 @@ namespace Marcinis.Models
         public string? PROD_CATEGORY { get; set; }
         public byte[]? PROD_IMG { get; set; }
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
 
 
     }
