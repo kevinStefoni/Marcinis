@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Marcinis.DAL;
 using Marcinis.Helpers;
 using Marcinis.Models;
@@ -35,16 +36,16 @@ namespace Marcinis.Pages
         public IList<DiscountCode> discounts { get; set; }
 
         [BindProperty]
-        public int id { get; set; }
+        public int bindCustId { get; set; }
 
         [BindProperty]
-        public int itemId { get; set; }
+        public int bindItemId { get; set; }
 
         [BindProperty]
-        public int orderId { get; set; }
+        public int bindOrderId { get; set; }
 
         [BindProperty]
-        public int discountId { get; set; }
+        public int bindDiscountId { get; set; }
 
         public void OnGet()
         {
@@ -58,7 +59,7 @@ namespace Marcinis.Pages
             SessionHelper.SetObjectAsJson(HttpContext.Session, "discounts", discounts);
         }
 
-        public ActionResult OnPost()
+        public ActionResult OnPostAddMenuItem()
         {
             byte[] bytes = null;
             if (item.ImageFile != null)
@@ -73,15 +74,49 @@ namespace Marcinis.Pages
                 item.PROD_IMG = bytes;
             }
 
+            bool found = false;
+            IList<MenuItem>? Menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu");
+            foreach (var i in Menu)
+            {
+                if (i.PROD_ID == item.PROD_ID)
+                {
+                    found = true;
+                    if (item.PROD_IMG == null) { item.PROD_IMG = i.PROD_IMG; }
+                    
+                    itemRepo.UpdateMenuItem(item);
+                    menu = itemRepo.GetMenu();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
+                }
+            }
 
-            itemRepo.AddMenuItem(item);
+            if (!found) { itemRepo.AddMenuItem(item); }
 
             return Redirect("./Admin");
         }
 
         public ActionResult OnPostAddCustomer()
         {
-            customerRepo.AddCustomer(cust);
+            bool found = false;
+
+            IList<Customer>? Customers = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers");
+            foreach (var c in Customers)
+            {
+                if (c.CustomerId == cust.CustomerId)
+                {
+                    found = true;
+                    customerRepo.UpdateCustomer(cust);
+                    customer = customerRepo.GetAllCustomers();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
+                }
+            }
+            if (!found)
+            {
+                if (cust.LoginCredentials.Password == null) 
+                {
+                    cust.LoginCredentials.Password = "Pa$$word1";
+                }
+                customerRepo.AddCustomer(cust);
+            }
 
             return Redirect("./Admin");
         }
@@ -95,30 +130,66 @@ namespace Marcinis.Pages
 
         public void OnPostCustomerDelete()
         {
-            customerRepo.DeleteCustomer(id);
+            customerRepo.DeleteCustomer(bindCustId);
             customer = customerRepo.GetAllCustomers();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
         }
 
         public void OnPostMenuItemDelete()
         {
-            itemRepo.DeleteMenuItem(itemId);
+            itemRepo.DeleteMenuItem(bindItemId);
             menu = itemRepo.GetMenu();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
         }
 
         public void OnPostOrderDelete()
         {
-            itemRepo.DeleteMenuItem(orderId);
+            itemRepo.DeleteOrder(bindOrderId);
             orders = itemRepo.GetOrders();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "orders", orders);
         }
 
         public void OnPostDiscountCodeDelete()
         {
-            itemRepo.DeleteDiscountCode(discountId);
+            itemRepo.DeleteDiscountCode(bindDiscountId);
+            disc.Code = "test";
             discounts = itemRepo.GetDiscountCodes();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "discounts", discounts);
+        }
+
+        public void OnPostCustomerEdit()
+        {
+            IList<Customer>? Customers = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers");
+            foreach (var c in Customers) {
+                if (c.CustomerId == bindCustId)
+                {
+                    cust.CustomerId = c.CustomerId;
+                    cust.FirstName = c.FirstName;
+                    cust.LastName = c.LastName;
+                    cust.LoginCredentials.EmailAddress = c.LoginCredentials.EmailAddress;
+                    cust.PhoneNumber = c.PhoneNumber;
+                    cust.LoginTypeId = c.LoginTypeId;
+                }
+            }         
+        }
+
+
+        public void OnPostMenuItemEdit()
+        {
+            IList<MenuItem>? Menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu");
+            foreach (var i in Menu)
+            {
+                if (i.PROD_ID == bindItemId)
+                {
+                    item.PROD_ID = i.PROD_ID;
+                    item.PROD_NAME = i.PROD_NAME;
+                    item.PROD_DESC = i.PROD_DESC;
+                    item.PROD_TYPE = i.PROD_TYPE;
+                    item.PROD_PRICE = i.PROD_PRICE;
+                    item.PROD_QOH = i.PROD_QOH;
+                    item.PROD_CATEGORY = i.PROD_CATEGORY;
+                }
+            }
         }
     }
 }

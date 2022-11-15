@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Data.SqlClient;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Globalization;
+using Marcinis.Helpers;
 
 namespace Marcinis.DAL
 {
@@ -328,6 +329,21 @@ namespace Marcinis.DAL
 
         }
 
+
+        public void DeleteOrder(int id)
+        {
+            string sql = "uspDeleteOrderById";
+
+            SqlParameter[] spParams =
+            {
+                new SqlParameter("@ORDER_ID", id)
+            };
+
+            DataSet ds = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure);
+
+        }
+
+
         public void AddDiscountCode(DiscountCode discount)
         {
             using (SqlConnection conn = new(connStr))
@@ -355,6 +371,27 @@ namespace Marcinis.DAL
                 }
 
             }
+        }
+
+        public void UpdateMenuItem(MenuItem item)
+        {
+            string sql = "uspUpdateMenuItem";
+
+            SqlParameter[] spParams =
+            {
+                new SqlParameter("@PROD_ID", item.PROD_ID),
+                new SqlParameter("@PROD_NAME", item.PROD_NAME),
+                new SqlParameter("@PROD_DESC", item.PROD_DESC),
+                new SqlParameter("@PROD_TYPE", item.PROD_TYPE),
+                new SqlParameter("@PROD_PRICE", item.PROD_PRICE),
+                new SqlParameter("@PROD_QOH", item.PROD_QOH),
+                new SqlParameter("@PROD_CATEGORY", item.PROD_CATEGORY),
+                new SqlParameter("@PROD_IMG", item.PROD_IMG)
+            };
+
+            DataSet ds = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure);
+
+            Console.WriteLine(ds);
         }
 
     }
