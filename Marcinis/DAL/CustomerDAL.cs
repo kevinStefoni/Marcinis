@@ -191,5 +191,24 @@ namespace Marcinis.DAL
 
         }
 
+        public void UpdateCustomer(Customer cust)
+        {
+            string sql = "uspUpdateCustomer";
+
+            SqlParameter[] spParams =
+            {
+                new SqlParameter("@CustomerId", cust.CustomerId),
+                new SqlParameter("@FirstName", cust.FirstName),
+                new SqlParameter("@LastName", cust.LastName),
+                new SqlParameter("@EmailAddress", cust.LoginCredentials.EmailAddress),
+                new SqlParameter("@PhoneNumber", cust.PhoneNumber),
+                new SqlParameter("@LoginTypeId", cust.LoginTypeId)
+            };
+
+            DataSet ds = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure);
+
+            Console.WriteLine(ds);
+        }
+
     }
 }
