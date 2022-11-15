@@ -10,39 +10,33 @@
 
     <div class="row">
         <div class="column-custom">
-            <div class="form sign-in">
+            <div class="form info">
                 <form method="post">
                     <h1 class="header">Schedule Pickup Time</h1>
-                    <!--FIXME GET THE ACTUAL IMPLEMENTATION OF THIS WORKING AND MAKE IT THE SAME SIZE AS THE REST OF THE INPUT AREAS-->
-                    @Html.DropDownListFor(m => Model.CustomerOrder.ORDER_PICKUP_TIME, new List<SelectListItem>
-                    {
-                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 15, 0)).ToString("hh:mm"), Value = "0" },
-                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 30, 0)).ToString("hh:mm"), Value = "0" },
-                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 45, 0)).ToString("hh:mm"), Value = "0" },
-                        new SelectListItem {Text = DateTime.Now.Add(new TimeSpan(0, 0, 60, 0)).ToString("hh:mm"), Value = "0" },
-                    }, new { @class = "form-control" })
-
+                    @Html.DropDownListFor(m => m.CustomerOrder.ORDER_PICKUP_TIME, Model.AvailableTimes,
+                    new { @class = "form-control", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
+                    <p><span asp-validation-for="CustomerOrder.ORDER_PICKUP_TIME" class="text-danger"></span></p>
                     <!--Form section to enter Customer payment details-->
                     <h1 class="header">Payment Information</h1>
                     <label>
                         <span>Credit Card Number</span>
-                        <input type="ORDER_CREDIT_CARD_NUM" asp-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" />
+                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" placeholder="#### #### #### ####"/>
                         <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" class="text-danger"></span></p>
                     </label>
                     <label>
                         <span>Expiration Date</span>
-                        <input type="ORDER_CREDIT_CARD_EXP_MONTH" asp-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_MONTH" />
-                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_MONTH" class="text-danger"></span></p>
-                    </label>
-                    <label>
-                        <span>Expiration Date</span>
-                        <input type="ORDER_CREDIT_CARD_EXP_YEAR" asp-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_YEAR" />
-                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_EXP_YEAR" class="text-danger"></span></p>
+                        <input type="text" asp-for="CardExpiry" placeholder="##/##"/>
+                        <p><span asp-validation-for="CardExpiry" class="text-danger"></span></p>
                     </label>
                     <label>
                         <span>CVV</span>
-                        <input type="ORDER_CREDIT_CARD_CVV" asp-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" />
+                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" placeholder="###"/>
                         <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" class="text-danger"></span></p>
+                    </label>
+                    <label>
+                        <span>Zip Code</span>
+                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" placeholder="#####"/>
+                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" class="text-danger"></span></p>
                     </label>
 
                     <!--Button to finalize their order which should then send them to the order confirmation page-->

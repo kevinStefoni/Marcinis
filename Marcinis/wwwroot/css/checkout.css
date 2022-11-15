@@ -71,7 +71,6 @@ input {
     margin-bottom: 20px;
     text-transform: uppercase;
     position: sticky;
-    bottom: 10;
 }
 
 .background-container {
@@ -156,4 +155,14 @@ hr:after {
     height: 50vh;
     overflow: scroll;
     margin-left: 3%;
+}
+
+#time-drop-down {
+    width: 15%;
+    text-align: center;
+}
+
+div{
+    align-content: center;
+    justify-content: center;
 }
