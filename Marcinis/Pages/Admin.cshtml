@@ -17,7 +17,7 @@
 <h1 id="admin">All Users</h1>
 
 <form method="post">
-<table border="1">
+    <table class="table-fill">
     <tr>
         <th>CustomerID</th>
         <th>FirstName</th>
@@ -25,6 +25,7 @@
         <th>EmailAddress</th>
         <th>PhoneNumber</th>
         <th>LoginTypeId</th>
+        <th>Action</th>
     </tr>
 
     @if(Customers != null)
@@ -50,12 +51,10 @@
                     @Html.DisplayFor(modelItem => c.LoginTypeId)
                 </td>
                 <td>
-                    <Button class="submit" asp-page-handler="CustomerEdit" asp-route-bindCustId="@c.CustomerId">Edit</Button> 
-                    <Button class="submit" asp-page-handler="CustomerDelete" asp-route-bindCustId="@c.CustomerId">Delete</Button>
-                
+                    <Button class="custom-btn btn-3" asp-page-handler="CustomerEdit" asp-route-bindCustId="@c.CustomerId">Edit</Button>
+                    <Button class="custom-btn btn-3" asp-page-handler="CustomerDelete" asp-route-bindCustId="@c.CustomerId">Delete</Button>
                 </td>
             </tr>
-        
         }
     }
 </table>
@@ -142,7 +141,7 @@
 </div>
 
 <form method="post">
-    <table border="1">
+    <table class="table-fill">
         <tr>
             <th>Product ID</th>
             <th>Name</th>
@@ -151,6 +150,7 @@
             <th>Price</th>
             <th>QOH</th>
             <th>Category</th>
+            <th>Action</th>
         </tr>
 
         @if (Menu != null)
@@ -180,9 +180,8 @@
                         @Html.DisplayFor(modelItem => i.PROD_CATEGORY)
                     </td>
                     <td>
-                        <Button class="submit" asp-page-handler="MenuItemEdit" asp-route-bindItemId="@i.PROD_ID">Edit</Button> 
-                        <Button class="submit" asp-page-handler="MenuItemDelete" asp-route-bindItemId="@i.PROD_ID">Delete</Button>
-
+                        <Button class="custom-btn btn-3" asp-page-handler="MenuItemEdit" asp-route-bindItemId="@i.PROD_ID">Edit</Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="MenuItemDelete" asp-route-bindItemId="@i.PROD_ID">Delete</Button>
                     </td>
                 </tr>
 
@@ -293,7 +292,7 @@
 </div>
 
 <form method="post">
-    <table border="1">
+    <table class="table-fill">
         <tr>
             <th>Order ID</th>
             <th>Customer ID</th>
@@ -307,6 +306,7 @@
             <th>Tax</th>
             <th>Total</th>
             <th>Order Date</th>
+            <th>Action</th>
         </tr>
 
         @if (Orders != null)
@@ -350,10 +350,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => o.ORDER_DATE)
                     </td>
-
-
                     <td>
-                        <Button class="submit" asp-page-handler="OrderDelete" asp-route-bindOrderId="@o.ORDER_ID">Delete</Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="OrderDelete" asp-route-bindOrderId="@o.ORDER_ID">Delete</Button>
                     </td>
                 </tr>
 
@@ -366,13 +364,14 @@
 
 
 <form method="post" >
-    <table border="1">
+    <table class="table-fill">
         <tr>
             <th>Discount Code ID</th>
             <th>Customer Code</th>
             <th>Percentage Off</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Action</th>
         </tr>
 
         @if (Discounts != null)
@@ -397,7 +396,7 @@
                     </td>
 
                     <td>
-                        <Button class="submit" asp-page-handler="DiscountCodeDelete" asp-route-bindDiscountId="@d.DiscountId">Delete</Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="DiscountCodeDelete" asp-route-bindDiscountId="@d.DiscountId">Delete</Button>
                     </td>
                 </tr>
 
