@@ -108,17 +108,15 @@ namespace Marcinis.Pages
                 if (Int32.TryParse(OrderDetails[items], out int temp))
                 {
                     if (temp != 0)
+                    {
                         CustomerOrder.ORDER_ITEMS[items] = temp;
+                        CustomerOrder.ORDER_SUBTOTAL += CustomerOrder.ORDER_ITEMS[items] * itemPairValues[items];
+                    }
 
                 }
             }
 
-            // loop through the customer order to find each item and the associated quantity to calculate ORDER_SUBTOTAL
-            foreach (int quantity in CustomerOrder.ORDER_ITEMS.Values)
-            {
-                //CustomerOrder.ORDER_SUBTOTAL += quantity * item.PROD_PRICE;
-
-            }
+            
 
             // calculate the ORDER_TAX amount by mulitplying the subtotal by the tax rate and update CustomerOrder
             CustomerOrder.ORDER_TAX = CustomerOrder.ORDER_SUBTOTAL * TEXAS_TAX_RATE;
