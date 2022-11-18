@@ -1,4 +1,5 @@
 ﻿@page
+@using Marcinis.Helpers
 @model Marcinis.Pages.CheckoutModel
 @{
     ViewData["Title"] = "Checkout";
@@ -49,21 +50,20 @@
             <div class="form sign-in">
                 <h1 class="header">Cart</h1>
                 <!--Bring in the items from the order page to be shown in this section. Add functionality to remove them-->
-                <div class="items-ordered">
-                    <p>gabbagoool</p>
+                <div class="items-ordered">@Model.CustomerOrder.ORDER_ITEMS.Keys
                 </div>
                 <div class="cart-total">
                     <p>
                         <span>Subtotal</span>
-                        <span>420.00</span>
+                        <span>@Model.CustomerOrder.ORDER_SUBTOTAL</span>
                     </p>
                     <p>
                         <span>Tax</span>
-                        <span>0.69</span>
+                        <span>@Model.CustomerOrder.ORDER_TAX</span>
                     </p>
                     <p>
                         <span>Total</span>
-                        <span>420.69</span>
+                        <span>@Model.CustomerOrder.ORDER_TOTAL</span>
                     </p>
                 </div>
             </div>
