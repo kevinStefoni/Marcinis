@@ -1,9 +1,13 @@
+using Marcinis.DAL;
 using Marcinis.Helpers;
 using Marcinis.Models;
 using Marcinis.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Identity.Client;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
@@ -11,8 +15,12 @@ namespace Marcinis.Pages
 {
     public class CheckoutModel : PageModel
     {
+        private readonly OrderDAL DAL = new();
+
         [BindProperty]
         public CustomerOrder CustomerOrder { get; set; } = new CustomerOrder();
+
+        public IList<MenuItem> menu = new List<MenuItem>();
 
         [BindProperty]
         [Required(ErrorMessage = "Credit card expiration date is required.")]
@@ -79,6 +87,19 @@ namespace Marcinis.Pages
         {
             Customer Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? new Customer();
             CustomerOrder.ORDER_CUST_ID = Customer.CustomerId;
+            menu = DAL.GetMenu() ?? menu;
+            Dictionary<string, decimal> itemPairValues = new Dictionary<string, decimal>();
+            decimal TEXAS_TAX_RATE = .0825m;
+
+            // iterate through menu and add the product name and price to dictionary "itemPairValues"
+            foreach(MenuItem item in menu)
+            {
+                if (item.PROD_NAME != null)
+                {
+                    itemPairValues.Add(item.PROD_NAME, item.PROD_PRICE);
+                }
+            }
+                  
 
             // add all items that Customer selected with their respective quantities to CustomerOrder
             Dictionary<string, string> OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? new Dictionary<string, string>();
@@ -91,6 +112,21 @@ namespace Marcinis.Pages
 
                 }
             }
+
+            // loop through the customer order to find each item and the associated quantity to calculate ORDER_SUBTOTAL
+            foreach (int quantity in CustomerOrder.ORDER_ITEMS.Values)
+            {
+                //CustomerOrder.ORDER_SUBTOTAL += quantity * item.PROD_PRICE;
+
+            }
+
+            // calculate the ORDER_TAX amount by mulitplying the subtotal by the tax rate and update CustomerOrder
+            CustomerOrder.ORDER_TAX = CustomerOrder.ORDER_SUBTOTAL * TEXAS_TAX_RATE;
+
+            // calculate the ORDER_TOTAL by adding subtotal and tax amount and update CustomerOrder
+            CustomerOrder.ORDER_TOTAL = CustomerOrder.ORDER_SUBTOTAL + CustomerOrder.ORDER_TAX;
+
+
         }
     }
 }
