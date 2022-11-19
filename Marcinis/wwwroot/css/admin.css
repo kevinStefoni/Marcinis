@@ -1,5 +1,5 @@
 .table-fill {
-    background: white;
+    background: #FFF6EC;
     border-radius: 5px;
     border-collapse: collapse;
     margin: auto;
@@ -35,15 +35,15 @@ td {
 }
 
 tr:hover td {
+    background: #4A9962;
     transition: all 0.3s ease;
-    color: darkgreen;
+    color: rgb(255, 255, 255);
 }
 
 .custom-btn {
     color: #fff;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 10px 25px;
-    font-weight: 500;
     background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -55,8 +55,8 @@ tr:hover td {
 
 .btn-3 {
     background: rgb(58 126 153);
-    background: linear-gradient(0deg, #386641 0%, #6A994E 100%);
-    width: 130px;
+    background: linear-gradient(0deg, #fdfdfd 0%, #a3b19c 110%);
+    width: 40px;
     height: 40px;
     line-height: 42px;
     padding: 0;
@@ -70,16 +70,6 @@ tr:hover td {
     height: 100%;
 }
 
-.btn-3:before,
-.btn-3:after {
-    position: absolute;
-    content: "";
-    right: 0;
-    top: 0;
-    background: rgba(2,126,251,1);
-    transition: all 0.3s ease;
-}
-
 .btn-3:before {
     height: 0%;
     width: 2px;
@@ -91,47 +81,7 @@ tr:hover td {
 }
 
 .btn-3:hover {
-    background: transparent;
-    box-shadow: none;
-    color:black;
-}
-
-.btn-3:hover:before {
-    height: 100%;
-}
-
-.btn-3:hover:after {
-    width: 100%;
-}
-
-.btn-3 span:hover {
-    color: rgba(2,126,251,1);
-}
-
-.btn-3 span:before,
-.btn-3 span:after {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: 0;
-    background: rgba(2,126,251,1);
-    transition: all 0.3s ease;
-}
-
-.btn-3 span:before {
-    width: 2px;
-    height: 0%;
-}
-
-.btn-3 span:after {
-    width: 0%;
-    height: 2px;
-}
-
-.btn-3 span:hover:before {
-    height: 100%;
-}
-
-.btn-3 span:hover:after {
-    width: 100%;
+    background: #FFF6EC;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    color: black;
 }
