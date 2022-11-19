@@ -10,54 +10,57 @@
     IList<DiscountCode>? Discounts = SessionHelper.GetObjectFromJson<IList<DiscountCode>>(HttpContext.Session, "discounts");
 }
 
+<meta charset="UTF-8">
+
 <head>
-    <link rel="stylesheet" href="/css/admin.css"/>
+    <link rel="stylesheet" href="/css/admin.css" />
 </head>
 
 <h1 id="admin">All Users</h1>
 
 <form method="post">
     <table class="table-fill">
-    <tr>
-        <th>CustomerID</th>
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>EmailAddress</th>
-        <th>PhoneNumber</th>
-        <th>LoginTypeId</th>
-        <th>Action</th>
-    </tr>
+        <tr>
+            <th>CustomerID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>EmailAddress</th>
+            <th>PhoneNumber</th>
+            <th>LoginTypeId</th>
+            <th>Action</th>
+        </tr>
 
-    @if(Customers != null)
-    {
-        @foreach (var c in Customers) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => c.CustomerId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => c.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => c.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => c.LoginCredentials.EmailAddress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => c.PhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => c.LoginTypeId)
-                </td>
-                <td>
-                    <Button class="custom-btn btn-3" asp-page-handler="CustomerEdit" asp-route-bindCustId="@c.CustomerId">Edit</Button>
-                    <Button class="custom-btn btn-3" asp-page-handler="CustomerDelete" asp-route-bindCustId="@c.CustomerId">Delete</Button>
-                </td>
-            </tr>
+        @if (Customers != null)
+        {
+            @foreach (var c in Customers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => c.CustomerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => c.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => c.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => c.LoginCredentials.EmailAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => c.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => c.LoginTypeId)
+                    </td>
+                    <td>
+                        <Button class="custom-btn btn-3" asp-page-handler="CustomerEdit" asp-route-bindCustId="@c.CustomerId"> &#9999; </Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="CustomerDelete" asp-route-bindCustId="@c.CustomerId"> &#10060; </Button>
+                    </td>
+                </tr>
+            }
         }
-    }
-</table>
+    </table>
 
 </form>
 <div class="container border" style="padding:20px">
@@ -180,8 +183,8 @@
                         @Html.DisplayFor(modelItem => i.PROD_CATEGORY)
                     </td>
                     <td>
-                        <Button class="custom-btn btn-3" asp-page-handler="MenuItemEdit" asp-route-bindItemId="@i.PROD_ID">Edit</Button>
-                        <Button class="custom-btn btn-3" asp-page-handler="MenuItemDelete" asp-route-bindItemId="@i.PROD_ID">Delete</Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="MenuItemEdit" asp-route-bindItemId="@i.PROD_ID">&#9999;</Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="MenuItemDelete" asp-route-bindItemId="@i.PROD_ID">&#10060;</Button>
                     </td>
                 </tr>
 
@@ -351,7 +354,7 @@
                         @Html.DisplayFor(modelItem => o.ORDER_DATE)
                     </td>
                     <td>
-                        <Button class="custom-btn btn-3" asp-page-handler="OrderDelete" asp-route-bindOrderId="@o.ORDER_ID">Delete</Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="OrderDelete" asp-route-bindOrderId="@o.ORDER_ID">&#10060;</Button>
                     </td>
                 </tr>
 
@@ -363,7 +366,7 @@
 
 
 
-<form method="post" >
+<form method="post">
     <table class="table-fill">
         <tr>
             <th>Discount Code ID</th>
@@ -396,7 +399,7 @@
                     </td>
 
                     <td>
-                        <Button class="custom-btn btn-3" asp-page-handler="DiscountCodeDelete" asp-route-bindDiscountId="@d.DiscountId">Delete</Button>
+                        <Button class="custom-btn btn-3" asp-page-handler="DiscountCodeDelete" asp-route-bindDiscountId="@d.DiscountId">&#10060;</Button>
                     </td>
                 </tr>
 
@@ -406,7 +409,7 @@
 
 </form>
 
-                        
+
 <div class="container border" style="padding:20px">
     <form method="post" asp-page-handler="AddDiscountCode" enctype="multipart/form-data">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
