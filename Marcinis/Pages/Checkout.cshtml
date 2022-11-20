@@ -1,8 +1,10 @@
 ﻿@page
 @using Marcinis.Helpers
+@using Marcinis.Models
 @model Marcinis.Pages.CheckoutModel
 @{
     ViewData["Title"] = "Checkout";
+    Dictionary<string, string> OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? new Dictionary<string, string>();
 }
 
 <link rel="stylesheet" href="css/checkout.css">
@@ -49,9 +51,42 @@
         <div class="column-custom">
             <div class="form sign-in">
                 <h1 class="header">Cart</h1>
-                <!--Bring in the items from the order page to be shown in this section. Add functionality to remove them-->
-                <div class="items-ordered">@Model.CustomerOrder.ORDER_ITEMS.Keys
+
+                <!--Div to hold the Cart information (item ordered, price, quantity)-->
+                <div class="items-ordered">
+                    <div class="row">
+                        <div class="col">
+                            @{
+                                <!--Loop through the CustomerOrder.ORDER_ITEM.Values to obtain the product quantities and display them-->
+                                var orderProdQuantity = Model.CustomerOrder.ORDER_ITEMS.Values;
+                                foreach (int value in orderProdQuantity)
+                                {
+                                    <p>@value</p>
+                                }
+                            }
+                        </div>
+                        <div class="col">
+                            <!--Loop through the CustomerOrder.ORDER_ITEM.Keys to obtain the product names and display them-->
+                            @{
+                                var orderProdNames = Model.CustomerOrder.ORDER_ITEMS.Keys;
+                                foreach (string key in orderProdNames)
+                                {
+                                    <p>@key</p>
+                                }
+                            }
+                        </div>
+                        <div class="col">
+                            <!--Obtain the product prices to display them-->
+                            @{
+                                var itemValues = Model.itemPairValues.Values;
+                                foreach (decimal itemValue in itemValues) {
+                                    <p>@itemValue</p>
+                                }
+                            }
+                        </div>
+                    </div>
                 </div>
+
                 <div class="cart-total">
                     <p>
                         <span>Subtotal</span>

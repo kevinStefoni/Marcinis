@@ -27,6 +27,9 @@ namespace Marcinis.Pages
         [CreditCardExpiry]
         public string? CardExpiry { get; set; }
 
+        public Dictionary<string, decimal> itemPairValues { get; set; } = new Dictionary<string, decimal>();
+
+
         public IList<SelectListItem> AvailableTimes { get; set; } = new List<SelectListItem>();
         public void OnGet()
         {
@@ -88,7 +91,6 @@ namespace Marcinis.Pages
             Customer Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? new Customer();
             CustomerOrder.ORDER_CUST_ID = Customer.CustomerId;
             menu = DAL.GetMenu() ?? menu;
-            Dictionary<string, decimal> itemPairValues = new Dictionary<string, decimal>();
             decimal TEXAS_TAX_RATE = .0825m;
 
             // iterate through menu and add the product name and price to dictionary "itemPairValues"
@@ -101,7 +103,7 @@ namespace Marcinis.Pages
             }
                   
 
-            // add all items that Customer selected with their respective quantities to CustomerOrder
+            // add all items that Customer selected with their respective quantities to CustomerOrder and calculate ORDER_SUBTOTAL
             Dictionary<string, string> OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? new Dictionary<string, string>();
             foreach (string items in OrderDetails.Keys)
             {
@@ -112,11 +114,8 @@ namespace Marcinis.Pages
                         CustomerOrder.ORDER_ITEMS[items] = temp;
                         CustomerOrder.ORDER_SUBTOTAL += CustomerOrder.ORDER_ITEMS[items] * itemPairValues[items];
                     }
-
                 }
             }
-
-            
 
             // calculate the ORDER_TAX amount by mulitplying the subtotal by the tax rate and update CustomerOrder
             CustomerOrder.ORDER_TAX = CustomerOrder.ORDER_SUBTOTAL * TEXAS_TAX_RATE;
