@@ -96,24 +96,28 @@
                                         <div class="card-body">
                                             <h5 class="card-title">@item.PROD_NAME</h5>
                                             <p class="card-text">@item.PROD_DESC</p>
-                                            <p>@item.PROD_QOH left</p>
+                                            @if (item.PROD_QOH > 0)
+                                            {
+                                                <p>@item.PROD_QOH left</p>
+                                            }
+                                            else
+                                            {
+                                                <p>Out of stock!</p>
+                                            }
                                             <div class="form-group">
                                                 <div class="col-md-2">
-                                                    @if (item.PROD_NAME != null && !Model.OrderDetails.ContainsKey(item.PROD_NAME))
+                                                    @if (item.PROD_NAME != null)
                                                     {
-                                                        Model.OrderDetails.Add(item.PROD_NAME, "0");
+                                                        @if (!Model.OrderDetails.ContainsKey(item.PROD_NAME))
+                                                        {
+                                                            Model.OrderDetails.Add(item.PROD_NAME, "0");
+                                                        }
+                                                        
                                                     }
                                                     @if (item.PROD_NAME != null)
                                                     {
-                                                        @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], new List<SelectListItem>
-                                                        {
-                                                            new SelectListItem {Text = "0", Value = "0" },
-                                                            new SelectListItem {Text = "1", Value = "1" },
-                                                            new SelectListItem {Text = "2", Value = "2" },
-                                                            new SelectListItem {Text = "3", Value = "3" },
-                                                            new SelectListItem {Text = "4", Value = "4" },
-                                                            new SelectListItem {Text = "5", Value = "5" },
-                                                        }, new { onchange = "this.form.submit();" , @class = "form-control" })
+                                                        @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], 
+                                                            Model.AllAvailableQuantities[item.PROD_NAME], new { onchange = "this.form.submit();" , @class = "form-control" })
                                                     }
                                                 </div>
                                                 <span id="prodPrice"><strong>$@item.PROD_PRICE</strong></span>
