@@ -69,26 +69,26 @@
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <!-- Customer ID -->
-        <input type="text" asp-for="cust.CustomerId" class="TextInput" placeholder="Customer ID" />
+        <input type="text" asp-for="cust.CustomerId" placeholder="Customer ID" />
 
         <!-- First Name -->
-        <input type="text" asp-for="cust.FirstName" class="TextInput" placeholder="First Name"/>
+        <input type="text" asp-for="cust.FirstName" placeholder="First Name"/>
 
         <!-- Last Name -->
-        <input type="text" asp-for="cust.LastName" class="TextInput" placeholder="Last Name"/>
+        <input type="text" asp-for="cust.LastName" placeholder="Last Name"/>
 
         <!-- Email Address -->
-        <input type="text" asp-for="cust.LoginCredentials.EmailAddress" class="TextInput" placeholder="Email Address"/>
+        <input type="text" asp-for="cust.LoginCredentials.EmailAddress" placeholder="Email Address"/>
 
         <!-- Phone Number -->
-        <input type="text" asp-for="cust.PhoneNumber" class="TextInput" placeholder="Phone Number"/>
+        <input type="text" asp-for="cust.PhoneNumber" placeholder="Phone Number"/>
 
         <!-- Password -->
-        <input type="password" asp-for="cust.LoginCredentials.Password" class="TextInput" placeholder="Password"/>
+        <input type="password" asp-for="cust.LoginCredentials.Password" placeholder="Password"/>
         <span asp-validation-for="cust.LoginCredentials.Password" class="text-danger"></span>
 
         <!-- Login Type ID -->
-        <input type="text" asp-for="cust.LoginTypeId" class="TextInput" placeholder="Login Type Id" />
+        <input type="text" asp-for="cust.LoginTypeId" placeholder="Login Type Id" />
 
         <!-- submit bt -->
         <input class="submitBT" type="submit" value="Add Customer"/>
@@ -151,100 +151,41 @@
 
 <div></div>
 
-<div class="container border" style="padding:20px">
-    <form method="post" asp-page-handler="AddMenuItem" enctype="multipart/form-data">
+<div class="container" style="padding:20px">
+    
+    <form method="post" class="adminForm" asp-page-handler="AddMenuItem" enctype="multipart/form-data">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <!-- Product ID -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.PROD_ID">Product ID:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="item.PROD_ID" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="item.PROD_ID" placeholder="Product ID" />
 
 
         <!-- Product Name -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.PROD_NAME">Product Name:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="item.PROD_NAME" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="item.PROD_NAME" placeholder="Product Name" />
 
         <!-- Product Description -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.PROD_DESC">Product Description:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="item.PROD_DESC" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="item.PROD_DESC" placeholder="Product Description" />
 
         <!-- Product Type -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.PROD_TYPE">Product Type:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="item.PROD_TYPE" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="item.PROD_TYPE" placeholder="Product Type" />
 
         <!-- Product Price -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.PROD_PRICE">Product Price:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="item.PROD_PRICE" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="item.PROD_PRICE" placeholder="Product Price" />
 
         <!-- Product Quantity on Hand -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.PROD_QOH">Product Initial Quantity on Hand:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="item.PROD_QOH" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="item.PROD_QOH" placeholder="Product Quantity on Hand" />
 
         <!-- Product Category -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.PROD_CATEGORY">Product Category:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="item.PROD_CATEGORY" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="item.PROD_CATEGORY" placeholder="Product Category" />
 
         <!-- Product Image -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="item.ImageFile">Upload Product Image:</label>
-            </div>
-            <div class="col-3">
-                <input type="file" asp-for="item.ImageFile" class="form-control" style="width: 250px; margin: 2px" />
-                <span asp-validation-for="item.ImageFile" class="text-danger"></span>
-            </div>
-        </div>
+        <input type="file" asp-for="item.ImageFile" placeholder="Product Image" />
+        <span asp-validation-for="item.ImageFile" class="text-danger"></span>
 
         <!-- submit bt -->
-        <div class="form-group row">
-            <div class="col-1">
-                <input type="submit" class="btn btn-primary" value="Add Item" />
-            </div>
-        </div>
-
+        <input type="submit" class="submitBT" value="Add Item" />
     </form>
+
 </div>
 
 <form method="post">
@@ -363,56 +304,24 @@
 </form>
 
 
-<div class="container border" style="padding:20px">
-    <form method="post" asp-page-handler="AddDiscountCode" enctype="multipart/form-data">
+<div class="container" style="padding:20px">
+    <form method="post" class="adminForm" asp-page-handler="AddDiscountCode" enctype="multipart/form-data">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <!-- Discount Code -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="disc.Code">Discount Code:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="disc.Code" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="disc.Code" placeholder="Discount Code" />
 
         <!-- Percentage Off -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="disc.Percentage">Percentage Off:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="disc.Percentage" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="disc.Percentage" placeholder="Percentage Off" />
 
         <!-- Start Date -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="disc.StartDate">Start Date:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="disc.StartDate" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="disc.StartDate" placeholder="Start Date" />
 
         <!-- End Date -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="disc.EndDate">End Date:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="disc.EndDate" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="disc.EndDate" placeholder="End Date" />
 
         <!-- submit bt -->
-        <div class="form-group row">
-            <div class="col-1">
-                <input type="submit" class="btn btn-primary" value="Add Discount Code" />
-            </div>
-        </div>
+        <input type="submit" class="submitBT" value="Add Discount Code" />
 
     </form>
 </div>
