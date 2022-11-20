@@ -63,84 +63,37 @@
     </table>
 
 </form>
-<div class="container border" style="padding:20px">
-    <form method="post" asp-page-handler="AddCustomer" enctype="multipart/form-data">
+<div class="container" style="padding:20px">
+    
+    <form method="post" class="adminForm" asp-page-handler="AddCustomer" enctype="multipart/form-data">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <!-- Customer ID -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="cust.CustomerId">Customer ID:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="cust.CustomerId" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="cust.CustomerId" class="TextInput" placeholder="Customer ID" />
 
         <!-- First Name -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="cust.FirstName">First Name:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="cust.FirstName" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="cust.FirstName" class="TextInput" placeholder="First Name"/>
 
         <!-- Last Name -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="cust.LastName">Last Name:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="cust.LastName" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="cust.LastName" class="TextInput" placeholder="Last Name"/>
 
         <!-- Email Address -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="cust.LoginCredentials.EmailAddress">Email Address:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="cust.LoginCredentials.EmailAddress" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="cust.LoginCredentials.EmailAddress" class="TextInput" placeholder="Email Address"/>
 
         <!-- Phone Number -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="cust.PhoneNumber">Phone Number:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="cust.PhoneNumber" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="cust.PhoneNumber" class="TextInput" placeholder="Phone Number"/>
 
-        <label>
-            <span>Password</span>
-            <input type="password" asp-for="cust.LoginCredentials.Password" />
-            <p><span asp-validation-for="cust.LoginCredentials.Password" class="text-danger"></span></p>
-        </label>
+        <!-- Password -->
+        <input type="password" asp-for="cust.LoginCredentials.Password" class="TextInput" placeholder="Password"/>
+        <span asp-validation-for="cust.LoginCredentials.Password" class="text-danger"></span>
 
         <!-- Login Type ID -->
-        <div class="form-group row" style="margin-bottom:15px">
-            <div class="col-1">
-                <label asp-for="cust.LoginTypeId">Login Type Id:</label>
-            </div>
-            <div class="col-3">
-                <input type="text" asp-for="cust.LoginTypeId" class="form-control" style="width: 250px; margin: 2px" />
-            </div>
-        </div>
+        <input type="text" asp-for="cust.LoginTypeId" class="TextInput" placeholder="Login Type Id" />
 
         <!-- submit bt -->
-        <div class="form-group row">
-            <div class="col-1">
-                <input type="submit" class="btn btn-primary" value="Add Customer" />
-            </div>
-        </div>
-
+        <input class="submitBT" type="submit" value="Add Customer"/>
     </form>
+
 </div>
 
 <form method="post">
