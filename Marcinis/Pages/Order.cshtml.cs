@@ -3,6 +3,7 @@ using Marcinis.Models;
 using Marcinis.DAL;
 using Marcinis.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Marcinis.Pages
 {
@@ -19,8 +20,8 @@ namespace Marcinis.Pages
 
         public IList<MenuItem> menu = new List<MenuItem>();
         public IList<string> categories = new List<string>();
-        
 
+        public Dictionary<string, IList<SelectListItem>> AllAvailableQuantities { get; set; } = new Dictionary<string, IList<SelectListItem>>();
         public void OnGet()
         {
             ViewData["DISPLAY"] = "POST";
@@ -43,6 +44,7 @@ namespace Marcinis.Pages
             // save the categories for use in the frontend, when the page has to be remade after POST
             SessionHelper.SetObjectAsJson(HttpContext.Session, "categories", categories);
 
+            GetQuantities();
         }
 
         public void OnPost()
@@ -60,6 +62,7 @@ namespace Marcinis.Pages
             // save the menu for use in the frontend, when the page has to be remade after POST
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
 
+            GetQuantities();
         }
 
         public void OnPostSearch()
@@ -91,6 +94,8 @@ namespace Marcinis.Pages
                     categories.Add(item.PROD_CATEGORY);
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "categories", categories);
+
+            GetQuantities();
         }
 
         public void OnPostSortByPrice()
@@ -104,6 +109,8 @@ namespace Marcinis.Pages
             menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu") ?? menu;
             menu = menu.OrderBy(o => o.PROD_PRICE).ToList();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
+
+            GetQuantities();
         }
 
         public void OnPostSortByAvailability()
@@ -117,10 +124,25 @@ namespace Marcinis.Pages
             menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu") ?? menu;
             menu = menu.OrderBy(o => -1 * o.PROD_QOH).ToList();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
+
+            GetQuantities();
         }
 
 
+        public void GetQuantities()
+        {
+            IList<SelectListItem> AvailableQuantities;
 
+            AllAvailableQuantities.Clear();
+            foreach (MenuItem m in menu)
+            {
+                AvailableQuantities = new List<SelectListItem>();
+                for (int i = 0; i <= m.PROD_QOH && i <= 5; i++)
+                    AvailableQuantities.Add(new SelectListItem(i.ToString(), i.ToString()));
+                if(m.PROD_NAME != null)
+                    AllAvailableQuantities.Add(m.PROD_NAME, AvailableQuantities);
+            }
+        }
 
 
     }
