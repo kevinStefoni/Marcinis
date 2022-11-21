@@ -55,35 +55,12 @@
                 <!--Div to hold the Cart information (item ordered, price, quantity)-->
                 <div class="items-ordered">
                     <div class="row">
-                        <div class="col">
-                            @{
-                                <!--Loop through the CustomerOrder.ORDER_ITEM.Values to obtain the product quantities and display them-->
-                                var orderProdQuantity = Model.CustomerOrder.ORDER_ITEMS.Values;
-                                foreach (int value in orderProdQuantity)
-                                {
-                                    <p>@value</p>
-                                }
-                            }
-                        </div>
-                        <div class="col">
-                            <!--Loop through the CustomerOrder.ORDER_ITEM.Keys to obtain the product names and display them-->
-                            @{
-                                var orderProdNames = Model.CustomerOrder.ORDER_ITEMS.Keys;
-                                foreach (string key in orderProdNames)
-                                {
-                                    <p>@key</p>
-                                }
-                            }
-                        </div>
-                        <div class="col">
-                            <!--Obtain the product prices to display them-->
-                            @{
-                                var itemValues = Model.itemPairValues.Values;
-                                foreach (decimal itemValue in itemValues) {
-                                    <p>@itemValue</p>
-                                }
-                            }
-                        </div>
+                        @foreach(string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
+                        {
+                            decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
+                            <p class="split-para"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong> @item <span>$@itemsPrice</span></p>
+                            
+                        }
                     </div>
                 </div>
 
