@@ -76,7 +76,13 @@
                             // check if the item is in the category currently being populated
                             if (item.PROD_CATEGORY != null && item.PROD_CATEGORY.Equals(category))
                             {
+                               
+                                var PTAG = item.PROD_NAME?.Replace(" ", "");
+                                PTAG = PTAG?.Replace("'", "");
+                                
+                                
                                 <div class="col-md-3">
+                                    <p style="visibility: hidden; transform: translateY(-15px);" id="@PTAG">-</p>
                                     <div id="genCard" class="card" style="width: 18rem;">
                                         <div class="bg-image">
                                             @{
@@ -116,8 +122,8 @@
                                                     }
                                                     @if (item.PROD_NAME != null)
                                                     {
-                                                        @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME], 
-                                                            Model.AllAvailableQuantities[item.PROD_NAME], new { onchange = "this.form.submit();" , @class = "form-control" })
+                                                        @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME],
+                                Model.AllAvailableQuantities[item.PROD_NAME], new { onchange = "location.href='#" + @PTAG + "';this.form.submit();", @class = "form-control" })
                                                     }
                                                 </div>
                                                 <span id="prodPrice"><strong>$@item.PROD_PRICE</strong></span>
