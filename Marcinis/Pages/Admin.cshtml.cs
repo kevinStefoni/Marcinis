@@ -47,6 +47,9 @@ namespace Marcinis.Pages
         [BindProperty]
         public int bindDiscountId { get; set; }
 
+        [BindProperty]
+        public string? CustSortType { get; set; }
+
         public void OnGet()
         {
             customer = customerRepo.GetAllCustomers();
@@ -57,6 +60,11 @@ namespace Marcinis.Pages
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "orders", orders);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "discounts", discounts);
+        }
+
+        public void OnPost()
+        {
+            OnGet();
         }
 
         public ActionResult OnPostAddMenuItem()
@@ -190,6 +198,60 @@ namespace Marcinis.Pages
                     item.PROD_CATEGORY = i.PROD_CATEGORY;
                 }
             }
+        }
+
+        public void OnPostSortCustomers()
+        {
+
+            switch(CustSortType)
+            {
+                case "customerid":
+                    ViewData["ADMIN_DISPLAY"] = "customerid";
+                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
+                    customer = customer.OrderBy(c => c.CustomerId).ToList();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
+                    break;
+
+                case "firstname":
+                    ViewData["ADMIN_DISPLAY"] = "firstname";
+                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
+                    customer = customer.OrderBy(c => c.FirstName).ToList();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
+                    break;
+
+                case "lastname":
+                    ViewData["ADMIN_DISPLAY"] = "lastname";
+                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
+                    customer = customer.OrderBy(c => c.LastName).ToList();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
+                    break;
+
+                case "emailaddress":
+                    ViewData["ADMIN_DISPLAY"] = "emailaddress";
+                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
+                    customer = customer.OrderBy(c => c.LoginCredentials.EmailAddress).ToList();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
+                    break;
+
+                case "phonenumber":
+                    ViewData["ADMIN_DISPLAY"] = "phonenumber";
+                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
+                    customer = customer.OrderBy(c => c.PhoneNumber).ToList();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
+                    break;
+
+                case "logintype":
+                    ViewData["ADMIN_DISPLAY"] = "logintype";
+                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
+                    customer = customer.OrderBy(c => c.LoginTypeId).ToList();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
+                    break;
+
+
+
+            }
+
+
         }
     }
 }

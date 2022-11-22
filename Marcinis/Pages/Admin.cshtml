@@ -21,15 +21,68 @@
 <form method="post">
     <table class="table-fill">
         <tr>
-            <th>CustomerID</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>EmailAddress</th>
-            <th>PhoneNumber</th>
-            <th>LoginTypeId</th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "customerid")
+                {
+                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="customerid" class="sort">&nbsp;<strong>Customer ID&nbsp;</strong></button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Customer ID</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "firstname")
+                {
+                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="firstname" class="sort">&nbsp;<strong>First Name</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>First Name</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "lastname")
+                {
+                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="lastname" class="sort">&nbsp;<strong>Last Name</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Last Name</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "emailaddress")
+                {
+                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="emailaddress" style="width: 100%; margin-left: -10px; margin-right: -8px;" class="sort">&nbsp;<strong>Email Address</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton" style="width: 100%; margin-left: -10px; margin-right: -10px;">&nbsp;<strong>Email Address</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "phonenumber")
+                {
+                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="phonenumber" class="sort">&nbsp;<strong>Phone Number</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Phone Number</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "logintype")
+                {
+                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="logintype" class="sort">&nbsp;<strong>Login Type</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Login Type</strong>&nbsp;</button>
+                }
+            </th>
             <th>Action</th>
         </tr>
-
         @if (Customers != null)
         {
             @foreach (var c in Customers)
