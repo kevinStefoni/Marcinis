@@ -4,7 +4,7 @@
 @model Marcinis.Pages.CheckoutModel
 @{
     ViewData["Title"] = "Checkout";
-    Dictionary<string, string> OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? new Dictionary<string, string>();
+    Model.RetrieveInformation();
 }
 
 <link rel="stylesheet" href="css/checkout.css">
@@ -17,12 +17,14 @@
                 <form method="post">
                     <h1 class="header">Customer Information</h1>
                     <div>
-                        @if(Model.Customer != null) {
+                        @if (Model.Customer != null)
+                        {
                             <p style="text-align:center">Name: @Model.Customer.FirstName @Model.Customer.LastName</p>
                             <p style="text-align:center">Phone Number: @Model.Customer.PhoneNumber</p>
                             <p style="text-align:center">Email: @Model.Customer.LoginCredentials.EmailAddress</p>
                         }
-                        else {
+                        else
+                        {
                             <p style="text-align:center">GUEST CHECKOUT</p>
                         }
                     </div>
@@ -36,22 +38,22 @@
                     <h1 class="header">Payment Information</h1>
                     <label>
                         <span>Credit Card Number</span>
-                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" placeholder="#### #### #### ####"/>
+                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" placeholder="#### #### #### ####" />
                         <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" class="text-danger"></span></p>
                     </label>
                     <label>
                         <span>Expiration Date</span>
-                        <input type="text" asp-for="CardExpiry" placeholder="##/##"/>
+                        <input type="text" asp-for="CardExpiry" placeholder="##/##" />
                         <p><span asp-validation-for="CardExpiry" class="text-danger"></span></p>
                     </label>
                     <label>
                         <span>CVV</span>
-                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" placeholder="###"/>
+                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" placeholder="###" />
                         <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" class="text-danger"></span></p>
                     </label>
                     <label>
                         <span>Zip Code</span>
-                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" placeholder="#####"/>
+                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" placeholder="#####" />
                         <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" class="text-danger"></span></p>
                     </label>
 
@@ -68,7 +70,7 @@
                 <!--Div to hold the Cart information (item ordered, price, quantity)-->
                 <div class="items-ordered">
                     <div class="row">
-                        @foreach(string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
+                        @foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
                         {
                             decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
                             <p class="split-para"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong> @item <span>$@itemsPrice</span></p>

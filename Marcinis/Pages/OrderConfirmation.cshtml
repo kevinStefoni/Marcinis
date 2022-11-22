@@ -12,26 +12,16 @@
 
     <div class="row body">
 
-        <div class="col"> <!--This is the beginning of the left column that will hold the thank you message and pickup location/time-->
+        <div class="col">
+            <!--This is the beginning of the left column that will hold the thank you message and pickup location/time-->
             <div class="row left-column">
-                @if (Model.Customer != null)
-                {
-                    <div col>
-                        <h1 class="header">Grazie @Model.Customer.FirstName!</h1>
-                        <hr>
-                        <p>Order #@Model.CustomerOrder.ORDER_ID</p> <!--FIX ME FIX ME-->
-                        <hr>
-                        <p>A confirmation email has been sent to @Model.Customer.LoginCredentials.EmailAddress</p>
-                    </div>
-
-                }
-                else {
-                    <div col>
-                        <h1 class="header">Grazie!</h1>
-                        <hr>
-                        <p>Order #@Model.CustomerOrder.ORDER_ID</p> <!--FIX ME IS THIS NOT WORKING BECAUSE I AM NOT POSTING ORDERS? FIX ME-->
-                    </div>
-                }
+                <div col>
+                    <h1 class="header">Grazie, @Model.Customer?.FirstName!</h1>
+                    <hr>
+                    <p>Order #@Model.CustomerOrder?.ORDER_ID</p>
+                    <hr>
+                    <p>A confirmation email has been sent to @Model.Customer?.LoginCredentials.EmailAddress</p>
+                </div>
             </div>
             &nbsp;
 
@@ -44,7 +34,7 @@
                     <div class="row">
                         <div class="col-sm-1">
                             <img src="~/images/Location-icon.png" height="75px" width="75px">
-                            </div>
+                        </div>
                         <div class="col" style="padding-left:45px">
                             <p>Location</p>
                             <p>2903 N Loop 1604 E</p>
@@ -60,8 +50,7 @@
                         </div>
                         <div class="col" style="padding-left:45px">
                             <p>Pickup Time</p>
-                            <p>@Model.CustomerOrder.ORDER_PICKUP_TIME</p>
-                            <!--FIX ME GET PICKUP TIME WORKING-->
+                            <p>@Model.CustomerOrder?.ORDER_PICKUP_TIME</p>
                         </div>
                     </div>
                 </div>
@@ -69,36 +58,36 @@
 
         </div>
 
-        <div class="col"> <!--This is the beginning of the right column that will hold the details of the order (items ordered, price, etc.)-->
+        <div class="col">
+            <!--This is the beginning of the right column that will hold the details of the order (items ordered, price, etc.)-->
             <div class="right-column">
                 <h2 class="header">Order Details</h2>
                 <hr>
                 &nbsp;
 
-                <div><!--this will hold all of the order details and price and at bottom will have sub tax and total-->
-                    <!--Div to hold the Cart information (item ordered, price, quantity)-
+                <div>
                     <div class="items-ordered">
                         <div class="row">
-                            foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
+                            @foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
                             {
                                 decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
                                 <p class="split-para"><strong>Model.CustomerOrder.ORDER_ITEMS[item]</strong> item <span>$itemsPrice</span></p>
                             }
                         </div>
-                    </div>-->
+                    </div>
 
                     <div class="cart-total">
                         <p>
                             <span>Subtotal</span>
-                            <span>@Model.CustomerOrder.ORDER_SUBTOTAL</span>
+                            <span>$@String.Format("{0:.00}", Model.CustomerOrder?.ORDER_SUBTOTAL)</span>
                         </p>
                         <p>
                             <span>Tax</span>
-                            <span>@Model.CustomerOrder.ORDER_TAX</span>
+                            <span>$@String.Format("{0:.00}", Model.CustomerOrder?.ORDER_TAX)</span>
                         </p>
                         <p>
                             <span>Total</span>
-                            <span>@Model.CustomerOrder.ORDER_TOTAL</span>
+                            <span>$@String.Format("{0:.00}", Model.CustomerOrder?.ORDER_TOTAL)</span>
                         </p>
                     </div>
                 </div>

@@ -439,5 +439,51 @@ namespace Marcinis.DAL
             Console.WriteLine(ds);
         }
 
+        public void AddOrder(CustomerOrder custOrder)
+        {
+            string sql = "uspInsertOrder";
+
+            SqlParameter[] spParams =
+            {
+                new SqlParameter("@ORDER_CUST_ID", custOrder.ORDER_CUST_ID),
+                new SqlParameter("@ORDER_CREDIT_CARD_NUMBER", custOrder.ORDER_CREDIT_CARD_NUM),
+                new SqlParameter("@ORDER_CREDIT_CARD_CVV", custOrder.ORDER_CREDIT_CARD_CVV),
+                new SqlParameter("@ORDER_CREDIT_CARD_ZIP_CODE", custOrder.ORDER_CREDIT_CARD_ZIP_CODE),
+                new SqlParameter("@ORDER_CREDIT_CARD_EXP_MONTH", custOrder.ORDER_CREDIT_CARD_EXP_MONTH),
+                new SqlParameter("@ORDER_CREDIT_CARD_EXP_YEAR", custOrder.ORDER_CREDIT_CARD_EXP_YEAR),
+                new SqlParameter("@ORDER_PICKUP_TIME", custOrder.ORDER_PICKUP_TIME),
+                new SqlParameter("@ORDER_SUBTOTAL", custOrder.ORDER_SUBTOTAL),
+                new SqlParameter("@ORDER_TAX", custOrder.ORDER_TAX),
+                new SqlParameter("@ORDER_TOTAL", custOrder.ORDER_TOTAL),
+                new SqlParameter("@ORDER_DATE", custOrder.ORDER_DATE)
+            };
+
+            DataTable dt = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure).Tables[0];
+            DataRow dr = dt.Rows[0];
+            custOrder.ORDER_ID = Convert.ToInt32(dr.ItemArray[0]);
+            AddOrderItems(custOrder);
+        }
+
+        public void AddOrderItems(CustomerOrder custOrder)
+        {
+            foreach (var item in custOrder.ORDER_ITEMS)
+            {
+                string sql = $"SELECT PROD_ID FROM Inventory WHERE PROD_NAME = '{item.Key}'";
+                DataTable dt = DAL.ExecSqlGetDataSet(sql).Tables[0];
+                DataRow dr = dt.Rows[0];
+
+                sql = "uspInsertItemInOrder";
+
+                SqlParameter[] spParams =
+                {
+                    new SqlParameter("@ORDER_ID", custOrder.ORDER_ID),
+                    new SqlParameter("@PROD_ID", Convert.ToInt32(dr.ItemArray[0])),
+                    new SqlParameter("@QTY", Convert.ToInt32(item.Value))
+                };
+
+                DataSet ds = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure);
+            }
+        }
+
     }
 }

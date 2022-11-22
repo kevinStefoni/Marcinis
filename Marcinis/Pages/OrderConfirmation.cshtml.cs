@@ -15,7 +15,7 @@ namespace Marcinis.Pages
         public Dictionary<string, decimal> itemPairValues { get; set; } = new Dictionary<string, decimal>();
 
         [BindProperty]
-        public CustomerOrder? CustomerOrder { get; set; }
+        public CustomerOrder CustomerOrder { get; set; } = new CustomerOrder();
 
         public void OnGet()
         {
