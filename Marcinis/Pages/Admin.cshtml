@@ -24,7 +24,7 @@
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "customerid")
                 {
-                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="customerid" class="sort">&nbsp;<strong>Customer ID&nbsp;</strong></button>
+                    <button asp-page-handler="SortCustomers" asp-route-SortType="customerid" class="sort">&nbsp;<strong>Customer ID&nbsp;</strong></button>
                 }
                 else
                 {
@@ -34,7 +34,7 @@
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "firstname")
                 {
-                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="firstname" class="sort">&nbsp;<strong>First Name</strong>&nbsp;</button>
+                    <button asp-page-handler="SortCustomers" asp-route-SortType="firstname" class="sort">&nbsp;<strong>First Name</strong>&nbsp;</button>
                 }
                 else
                 {
@@ -44,7 +44,7 @@
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "lastname")
                 {
-                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="lastname" class="sort">&nbsp;<strong>Last Name</strong>&nbsp;</button>
+                    <button asp-page-handler="SortCustomers" asp-route-SortType="lastname" class="sort">&nbsp;<strong>Last Name</strong>&nbsp;</button>
                 }
                 else
                 {
@@ -54,7 +54,7 @@
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "emailaddress")
                 {
-                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="emailaddress" style="width: 100%; margin-left: -10px; margin-right: -8px;" class="sort">&nbsp;<strong>Email Address</strong>&nbsp;</button>
+                    <button asp-page-handler="SortCustomers" asp-route-SortType="emailaddress" style="width: 100%; margin-left: -10px; margin-right: -8px;" class="sort">&nbsp;<strong>Email Address</strong>&nbsp;</button>
                 }
                 else
                 {
@@ -64,7 +64,7 @@
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "phonenumber")
                 {
-                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="phonenumber" class="sort">&nbsp;<strong>Phone Number</strong>&nbsp;</button>
+                    <button asp-page-handler="SortCustomers" asp-route-SortType="phonenumber" class="sort">&nbsp;<strong>Phone Number</strong>&nbsp;</button>
                 }
                 else
                 {
@@ -74,7 +74,7 @@
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "logintype")
                 {
-                    <button asp-page-handler="SortCustomers" asp-route-CustSortType="logintype" class="sort">&nbsp;<strong>Login Type</strong>&nbsp;</button>
+                    <button asp-page-handler="SortCustomers" asp-route-SortType="logintype" class="sort">&nbsp;<strong>Login Type</strong>&nbsp;</button>
                 }
                 else
                 {
@@ -152,7 +152,16 @@
 <form method="post">
     <table class="table-fill">
         <tr>
-            <th>Product ID</th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "productid")
+                {
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productid" class="sort">&nbsp;<strong>Product ID</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Product ID</strong>&nbsp;</button>
+                }
+            </th>
             <th>Name</th>
             <th>Description</th>
             <th>Type</th>
@@ -286,7 +295,7 @@
                         @Html.DisplayFor(modelItem => o.ORDER_CREDIT_CARD_ZIP_CODE)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => o.ORDER_PICKUP_TIME)
+                        @Html.DisplayFor(modelItem => o.ORDER_PICKUP_TIME);
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => o.ORDER_SUBTOTAL)
@@ -339,10 +348,10 @@
                         @Html.DisplayFor(modelItem => d.Percentage)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => d.StartDate)
+                        @Html.DisplayFor(modelItem => d.StartDate);
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => d.EndDate)
+                        @Html.DisplayFor(modelItem => d.EndDate);
                     </td>
 
                     <td>

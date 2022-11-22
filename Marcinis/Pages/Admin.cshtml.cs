@@ -48,7 +48,7 @@ namespace Marcinis.Pages
         public int bindDiscountId { get; set; }
 
         [BindProperty]
-        public string? CustSortType { get; set; }
+        public string? SortType { get; set; }
 
         public void OnGet()
         {
@@ -203,7 +203,7 @@ namespace Marcinis.Pages
         public void OnPostSortCustomers()
         {
 
-            switch(CustSortType)
+            switch(SortType)
             {
                 case "customerid":
                     ViewData["ADMIN_DISPLAY"] = "customerid";
@@ -253,5 +253,25 @@ namespace Marcinis.Pages
 
 
         }
+        public void OnPostSortMenuItems()
+        {
+
+            switch (SortType)
+            {
+                case "productid":
+                    ViewData["ADMIN_DISPLAY"] = "productid";
+                    menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu") ?? menu;
+                    menu = menu.OrderBy(m => m.PROD_ID).ToList();
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
+                    break;
+
+
+
+
+            }
+
+
+        }
+
     }
 }
