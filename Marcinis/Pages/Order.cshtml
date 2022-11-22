@@ -123,7 +123,7 @@
                                                     @if (item.PROD_NAME != null)
                                                     {
                                                         @Html.DropDownListFor(m => Model.OrderDetails[item.PROD_NAME],
-                                Model.AllAvailableQuantities[item.PROD_NAME], new { onchange = "location.href='#" + @PTAG + "';this.form.submit();", @class = "form-control" })
+                                                         Model.AllAvailableQuantities[item.PROD_NAME], new { onchange = "location.href='#" + @PTAG + "';this.form.submit();", @class = "form-control" })
                                                     }
                                                 </div>
                                                 <span id="prodPrice"><strong>$@item.PROD_PRICE</strong></span>

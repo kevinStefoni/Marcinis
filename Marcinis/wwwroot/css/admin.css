@@ -12,7 +12,6 @@ th {
     background: #1b1e24;
     border-bottom: 4px solid #9ea7af;
     border-right: 1px solid #343a45;
-    padding: 5px;
     text-align: center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align: middle;
@@ -172,31 +171,28 @@ input:hover {
 }
 
 .clearbutton {
-
+    width: 103%;
     display: table-cell;
-    margin: -5px;
-    background: #A20016;
+    background: #800014;
     color: #D5DDE5;
     border-bottom: 4px solid #9ea7af;
     border-right: 1px solid #343a45;
     border-left: none;
     border-top: 1px;
-    padding: 5px;
     text-align: center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align: middle;
 }
 
 .sort {
+    width: 103%;
     display: table-cell;
-    margin: -5px;
     color: #D5DDE5;
     background: #1b1e24;
     border-bottom: 4px solid #9ea7af;
     border-right: 1px solid #343a45;
     border-left: none;
     border-top: 1px;
-    padding: 5px;
     text-align: center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align: middle;

@@ -19,7 +19,7 @@
 <h1 id="admin">All Users</h1>
 
 <form method="post">
-    <table class="table-fill">
+    <table class="table-fill" id="customerTable">
         <tr>
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "customerid")
@@ -28,7 +28,7 @@
                 }
                 else
                 {
-                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Customer ID</strong>&nbsp;</button>
+                    <button asp-page-handler="Customer" class="submit clearbutton">&nbsp;<strong>Customer ID</strong>&nbsp;</button>
                 }
             </th>
             <th>
@@ -38,7 +38,7 @@
                 }
                 else
                 {
-                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>First Name</strong>&nbsp;</button>
+                    <button asp-page-handler="Customer" class="submit clearbutton">&nbsp;<strong>First Name</strong>&nbsp;</button>
                 }
             </th>
             <th>
@@ -48,17 +48,17 @@
                 }
                 else
                 {
-                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Last Name</strong>&nbsp;</button>
+                    <button asp-page-handler="Customer" class="submit clearbutton">&nbsp;<strong>Last Name</strong>&nbsp;</button>
                 }
             </th>
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "emailaddress")
                 {
-                    <button asp-page-handler="SortCustomers" asp-route-SortType="emailaddress" style="width: 100%; margin-left: -10px; margin-right: -8px;" class="sort">&nbsp;<strong>Email Address</strong>&nbsp;</button>
+                    <button asp-page-handler="SortCustomers" asp-route-SortType="emailaddress" style="width: 100%;" class="sort">&nbsp;<strong>Email Address</strong>&nbsp;</button>
                 }
                 else
                 {
-                    <button asp-page-handler="" class="submit clearbutton" style="width: 100%; margin-left: -10px; margin-right: -10px;">&nbsp;<strong>Email Address</strong>&nbsp;</button>
+                    <button asp-page-handler="Customer" class="submit clearbutton" style="width: 100%; margin-left: -10px; margin-right: -10px;">&nbsp;<strong>Email Address</strong>&nbsp;</button>
                 }
             </th>
             <th>
@@ -68,7 +68,7 @@
                 }
                 else
                 {
-                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Phone Number</strong>&nbsp;</button>
+                    <button asp-page-handler="Customer" class="submit clearbutton">&nbsp;<strong>Phone Number</strong>&nbsp;</button>
                 }
             </th>
             <th>
@@ -78,7 +78,7 @@
                 }
                 else
                 {
-                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Login Type</strong>&nbsp;</button>
+                    <button asp-page-handler="Customer" class="submit clearbutton">&nbsp;<strong>Login Type</strong>&nbsp;</button>
                 }
             </th>
             <th>Action</th>
@@ -150,24 +150,78 @@
 </div>
 
 <form method="post">
-    <table class="table-fill">
+    <table class="table-fill" id="productTable">
         <tr>
             <th>
                 @if ((string?)ViewData["ADMIN_DISPLAY"] != "productid")
                 {
-                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productid" class="sort">&nbsp;<strong>Product ID</strong>&nbsp;</button>
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productid" class="sort prods">&nbsp;<strong>Product ID</strong>&nbsp;</button>
                 }
                 else
                 {
-                    <button asp-page-handler="" class="submit clearbutton">&nbsp;<strong>Product ID</strong>&nbsp;</button>
+                    <button asp-page-handler="Product" class="submit clearbutton">&nbsp;<strong>Product ID</strong>&nbsp;</button>
                 }
             </th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>QOH</th>
-            <th>Category</th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "productname")
+                {
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productname" class="sort">&nbsp;<strong>Product Name</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Product" class="submit clearbutton">&nbsp;<strong>Product Name</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "productdesc")
+                {
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productdesc" class="sort">&nbsp;<strong>Description</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Product" class="submit clearbutton">&nbsp;<strong>Description</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "producttype")
+                {
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="producttype" class="sort">&nbsp;<strong>Type</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Product" class="submit clearbutton">&nbsp;<strong>Type</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "productprice")
+                {
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productprice" class="sort">&nbsp;<strong>Price</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Product" class="submit clearbutton">&nbsp;<strong>Price</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "productqoh")
+                {
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productqoh" class="sort">&nbsp;<strong>Quantity</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Product" class="submit clearbutton">&nbsp;<strong>Quantity</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "productcategory")
+                {
+                    <button asp-page-handler="SortMenuItems" asp-route-SortType="productcategory" class="sort">&nbsp;<strong>Category</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Product" class="submit clearbutton">&nbsp;<strong>Category</strong>&nbsp;</button>
+                }
+            </th>
             <th>Action</th>
         </tr>
 
@@ -251,20 +305,118 @@
 </div>
 
 <form method="post">
-    <table class="table-fill">
+    <table class="table-fill" id="orderTable">
         <tr>
-            <th>Order ID</th>
-            <th>Customer ID</th>
-            <th>CC Number</th>
-            <th>CC CVV</th>
-            <th>CC Exp Month</th>
-            <th>CC Exp Year</th>
-            <th>CC Zip Code</th>
-            <th>Pickup Time</th>
-            <th>Sub Total</th>
-            <th>Tax</th>
-            <th>Total</th>
-            <th>Order Date</th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "orderid")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="orderid" class="sort">&nbsp;<strong>Order ID</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>ORDER ID</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "customerid")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="customerid" class="sort">&nbsp;<strong>Customer ID</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Customer ID</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "ccnumber")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="ccnumber" class="sort">&nbsp;<strong>Credit Card Number</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Credit Card Number</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "cccvv")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="cccvv" class="sort">&nbsp;<strong>CVV</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>CVV</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "ccexpirymonth")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="ccexpirymonth" class="sort">&nbsp;<strong>Expiration Month</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Expiration Month</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "ccexpiryyear")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="ccexpiryyear" class="sort">&nbsp;<strong>Expiration Year</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Expiration Year</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "cczipcode")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="cczipcode" class="sort">&nbsp;<strong>Zip Code</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Zip Code</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "orderpickuptime")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="orderpickuptime" class="sort">&nbsp;<strong>Pickup Time</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Pickup Time</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "ordersubtotal")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="ordersubtotal" class="sort">&nbsp;<strong>Subtotal</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Subtotal</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "ordertotal")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="ordertotal" class="sort">&nbsp;<strong>Total</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Total</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "orderdate")
+                {
+                    <button asp-page-handler="SortOrders" asp-route-SortType="orderdate" class="sort">&nbsp;<strong>Date</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Order" class="submit clearbutton">&nbsp;<strong>Date</strong>&nbsp;</button>
+                }
+            </th>
             <th>Action</th>
         </tr>
 
@@ -295,19 +447,16 @@
                         @Html.DisplayFor(modelItem => o.ORDER_CREDIT_CARD_ZIP_CODE)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => o.ORDER_PICKUP_TIME);
+                        <label>@o.ORDER_PICKUP_TIME.ToString("hh:mm")</label>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => o.ORDER_SUBTOTAL)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => o.ORDER_TAX)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => o.ORDER_TOTAL)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => o.ORDER_DATE)
+                        <label>@o.ORDER_DATE.ToString("d")</label>
                     </td>
                     <td>
                         <Button class="custom-btn btn-3" asp-page-handler="OrderDelete" asp-route-bindOrderId="@o.ORDER_ID">&#10060;</Button>
@@ -323,13 +472,58 @@
 
 
 <form method="post">
-    <table class="table-fill">
+    <table class="table-fill" id="discountTable">
         <tr>
-            <th>Discount Code ID</th>
-            <th>Customer Code</th>
-            <th>Percentage Off</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "discountid")
+                {
+                    <button asp-page-handler="SortDiscounts" asp-route-SortType="discountid" class="sort">&nbsp;<strong>Discount ID</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Discount ID</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "customercode")
+                {
+                    <button asp-page-handler="SortDiscounts" asp-route-SortType="customercode" class="sort">&nbsp;<strong>Discount Code</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Discount Code</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "percentoff")
+                {
+                    <button asp-page-handler="SortDiscounts" asp-route-SortType="percentoff" class="sort">&nbsp;<strong>Percent Off</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Percent Off</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "startdate")
+                {
+                    <button asp-page-handler="SortDiscounts" asp-route-SortType="startdate" class="sort">&nbsp;<strong>Start Date</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Start Date</strong>&nbsp;</button>
+                }
+            </th>
+            <th>
+                @if ((string?)ViewData["ADMIN_DISPLAY"] != "enddate")
+                {
+                    <button asp-page-handler="SortDiscounts" asp-route-SortType="enddate" class="sort">&nbsp;<strong>End Date</strong>&nbsp;</button>
+                }
+                else
+                {
+                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>End Date</strong>&nbsp;</button>
+                }
+            </th>
             <th>Action</th>
         </tr>
 
@@ -348,10 +542,10 @@
                         @Html.DisplayFor(modelItem => d.Percentage)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => d.StartDate);
+                        <label>@d.StartDate.ToString("d")</label>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => d.EndDate);
+                        <label>@d.EndDate.ToString("d")</label>
                     </td>
 
                     <td>
@@ -387,3 +581,42 @@
 
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+@if ((string?)ViewData["WHERETO"] == "customerTable")
+{
+    <script>
+        $(document).ready(function () {
+            location.href = '#customerTable';
+        });
+    </script>
+}
+else if((string?) ViewData["WHERETO"] == "productTable")
+{
+    <script>
+        $(document).ready(function () {
+            location.href = '#productTable';
+        });
+    </script>
+}
+else if ((string?)ViewData["WHERETO"] == "orderTable")
+{
+    <script>
+        $(document).ready(function () {
+            location.href = '#orderTable';
+        });
+    </script>
+}
+else if ((string?)ViewData["WHERETO"] == "discountTable")
+{
+    <script>
+        $(document).ready(function () {
+            location.href = '#discountTable';
+        });
+    </script>
+}
+
+
+
+
