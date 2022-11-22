@@ -19,9 +19,9 @@
                     <div col>
                         <h1 class="header">Grazie @Model.Customer.FirstName!</h1>
                         <hr>
-                        <p>Order #</p> <!--FIX ME Will need to get order number from order DAL FIX ME-->
+                        <p>Order #@Model.CustomerOrder.ORDER_ID</p> <!--FIX ME FIX ME-->
                         <hr>
-                        <!--<p>A confirmation email has been sent to EmailAddress</p>-->
+                        <p>A confirmation email has been sent to @Model.Customer.LoginCredentials.EmailAddress</p>
                     </div>
 
                 }
@@ -29,7 +29,7 @@
                     <div col>
                         <h1 class="header">Grazie!</h1>
                         <hr>
-                        <p>Order #</p> <!--FIX ME Will need to get order number from order DAL FIX ME-->
+                        <p>Order #@Model.CustomerOrder.ORDER_ID</p> <!--FIX ME IS THIS NOT WORKING BECAUSE I AM NOT POSTING ORDERS? FIX ME-->
                     </div>
                 }
             </div>
@@ -60,7 +60,8 @@
                         </div>
                         <div class="col" style="padding-left:45px">
                             <p>Pickup Time</p>
-                            <!--FIX ME ADD THE PICKUP DATE AND TIME FROM THE ORDER DAL-->
+                            <p>@Model.CustomerOrder.ORDER_PICKUP_TIME</p>
+                            <!--FIX ME GET PICKUP TIME WORKING-->
                         </div>
                     </div>
                 </div>
@@ -75,23 +76,29 @@
                 &nbsp;
 
                 <div><!--this will hold all of the order details and price and at bottom will have sub tax and total-->
+                    <!--Div to hold the Cart information (item ordered, price, quantity)-
                     <div class="items-ordered">
-                        <p>this will be a list of the items ordered</p>
-                        <p>item</p>
-                    </div>
+                        <div class="row">
+                            foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
+                            {
+                                decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
+                                <p class="split-para"><strong>Model.CustomerOrder.ORDER_ITEMS[item]</strong> item <span>$itemsPrice</span></p>
+                            }
+                        </div>
+                    </div>-->
 
                     <div class="cart-total">
                         <p>
                             <span>Subtotal</span>
-                            <span>420.00</span>
+                            <span>@Model.CustomerOrder.ORDER_SUBTOTAL</span>
                         </p>
                         <p>
                             <span>Tax</span>
-                            <span>0.69</span>
+                            <span>@Model.CustomerOrder.ORDER_TAX</span>
                         </p>
                         <p>
                             <span>Total</span>
-                            <span>420.69</span>
+                            <span>@Model.CustomerOrder.ORDER_TOTAL</span>
                         </p>
                     </div>
                 </div>

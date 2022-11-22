@@ -20,6 +20,10 @@ namespace Marcinis.Pages
         [BindProperty]
         public CustomerOrder CustomerOrder { get; set; } = new CustomerOrder();
 
+        [BindProperty]
+        public Customer? Customer { get; set; }
+
+
         public IList<MenuItem> menu = new List<MenuItem>();
 
         [BindProperty]
@@ -29,13 +33,16 @@ namespace Marcinis.Pages
 
         public Dictionary<string, decimal> itemPairValues { get; set; } = new Dictionary<string, decimal>();
 
-
         public IList<SelectListItem> AvailableTimes { get; set; } = new List<SelectListItem>();
+
         public void OnGet()
         {
             CustomerOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
+            Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer");
             RetrieveInformation();
+            //On get we are setting customer order but we are also doing that OnPost. is this causing a bug when returning to cart and total doubling
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "itemPairValues", itemPairValues);
             GetTimes();
         }
 
