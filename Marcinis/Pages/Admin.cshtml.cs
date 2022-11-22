@@ -200,78 +200,219 @@ namespace Marcinis.Pages
             }
         }
 
+        public void OnPostProduct()
+        {
+            OnGet();
+            ViewData["WHERETO"] = "productTable";
+        }
+
+        public void OnPostCustomer()
+        {
+            OnGet();
+            ViewData["WHERETO"] = "customerTable";
+        }
+
+        public void OnPostOrder()
+        {
+            OnGet();
+            ViewData["WHERETO"] = "orderTable";
+        }
+
+        public void OnPostDiscount()
+        {
+            OnGet();
+            ViewData["WHERETO"] = "discountTable";
+        }
+
         public void OnPostSortCustomers()
         {
-
-            switch(SortType)
+            ViewData["WHERETO"] = "customerTable";
+            customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
+            
+            switch (SortType)
             {
                 case "customerid":
                     ViewData["ADMIN_DISPLAY"] = "customerid";
-                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
                     customer = customer.OrderBy(c => c.CustomerId).ToList();
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
                     break;
 
                 case "firstname":
                     ViewData["ADMIN_DISPLAY"] = "firstname";
-                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
                     customer = customer.OrderBy(c => c.FirstName).ToList();
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
                     break;
 
                 case "lastname":
                     ViewData["ADMIN_DISPLAY"] = "lastname";
-                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
                     customer = customer.OrderBy(c => c.LastName).ToList();
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
                     break;
 
                 case "emailaddress":
                     ViewData["ADMIN_DISPLAY"] = "emailaddress";
-                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
                     customer = customer.OrderBy(c => c.LoginCredentials.EmailAddress).ToList();
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
                     break;
 
                 case "phonenumber":
                     ViewData["ADMIN_DISPLAY"] = "phonenumber";
-                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
                     customer = customer.OrderBy(c => c.PhoneNumber).ToList();
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
                     break;
 
                 case "logintype":
                     ViewData["ADMIN_DISPLAY"] = "logintype";
-                    customer = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers") ?? customer;
                     customer = customer.OrderBy(c => c.LoginTypeId).ToList();
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
                     break;
-
-
-
             }
 
-
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
         }
         public void OnPostSortMenuItems()
         {
+            ViewData["WHERETO"] = "productTable";
+            menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu") ?? menu;
 
             switch (SortType)
             {
                 case "productid":
                     ViewData["ADMIN_DISPLAY"] = "productid";
-                    menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu") ?? menu;
                     menu = menu.OrderBy(m => m.PROD_ID).ToList();
-                    SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
                     break;
 
+                case "productname":
+                    ViewData["ADMIN_DISPLAY"] = "productname";
+                    menu = menu.OrderBy(m => m.PROD_NAME).ToList();
+                    break;
 
+                case "productdesc":
+                    ViewData["ADMIN_DISPLAY"] = "productdesc";
+                    menu = menu.OrderBy(m => m.PROD_DESC).ToList();
+                    break;
 
+                case "producttype":
+                    ViewData["ADMIN_DISPLAY"] = "producttype";
+                    menu = menu.OrderBy(m => m.PROD_TYPE).ToList();
+                    break;
+
+                case "productprice":
+                    ViewData["ADMIN_DISPLAY"] = "productprice";
+                    menu = menu.OrderBy(m => m.PROD_PRICE).ToList();
+                    break;
+
+                case "productqoh":
+                    ViewData["ADMIN_DISPLAY"] = "productqoh";
+                    menu = menu.OrderBy(m => m.PROD_QOH).ToList();
+                    break;
+
+                case "productcategory":
+                    ViewData["ADMIN_DISPLAY"] = "productcategory";
+                    menu = menu.OrderBy(m => m.PROD_CATEGORY).ToList();
+                    break;
+            }
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
+        }
+
+        public void OnPostSortOrders()
+        {
+            ViewData["WHERETO"] = "orderTable";
+            orders = SessionHelper.GetObjectFromJson<IList<CustomerOrder>>(HttpContext.Session, "orders") ?? orders;
+
+            switch (SortType)
+            {
+                case "orderid":
+                    ViewData["ADMIN_DISPLAY"] = "orderid";
+                    orders = orders.OrderBy(o => o.ORDER_ID).ToList();
+                    break;
+
+                case "customerid":
+                    ViewData["ADMIN_DISPLAY"] = "customerid";
+                    orders = orders.OrderBy(o => o.ORDER_CUST_ID).ToList();
+                    break;
+
+                case "ccnumber":
+                    ViewData["ADMIN_DISPLAY"] = "ccnumber";
+                    orders = orders.OrderBy(o => o.ORDER_CREDIT_CARD_NUM).ToList();
+                    break;
+
+                case "cccvv":
+                    ViewData["ADMIN_DISPLAY"] = "cccvv";
+                    orders = orders.OrderBy(o => o.ORDER_CREDIT_CARD_CVV).ToList();
+                    break;
+
+                case "ccexpirymonth":
+                    ViewData["ADMIN_DISPLAY"] = "ccexpirymonth";
+                    orders = orders.OrderBy(o => o.ORDER_CREDIT_CARD_EXP_MONTH).ToList();
+                    break;
+
+                case "ccexpiryyear":
+                    ViewData["ADMIN_DISPLAY"] = "ccexpiryyear";
+                    orders = orders.OrderBy(o => o.ORDER_CREDIT_CARD_EXP_YEAR).ToList();
+                    break;
+
+                case "cczipcode":
+                    ViewData["ADMIN_DISPLAY"] = "cczipcode";
+                    orders = orders.OrderBy(o => o.ORDER_CREDIT_CARD_ZIP_CODE).ToList();
+                    break;
+
+                case "orderpickuptime":
+                    ViewData["ADMIN_DISPLAY"] = "orderpickuptime";
+                    orders = orders.OrderBy(o => o.ORDER_PICKUP_TIME).ToList();
+                    break;
+
+                case "ordersubtotal":
+                    ViewData["ADMIN_DISPLAY"] = "ordersubtotal";
+                    orders = orders.OrderBy(o => o.ORDER_SUBTOTAL).ToList();
+                    break;
+
+                case "ordertotal":
+                    ViewData["ADMIN_DISPLAY"] = "ordertotal";
+                    orders = orders.OrderBy(o => o.ORDER_TOTAL).ToList();
+                    break;
+
+                case "orderdate":
+                    ViewData["ADMIN_DISPLAY"] = "orderdate";
+                    orders = orders.OrderBy(o => o.ORDER_DATE).ToList();
+                    break;
 
             }
 
-
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "orders", orders);
         }
+
+        public void OnPostSortDiscounts()
+        {
+            ViewData["WHERETO"] = "discountTable";
+            discounts = SessionHelper.GetObjectFromJson<IList<DiscountCode>>(HttpContext.Session, "discounts") ?? discounts;
+
+            switch (SortType)
+            {
+                case "discountid":
+                    ViewData["ADMIN_DISPLAY"] = "discountid";
+                    discounts = discounts.OrderBy(d => d.DiscountId).ToList();
+                    break;
+
+                case "customercode":
+                    ViewData["ADMIN_DISPLAY"] = "customercode";
+                    discounts = discounts.OrderBy(d => d.Code).ToList();
+                    break;
+
+                case "percentoff":
+                    ViewData["ADMIN_DISPLAY"] = "percentoff";
+                    discounts = discounts.OrderBy(d => d.Percentage).ToList();
+                    break;
+
+                case "startdate":
+                    ViewData["ADMIN_DISPLAY"] = "startdate";
+                    discounts = discounts.OrderBy(d => d.StartDate).ToList();
+                    break;
+
+                case "enddate":
+                    ViewData["ADMIN_DISPLAY"] = "enddate";
+                    discounts = discounts.OrderBy(d => d.EndDate).ToList();
+                    break;
+            }
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "discounts", discounts);
+        }
+
 
     }
 }
