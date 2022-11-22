@@ -30,9 +30,9 @@
                     </div>
                     <h1 class="header">Schedule Pickup Time</h1>
                     <div style="text-align:center">
-                        @Html.DropDownListFor(m => m.CustomerOrder.ORDER_PICKUP_TIME, Model.AvailableTimes,
-                        new { @class = "div", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
-                        <p><span asp-validation-for="CustomerOrder.ORDER_PICKUP_TIME" class="text-danger text-align:center"></span></p>
+                    @Html.DropDownListFor(m => m.CustomerOrder.ORDER_PICKUP_TIME, Model.AvailableTimes,
+                    new { @class = "div", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
+                    <p><span asp-validation-for="CustomerOrder.ORDER_PICKUP_TIME" class="text-danger text-align:center"></span></p>
                     </div>
                     <!--Form section to enter Customer payment details-->
                     <h1 class="header">Payment Information</h1>
