@@ -1,6 +1,5 @@
 ﻿using Marcinis.Validators;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Marcinis.Models
 {
@@ -48,14 +47,6 @@ namespace Marcinis.Models
 
         [Required]
         public Dictionary<string, int> ORDER_ITEMS = new Dictionary<string, int>();
-
-
-
-
-
-
-
-
 
     }
 }

@@ -168,7 +168,7 @@ namespace Marcinis.DAL
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"{System.DateTime.Now.ToString()} - AddItem() - ex:" + ex.Message);
+                    Console.WriteLine($"{System.DateTime.Now} - AddItem() - ex:" + ex.Message);
                 }
                 finally
                 {
