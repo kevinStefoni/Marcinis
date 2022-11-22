@@ -50,6 +50,8 @@ namespace Marcinis.Pages
             }
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
+            CustomerOrder custOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
+            DAL.AddOrder(custOrder);
             return Redirect("./OrderConfirmation");
         }
 
@@ -90,6 +92,7 @@ namespace Marcinis.Pages
         {
             Customer Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? new Customer();
             CustomerOrder.ORDER_CUST_ID = Customer.CustomerId;
+            CustomerOrder.ORDER_DATE = DateTime.Now.Date;
             menu = DAL.GetMenu() ?? menu;
             decimal TEXAS_TAX_RATE = .0825m;
 
