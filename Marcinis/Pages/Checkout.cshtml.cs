@@ -20,6 +20,10 @@ namespace Marcinis.Pages
         [BindProperty]
         public CustomerOrder CustomerOrder { get; set; } = new CustomerOrder();
 
+        [BindProperty]
+        public Customer? Customer { get; set; }
+
+
         public IList<MenuItem> menu = new List<MenuItem>();
 
         [BindProperty]
@@ -29,13 +33,16 @@ namespace Marcinis.Pages
 
         public Dictionary<string, decimal> itemPairValues { get; set; } = new Dictionary<string, decimal>();
 
-
         public IList<SelectListItem> AvailableTimes { get; set; } = new List<SelectListItem>();
+
         public void OnGet()
         {
             CustomerOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
+            Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer");
             RetrieveInformation();
+            //On get we are setting customer order but we are also doing that OnPost. is this causing a bug when returning to cart and total doubling
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "itemPairValues", itemPairValues);
             GetTimes();
         }
 
@@ -50,6 +57,8 @@ namespace Marcinis.Pages
             }
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
+            CustomerOrder custOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
+            DAL.AddOrder(custOrder);
             return Redirect("./OrderConfirmation");
         }
 
@@ -63,7 +72,7 @@ namespace Marcinis.Pages
             }
         }
 
-        
+
 
         public void ParseExpiry()
         {
@@ -75,14 +84,14 @@ namespace Marcinis.Pages
                 CustomerOrder.ORDER_CREDIT_CARD_EXP_MONTH = m;
             }
 
-            Regex one = new (@"^[0-9]{2}/[0-9]{2}$");
-            Regex two = new (@"^[0-9]{2}/[0-9]{4}$");
+            Regex one = new(@"^[0-9]{2}/[0-9]{2}$");
+            Regex two = new(@"^[0-9]{2}/[0-9]{4}$");
 
             if (Int32.TryParse(CardExpiry[3..], out int y))
             {
                 if (one.IsMatch(CardExpiry))
                     CustomerOrder.ORDER_CREDIT_CARD_EXP_YEAR = 2000 + y;
-                else if(two.IsMatch(CardExpiry))
+                else if (two.IsMatch(CardExpiry))
                     CustomerOrder.ORDER_CREDIT_CARD_EXP_YEAR = y;
             }
 
@@ -92,18 +101,19 @@ namespace Marcinis.Pages
         {
             Customer Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? new Customer();
             CustomerOrder.ORDER_CUST_ID = Customer.CustomerId;
+            CustomerOrder.ORDER_DATE = DateTime.Now.Date;
             menu = DAL.GetMenu() ?? menu;
             decimal TEXAS_TAX_RATE = .0825m;
 
             // iterate through menu and add the product name and price to dictionary "itemPairValues"
-            foreach(MenuItem item in menu)
+            foreach (MenuItem item in menu)
             {
                 if (item.PROD_NAME != null)
                 {
                     itemPairValues.Add(item.PROD_NAME, item.PROD_PRICE);
                 }
             }
-                  
+
 
             // add all items that Customer selected with their respective quantities to CustomerOrder and calculate ORDER_SUBTOTAL
             Dictionary<string, string> OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? new Dictionary<string, string>();

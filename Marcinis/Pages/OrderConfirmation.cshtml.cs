@@ -10,18 +10,19 @@ namespace Marcinis.Pages
     {
         [BindProperty]
         public Customer? Customer { get; set; }
-        
-        /*
-         * [BindProperty]
-         * public Order? Order { get; set; }
-         */
+
+        [BindProperty]
+        public Dictionary<string, decimal> itemPairValues { get; set; } = new Dictionary<string, decimal>();
+
+        [BindProperty]
+        public CustomerOrder CustomerOrder { get; set; } = new CustomerOrder();
 
         public void OnGet()
         {
             Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer");
-            //Order = SessionHelper.GetObjectFromJson<Order>(HttpContext.Session, "order");
+            CustomerOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
         }
-      
+
 
     }
 }
