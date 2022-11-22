@@ -116,38 +116,6 @@
     </table>
 
 </form>
-<div class="container" style="padding:20px">
-    
-    <form method="post" class="adminForm" asp-page-handler="AddCustomer" enctype="multipart/form-data">
-        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-
-        <!-- Customer ID -->
-        <input type="text" asp-for="cust.CustomerId" placeholder="Customer ID" />
-
-        <!-- First Name -->
-        <input type="text" asp-for="cust.FirstName" placeholder="First Name"/>
-
-        <!-- Last Name -->
-        <input type="text" asp-for="cust.LastName" placeholder="Last Name"/>
-
-        <!-- Email Address -->
-        <input type="text" asp-for="cust.LoginCredentials.EmailAddress" placeholder="Email Address"/>
-
-        <!-- Phone Number -->
-        <input type="text" asp-for="cust.PhoneNumber" placeholder="Phone Number"/>
-
-        <!-- Password -->
-        <input type="password" asp-for="cust.LoginCredentials.Password" placeholder="Password"/>
-        <span asp-validation-for="cust.LoginCredentials.Password" class="text-danger"></span>
-
-        <!-- Login Type ID -->
-        <input type="text" asp-for="cust.LoginTypeId" placeholder="Login Type Id" />
-
-        <!-- submit bt -->
-        <input class="submitBT" type="submit" value="Add Customer"/>
-    </form>
-
-</div>
 
 <form method="post">
     <table class="table-fill" id="productTable">
@@ -266,43 +234,6 @@
 
 
 <div></div>
-
-<div class="container" style="padding:20px">
-    
-    <form method="post" class="adminForm" asp-page-handler="AddMenuItem" enctype="multipart/form-data">
-        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-
-        <!-- Product ID -->
-        <input type="text" asp-for="item.PROD_ID" placeholder="Product ID" />
-
-
-        <!-- Product Name -->
-        <input type="text" asp-for="item.PROD_NAME" placeholder="Product Name" />
-
-        <!-- Product Description -->
-        <input type="text" asp-for="item.PROD_DESC" placeholder="Product Description" />
-
-        <!-- Product Type -->
-        <input type="text" asp-for="item.PROD_TYPE" placeholder="Product Type" />
-
-        <!-- Product Price -->
-        <input type="text" asp-for="item.PROD_PRICE" placeholder="Product Price" />
-
-        <!-- Product Quantity on Hand -->
-        <input type="text" asp-for="item.PROD_QOH" placeholder="Product Quantity on Hand" />
-
-        <!-- Product Category -->
-        <input type="text" asp-for="item.PROD_CATEGORY" placeholder="Product Category" />
-
-        <!-- Product Image -->
-        <input type="file" asp-for="item.ImageFile" placeholder="Product Image" />
-        <span asp-validation-for="item.ImageFile" class="text-danger"></span>
-
-        <!-- submit bt -->
-        <input type="submit" class="submitBT" value="Add Item" />
-    </form>
-
-</div>
 
 <form method="post">
     <table class="table-fill" id="orderTable">
@@ -559,28 +490,137 @@
 
 </form>
 
+@{
+    string buttonTxt = string.Empty;
+    string imgSrc = string.Empty;
+    switch((string?)ViewData["WHERETO"])
+    {
+        case "custInput":
+            <div class="container" id="custInput" style="padding:20px">
 
-<div class="container" style="padding:20px">
-    <form method="post" class="adminForm" asp-page-handler="AddDiscountCode" enctype="multipart/form-data">
-        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form method="post" class="adminForm" asp-page-handler="AddCustomer" enctype="multipart/form-data">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-        <!-- Discount Code -->
-        <input type="text" asp-for="disc.Code" placeholder="Discount Code" />
+                    <!-- Customer ID -->
+                    <input type="text" asp-for="cust.CustomerId" placeholder="Customer ID" />
 
-        <!-- Percentage Off -->
-        <input type="text" asp-for="disc.Percentage" placeholder="Percentage Off" />
+                    <!-- First Name -->
+                    <input type="text" asp-for="cust.FirstName" placeholder="First Name" />
 
-        <!-- Start Date -->
-        <input type="text" asp-for="disc.StartDate" placeholder="Start Date" />
+                    <!-- Last Name -->
+                    <input type="text" asp-for="cust.LastName" placeholder="Last Name" />
 
-        <!-- End Date -->
-        <input type="text" asp-for="disc.EndDate" placeholder="End Date" />
+                    <!-- Email Address -->
+                    <input type="text" asp-for="cust.LoginCredentials.EmailAddress" placeholder="Email Address" />
 
-        <!-- submit bt -->
-        <input type="submit" class="submitBT" value="Add Discount Code" />
+                    <!-- Phone Number -->
+                    <input type="text" asp-for="cust.PhoneNumber" placeholder="Phone Number" />
 
-    </form>
-</div>
+                    <!-- Password -->
+                    <input type="password" asp-for="cust.LoginCredentials.Password" autocomplete="new-password" placeholder="Password" />
+                    <span asp-validation-for="cust.LoginCredentials.Password" class="text-danger"></span>
+
+                    <!-- Login Type ID -->
+                    <input type="text" asp-for="cust.LoginTypeId" placeholder="Login Type Id" />
+
+                    <!-- submit bt -->
+                    @{
+
+                        if((string?)ViewData["WHERETO"] == "custInput")
+                        {
+                            buttonTxt = "Edit Customer";
+                        }
+                        else
+                        {
+                            buttonTxt = "Add Customer";    
+                        }
+                    }
+                    <input class="submitBT" type="submit" value="@buttonTxt" />
+                </form>
+            </div>
+            break;
+
+        case "menuItemInput":
+            <div class="container" id="menuItemInput" style="padding:20px">
+
+                <form method="post" class="adminForm" asp-page-handler="AddMenuItem" enctype="multipart/form-data">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                    <!-- Product ID -->
+                    <input type="text" asp-for="item.PROD_ID" placeholder="Product ID" />
+
+
+                    <!-- Product Name -->
+                    <input type="text" asp-for="item.PROD_NAME" placeholder="Product Name" />
+
+                    <!-- Product Description -->
+                    <input type="text" asp-for="item.PROD_DESC" placeholder="Product Description" />
+
+                    <!-- Product Type -->
+                    <input type="text" asp-for="item.PROD_TYPE" placeholder="Product Type" />
+
+                    <!-- Product Price -->
+                    <input type="text" asp-for="item.PROD_PRICE" placeholder="Product Price" />
+
+                    <!-- Product Quantity on Hand -->
+                    <input type="text" asp-for="item.PROD_QOH" placeholder="Product Quantity on Hand" />
+
+                    <!-- Product Category -->
+                    <input type="text" asp-for="item.PROD_CATEGORY" placeholder="Product Category" />
+
+                    <!-- Product Image -->
+                    <input type="file" asp-for="item.ImageFile" id="fi" placeholder="Product Image" />
+                    <span asp-validation-for="item.ImageFile" id="finaltest" class="text-danger"></span>
+                    <!-- submit bt -->
+                    @{
+                        buttonTxt = string.Empty;
+
+                        if ((string?)ViewData["WHERETO"] == "menuItemInput")
+                        {
+                            buttonTxt = "Edit Menu Item";
+                        }
+                        else
+                        {
+                            buttonTxt = "Add Menu Item";
+                        }
+                    }
+                    <input class="submitBT" type="submit" value="@buttonTxt" />
+                </form>
+
+            </div>
+            break;
+
+            case "discountInput":
+                <div class="container" id="discountInput" style="padding:20px">
+                    <form method="post" class="adminForm" asp-page-handler="AddDiscountCode" enctype="multipart/form-data">
+                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                        <!-- Discount Code -->
+                        <input type="text" asp-for="disc.Code" placeholder="Discount Code" />
+
+                        <!-- Percentage Off -->
+                        <input type="text" asp-for="disc.Percentage" placeholder="Percentage Off" />
+
+                        <!-- Start Date -->
+                        <input type="text" asp-for="disc.StartDate" placeholder="Start Date" />
+
+                        <!-- End Date -->
+                        <input type="text" asp-for="disc.EndDate" placeholder="End Date" />
+
+                        <!-- submit bt -->
+                        <input type="submit" class="submitBT" value="Add Discount Code" />
+
+                    </form>
+                </div>
+                break;
+    }
+}
+
+
+
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -616,7 +656,28 @@ else if ((string?)ViewData["WHERETO"] == "discountTable")
         });
     </script>
 }
-
-
-
+else if ((string?)ViewData["WHERETO"] == "custInput")
+{
+    <script>
+        $(document).ready(function () {
+            location.href = '#custInput';
+        });
+    </script>
+}
+else if ((string?)ViewData["WHERETO"] == "menuItemInput")
+{
+    <script>
+        $(document).ready(function () {
+            location.href = '#menuItemInput';
+        });
+    </script>
+}
+else if ((string?)ViewData["WHERETO"] == "discountInput")
+{
+    <script>
+        $(document).ready(function () {
+            location.href = '#discountInput';
+        });
+    </script>
+}
 

@@ -69,6 +69,8 @@ namespace Marcinis.Pages
 
         public ActionResult OnPostAddMenuItem()
         {
+            ViewData["WHERETO"] = "productTable";
+
             byte[] bytes = null;
             if (item.ImageFile != null)
             {
@@ -104,6 +106,8 @@ namespace Marcinis.Pages
 
         public ActionResult OnPostAddCustomer()
         {
+            ViewData["WHERETO"] = "customerTable";
+
             bool found = false;
 
             IList<Customer>? Customers = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers");
@@ -131,13 +135,14 @@ namespace Marcinis.Pages
 
         public ActionResult OnPostAddDiscountCode()
         {
+            ViewData["WHERETO"] = "discountTable";
             itemRepo.AddDiscountCode(disc);
-
             return Redirect("./Admin");
         }
 
         public void OnPostCustomerDelete()
         {
+            ViewData["WHERETO"] = "customerTable";
             customerRepo.DeleteCustomer(bindCustId);
             customer = customerRepo.GetAllCustomers();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
@@ -145,6 +150,7 @@ namespace Marcinis.Pages
 
         public void OnPostMenuItemDelete()
         {
+            ViewData["WHERETO"] = "productTable";
             itemRepo.DeleteMenuItem(bindItemId);
             menu = itemRepo.GetMenu();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "menu", menu);
@@ -152,6 +158,7 @@ namespace Marcinis.Pages
 
         public void OnPostOrderDelete()
         {
+            ViewData["WHERETO"] = "orderTable";
             itemRepo.DeleteOrder(bindOrderId);
             orders = itemRepo.GetOrders();
             SessionHelper.SetObjectAsJson(HttpContext.Session, "orders", orders);
@@ -159,6 +166,7 @@ namespace Marcinis.Pages
 
         public void OnPostDiscountCodeDelete()
         {
+            ViewData["WHERETO"] = "discountTable";
             itemRepo.DeleteDiscountCode(bindDiscountId);
             disc.Code = "test";
             discounts = itemRepo.GetDiscountCodes();
@@ -167,6 +175,7 @@ namespace Marcinis.Pages
 
         public void OnPostCustomerEdit()
         {
+            ViewData["WHERETO"] = "custInput";
             IList<Customer>? Customers = SessionHelper.GetObjectFromJson<IList<Customer>>(HttpContext.Session, "customers");
             foreach (var c in Customers) {
                 if (c.CustomerId == bindCustId)
@@ -184,6 +193,7 @@ namespace Marcinis.Pages
 
         public void OnPostMenuItemEdit()
         {
+            ViewData["WHERETO"] = "menuItemInput";
             IList<MenuItem>? Menu = SessionHelper.GetObjectFromJson<IList<MenuItem>>(HttpContext.Session, "menu");
             foreach (var i in Menu)
             {
@@ -196,6 +206,11 @@ namespace Marcinis.Pages
                     item.PROD_PRICE = i.PROD_PRICE;
                     item.PROD_QOH = i.PROD_QOH;
                     item.PROD_CATEGORY = i.PROD_CATEGORY;
+                    if (i.PROD_IMG != null)
+                    {
+                        item.PROD_IMG = i.PROD_IMG as byte[];
+                    }
+                    
                 }
             }
         }
