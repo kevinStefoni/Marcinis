@@ -15,10 +15,23 @@
         <div class="column-custom">
             <div class="form info">
                 <form method="post">
+                    <h1 class="header">Customer Information</h1>
+                    <div>
+                        @if(Model.Customer != null) {
+                            <p style="text-align:center">Name: @Model.Customer.FirstName @Model.Customer.LastName</p>
+                            <p style="text-align:center">Phone Number: @Model.Customer.PhoneNumber</p>
+                            <p style="text-align:center">Email: @Model.Customer.LoginCredentials.EmailAddress</p>
+                        }
+                        else {
+                            <p style="text-align:center">GUEST CHECKOUT</p>
+                        }
+                    </div>
                     <h1 class="header">Schedule Pickup Time</h1>
+                    <div style="text-align:center">
                     @Html.DropDownListFor(m => m.CustomerOrder.ORDER_PICKUP_TIME, Model.AvailableTimes,
-                    new { @class = "form-control", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
-                    <p><span asp-validation-for="CustomerOrder.ORDER_PICKUP_TIME" class="text-danger"></span></p>
+                    new { @class = "div", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
+                    <p><span asp-validation-for="CustomerOrder.ORDER_PICKUP_TIME" class="text-danger text-align:center"></span></p>
+                    </div>
                     <!--Form section to enter Customer payment details-->
                     <h1 class="header">Payment Information</h1>
                     <label>
@@ -59,7 +72,6 @@
                         {
                             decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
                             <p class="split-para"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong> @item <span>$@itemsPrice</span></p>
-                            
                         }
                     </div>
                 </div>
