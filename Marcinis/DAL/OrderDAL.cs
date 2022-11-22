@@ -257,7 +257,7 @@ namespace Marcinis.DAL
                     _co.ORDER_CREDIT_CARD_EXP_MONTH = Convert.ToInt32(dr["ORDER_CREDIT_CARD_EXP_MONTH"]);
                     _co.ORDER_CREDIT_CARD_EXP_YEAR = Convert.ToInt32(dr["ORDER_CREDIT_CARD_EXP_YEAR"]);
                     _co.ORDER_CREDIT_CARD_ZIP_CODE = dr["ORDER_CREDIT_CARD_ZIP_CODE"].ToString();
-                    _co.ORDER_PICKUP_TIME = DateTime.ParseExact(dr["ORDER_PICKUP_TIME"].ToString(), "HH:mm:ss", CultureInfo.InvariantCulture);
+                    _co.ORDER_PICKUP_TIME = Convert.ToDateTime(dr["ORDER_PICKUP_TIME"]);
                     _co.ORDER_SUBTOTAL = Convert.ToDecimal(dr["ORDER_SUBTOTAL"]);
                     _co.ORDER_TAX = Convert.ToInt32(dr["ORDER_TAX"]);
                     _co.ORDER_TOTAL = Convert.ToDecimal(dr["ORDER_TOTAL"]);
