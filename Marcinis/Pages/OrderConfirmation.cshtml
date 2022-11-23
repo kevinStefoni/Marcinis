@@ -1,7 +1,9 @@
 ﻿@page
+@using Marcinis.Helpers;
 @model Marcinis.Pages.OrderConfirmationModel
 @{
     ViewData["Title"] = "Confirmation";
+    Dictionary<string, decimal> itemPairValues = SessionHelper.GetObjectFromJson<Dictionary<string, decimal>>(HttpContext.Session, "itemPairValues") ?? new Dictionary<string, decimal>();
 }
 
 
@@ -72,7 +74,7 @@
                             {
                                 @foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
                                 {
-                                    decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
+                                    decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * itemPairValues[item];
                                     <p class="split-para"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong> @item <span>$@itemsPrice</span></p>
                                 }
                             }

@@ -15,6 +15,9 @@
         <div class="column-custom">
             <div class="form info">
                 <form method="post">
+                    <input type="hidden" asp-for="Customer.FirstName"  value=@Model.Customer.FirstName />
+                    <input type="hidden" asp-for="Customer.LastName" value=@Model.Customer.LastName />
+                    <input type="hidden" asp-for="Customer.PhoneNumber" value=@Model.Customer.PhoneNumber />
                     <div id="scroller">
                         <div class="card text-center">
                           <div class="card-header">

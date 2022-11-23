@@ -54,6 +54,7 @@ namespace Marcinis.Pages
         {
             RetrieveInformation();
             ParseExpiry();
+            FixValidation();
             if (!ModelState.IsValid)
             {
                 GetTimes();
@@ -62,14 +63,15 @@ namespace Marcinis.Pages
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
             DAL.AddOrder(CustomerOrder);
-            CDAL.AddCustomer(Customer);
+            if(Customer.LoginTypeId == 3)
+                CDAL.AddCustomer(Customer);
             return Redirect("./OrderConfirmation");
         }
 
         public void GetTimes()
         {
             int addedTime = 15;
-            while (TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).CompareTo(new DateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Year, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Month, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Day, 23, 0, 0)) < 0)
+            while (TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).CompareTo(new DateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Year, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Month, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Day + 1, 20, 0, 0)) < 0)
             {
                 AvailableTimes.Add(new SelectListItem { Text = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).ToString("hh:mm"), Value = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).ToString("hh:mm") });
                 addedTime += 15;
@@ -106,6 +108,7 @@ namespace Marcinis.Pages
             Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? new Customer();
             CustomerOrder.ORDER_CUST_ID = Customer.CustomerId;
             CustomerOrder.ORDER_DATE = DateTime.Now.Date;
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
             menu = DAL.GetMenu() ?? menu;
             decimal TEXAS_TAX_RATE = .0825m;
 
@@ -118,7 +121,7 @@ namespace Marcinis.Pages
                 }
             }
 
-
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "itemPairValues", itemPairValues);
             // add all items that Customer selected with their respective quantities to CustomerOrder and calculate ORDER_SUBTOTAL
             Dictionary<string, string> OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? new Dictionary<string, string>();
             CustomerOrder.ORDER_SUBTOTAL = 0; // reset order subtotal before adding it again
@@ -155,6 +158,14 @@ namespace Marcinis.Pages
                 }
             }
 
+        }
+
+        public void FixValidation()
+        {
+            ModelState.ClearValidationState("Customer.LoginCredentials.Password");
+            ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
+            ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
+            ModelState.MarkFieldValid("Customer.LoginCredentials.EmailAddress");
         }
     }
 }
