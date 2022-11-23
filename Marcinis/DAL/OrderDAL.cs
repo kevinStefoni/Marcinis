@@ -352,7 +352,7 @@ namespace Marcinis.DAL
 
         }
 
-        public void AddOrder(CustomerOrder custOrder)
+        public int AddOrder(CustomerOrder custOrder)
         {
             string sql = "uspInsertOrder";
 
@@ -387,8 +387,8 @@ namespace Marcinis.DAL
                     Console.WriteLine(ex.Message);
                 }
             }
-
             AddOrderItems(custOrder);
+            return custOrder.ORDER_ID;
         }
 
         public void AddOrderItems(CustomerOrder custOrder)
