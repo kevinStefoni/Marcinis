@@ -89,7 +89,7 @@
                             <span>Tax</span>
                             <span>$@String.Format("{0:0.00}", Model.CustomerOrder?.ORDER_TAX)</span>
                         </p>
-                        @if ((string?)ViewData["ISDISC"] == "YES" && Model.CustomerOrder != null)
+                        @if (SessionHelper.GetObjectFromJson<decimal>(HttpContext.Session, "percentOff") > 0 && Model.CustomerOrder != null)
                         {
                             decimal discAmt = Model.CustomerOrder.ORDER_TOTAL * (SessionHelper.GetObjectFromJson<decimal>(HttpContext.Session, "percentOff") / 100);
                             <p>
