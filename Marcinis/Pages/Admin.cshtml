@@ -17,7 +17,7 @@
 </head>
 
 <form method="post">
-    <div class="btn-group d-flex" role="group" style="text-align: center;">
+    <div class="btn-group d-flex" role="group" style="text-align: center; padding: 5px;">
         <button asp-page-handler="GoToAddCustomer" class="adders">&nbsp;Add Customer&nbsp;</button>
         <button asp-page-handler="GoToAddMenuItem" class="adders">&nbsp;Add Product&nbsp;</button>
         <button asp-page-handler="GoToAddDiscountCode" class="adders">&nbsp;Add Discount Code&nbsp;</button>
@@ -27,7 +27,6 @@
 
         <!--First Item in accordion-->
         <div class="accordion-item">
-        
             <h1 class="accordion-header" id="headingOne">
                 <button class="accordion-button collapsed acc-btn-cust" active="false" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                     User Table
@@ -132,11 +131,9 @@
                                 }
                             }
                         </table>
-
                     </form>
                 </div>
             </div>
-
         </div>
 
         <!--Second Item in accordion-->
@@ -260,7 +257,6 @@
                                 }
                             }
                         </table>
-
                     </form>
                 </div>
             </div>
@@ -453,92 +449,92 @@
 
             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionTable">
                 <div class="accordion-body">
-                    < method="post">
-            <table class="table-fill" id="discountTable">
-                <tr>
-                    <th>
-                        @if ((string?)ViewData["ADMIN_DISPLAY"] != "discountid")
-                        {
-                            <button asp-page-handler="SortDiscounts" asp-route-SortType="discountid" class="sort">&nbsp;<strong>Discount ID</strong>&nbsp;</button>
-                        }
-                        else
-                        {
-                            <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Discount ID</strong>&nbsp;</button>
-                        }
-                    </th>
-                    <th>
-                        @if ((string?)ViewData["ADMIN_DISPLAY"] != "customercode")
-                        {
-                            <button asp-page-handler="SortDiscounts" asp-route-SortType="customercode" class="sort">&nbsp;<strong>Discount Code</strong>&nbsp;</button>
-                        }
-                        else
-                        {
-                            <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Discount Code</strong>&nbsp;</button>
-                        }
-                    </th>
-                    <th>
-                        @if ((string?)ViewData["ADMIN_DISPLAY"] != "percentoff")
-                        {
-                            <button asp-page-handler="SortDiscounts" asp-route-SortType="percentoff" class="sort">&nbsp;<strong>Percent Off</strong>&nbsp;</button>
-                        }
-                        else
-                        {
-                            <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Percent Off</strong>&nbsp;</button>
-                        }
-                    </th>
-                    <th>
-                        @if ((string?)ViewData["ADMIN_DISPLAY"] != "startdate")
-                        {
-                            <button asp-page-handler="SortDiscounts" asp-route-SortType="startdate" class="sort">&nbsp;<strong>Start Date</strong>&nbsp;</button>
-                        }
-                        else
-                        {
-                            <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Start Date</strong>&nbsp;</button>
-                        }
-                    </th>
-                    <th>
-                        @if ((string?)ViewData["ADMIN_DISPLAY"] != "enddate")
-                        {
-                            <button asp-page-handler="SortDiscounts" asp-route-SortType="enddate" class="sort">&nbsp;<strong>End Date</strong>&nbsp;</button>
-                        }
-                        else
-                        {
-                            <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>End Date</strong>&nbsp;</button>
-                        }
-                    </th>
-                    <th>Action</th>
-                </tr>
-
-                @if (Discounts != null)
-                {
-                    @foreach (var d in Discounts)
-                    {
+                    <form method="post">
+                        <table class="table-fill" id="discountTable">
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => d.DiscountId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => d.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => d.Percentage)
-                            </td>
-                            <td>
-                                <label>@d.StartDate.ToString("d")</label>
-                            </td>
-                            <td>
-                                <label>@d.EndDate.ToString("d")</label>
-                            </td>
-
-                            <td>
-                                <Button class="custom-btn btn-3" asp-page-handler="DiscountCodeDelete" asp-route-bindDiscountId="@d.DiscountId">&#10060;</Button>
-                            </td>
+                            <th>
+                                @if ((string?)ViewData["ADMIN_DISPLAY"] != "discountid")
+                                {
+                                    <button asp-page-handler="SortDiscounts" asp-route-SortType="discountid" class="sort">&nbsp;<strong>Discount ID</strong>&nbsp;</button>
+                                }
+                                else
+                                {
+                                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Discount ID</strong>&nbsp;</button>
+                                }
+                            </th>
+                            <th>
+                                @if ((string?)ViewData["ADMIN_DISPLAY"] != "customercode")
+                                {
+                                    <button asp-page-handler="SortDiscounts" asp-route-SortType="customercode" class="sort">&nbsp;<strong>Discount Code</strong>&nbsp;</button>
+                                }
+                                else
+                                {
+                                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Discount Code</strong>&nbsp;</button>
+                                }
+                            </th>
+                            <th>
+                                @if ((string?)ViewData["ADMIN_DISPLAY"] != "percentoff")
+                                {
+                                    <button asp-page-handler="SortDiscounts" asp-route-SortType="percentoff" class="sort">&nbsp;<strong>Percent Off</strong>&nbsp;</button>
+                                }
+                                else
+                                {
+                                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Percent Off</strong>&nbsp;</button>
+                                }
+                            </th>
+                            <th>
+                                @if ((string?)ViewData["ADMIN_DISPLAY"] != "startdate")
+                                {
+                                    <button asp-page-handler="SortDiscounts" asp-route-SortType="startdate" class="sort">&nbsp;<strong>Start Date</strong>&nbsp;</button>
+                                }
+                                else
+                                {
+                                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>Start Date</strong>&nbsp;</button>
+                                }
+                            </th>
+                            <th>
+                                @if ((string?)ViewData["ADMIN_DISPLAY"] != "enddate")
+                                {
+                                    <button asp-page-handler="SortDiscounts" asp-route-SortType="enddate" class="sort">&nbsp;<strong>End Date</strong>&nbsp;</button>
+                                }
+                                else
+                                {
+                                    <button asp-page-handler="Discount" class="submit clearbutton">&nbsp;<strong>End Date</strong>&nbsp;</button>
+                                }
+                            </th>
+                            <th>Action</th>
                         </tr>
 
-                    }
-                }
-            </table>
+                        @if (Discounts != null)
+                        {
+                            @foreach (var d in Discounts)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.DiscountId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => d.Percentage)
+                                    </td>
+                                    <td>
+                                        <label>@d.StartDate.ToString("d")</label>
+                                    </td>
+                                    <td>
+                                        <label>@d.EndDate.ToString("d")</label>
+                                    </td>
 
+                                    <td>
+                                        <Button class="custom-btn btn-3" asp-page-handler="DiscountCodeDelete" asp-route-bindDiscountId="@d.DiscountId">&#10060;</Button>
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+                    </table>
+                    </form>
                 </div>
             </div>
         </div>

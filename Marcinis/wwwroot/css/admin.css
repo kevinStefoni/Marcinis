@@ -47,7 +47,9 @@ tr:hover td {
     display: table-cell;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 /* table button */
