@@ -15,50 +15,72 @@
         <div class="column-custom">
             <div class="form info">
                 <form method="post">
-                    <h1 class="header">Customer Information</h1>
-                    <div>
-                        @if (Model.Customer != null)
-                        {
-                            <p style="text-align:center">Name: @Model.Customer.FirstName @Model.Customer.LastName</p>
-                            <p style="text-align:center">Phone Number: @Model.Customer.PhoneNumber</p>
-                            <p style="text-align:center">Email: @Model.Customer.LoginCredentials.EmailAddress</p>
-                        }
-                        else
-                        {
-                            <p style="text-align:center">GUEST CHECKOUT</p>
-                        }
-                    </div>
-                    <h1 class="header">Schedule Pickup Time</h1>
-                    <div style="text-align:center">
-                    @Html.DropDownListFor(m => m.CustomerOrder.ORDER_PICKUP_TIME, Model.AvailableTimes,
-                    new { @class = "div", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
-                    <p><span asp-validation-for="CustomerOrder.ORDER_PICKUP_TIME" class="text-danger text-align:center"></span></p>
-                    </div>
-                    <!--Form section to enter Customer payment details-->
-                    <h1 class="header">Payment Information</h1>
-                    <label>
-                        <span>Credit Card Number</span>
-                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" placeholder="#### #### #### ####" />
-                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" class="text-danger"></span></p>
-                    </label>
-                    <label>
-                        <span>Expiration Date</span>
-                        <input type="text" asp-for="CardExpiry" placeholder="##/##" />
-                        <p><span asp-validation-for="CardExpiry" class="text-danger"></span></p>
-                    </label>
-                    <label>
-                        <span>CVV</span>
-                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" placeholder="###" />
-                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" class="text-danger"></span></p>
-                    </label>
-                    <label>
-                        <span>Zip Code</span>
-                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" placeholder="#####" />
-                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" class="text-danger"></span></p>
-                    </label>
+                    <div id="scroller">
+                        <div class="card text-center">
+                          <div class="card-header">
+                            Contact Information
+                          </div>
+                          <div class="card-body">
+                                <div>
+                                    @if (Model.Customer != null)
+                                    {
+                                        <p style="text-align:center">Name: @Model.Customer.FirstName @Model.Customer.LastName</p>
+                                        <p style="text-align:center">Phone Number: @Model.Customer.PhoneNumber</p>
+                                        <p style="text-align:center">Email: @Model.Customer.LoginCredentials.EmailAddress</p>
+                                    }
+                                    else
+                                    {
+                                        <p style="text-align:center">GUEST CHECKOUT</p>
+                                    }
+                                </div>
+                          </div>
+                        </div>
 
+                        <div class="card text-center">
+                          <div class="card-header">
+                            Schedule Pickup Time
+                          </div>
+                          <div class="card-body">
+                            <div style="text-align:center">
+                                @Html.DropDownListFor(m => m.CustomerOrder.ORDER_PICKUP_TIME, Model.AvailableTimes,
+                                new { @class = "div", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
+                                <p><span asp-validation-for="CustomerOrder.ORDER_PICKUP_TIME" class="text-danger text-align:center"></span></p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card text-center">
+                          <div class="card-header">
+                            Payment Information
+                          </div>
+                          <div class="card-body">
+                            <div style="text-align:center">
+                                    <label>
+                                        <span>Credit Card Number</span>
+                                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" placeholder="#### #### #### ####" />
+                                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_NUM" class="text-danger"></span></p>
+                                    </label>
+                                    <label>
+                                        <span>Expiration Date</span>
+                                        <input type="text" asp-for="CardExpiry" placeholder="##/##" />
+                                        <p><span asp-validation-for="CardExpiry" class="text-danger"></span></p>
+                                    </label>
+                                    <label>
+                                        <span>CVV</span>
+                                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" placeholder="###" />
+                                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_CVV" class="text-danger"></span></p>
+                                    </label>
+                                    <label>
+                                        <span>Zip Code</span>
+                                        <input type="text" asp-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" placeholder="#####" />
+                                        <p><span asp-validation-for="CustomerOrder.ORDER_CREDIT_CARD_ZIP_CODE" class="text-danger"></span></p>
+                                    </label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                     <!--Button to finalize their order which should then send them to the order confirmation page-->
-                    <button asp-page-handler="AddOrder" class="submit place-order" style="position:sticky; bottom:0;">Place your order</button>
+                    <button class="submit place-order" style="position:sticky; bottom:0;">Place your order</button>
                 </form>
             </div>
         </div>
@@ -70,10 +92,17 @@
                 <!--Div to hold the Cart information (item ordered, price, quantity)-->
                 <div class="items-ordered">
                     <div class="row">
-                        @foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
+                        @if(Model.CustomerOrder.ORDER_ITEMS.Count == 0)
                         {
-                            decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
-                            <p class="split-para"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong> @item <span>$@itemsPrice</span></p>
+                            <p>Cart is empty.</p>
+                        }
+                        else
+                        {
+                            @foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
+                            {
+                                decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
+                                <p class="split-para"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong> @item <span>$@itemsPrice</span></p>
+                            }
                         }
                     </div>
                 </div>
@@ -81,15 +110,15 @@
                 <div class="cart-total">
                     <p>
                         <span>Subtotal</span>
-                        <span>@Model.CustomerOrder.ORDER_SUBTOTAL</span>
+                        <span>$@String.Format("{0:.00}", Model.CustomerOrder?.ORDER_SUBTOTAL)</span>
                     </p>
                     <p>
                         <span>Tax</span>
-                        <span>@Model.CustomerOrder.ORDER_TAX</span>
+                        <span>$@String.Format("{0:.00}", Model.CustomerOrder?.ORDER_TAX)</span>
                     </p>
                     <p>
                         <span>Total</span>
-                        <span>@Model.CustomerOrder.ORDER_TOTAL</span>
+                        <span>$@String.Format("{0:.00}", Model.CustomerOrder?.ORDER_TOTAL)</span>
                     </p>
                 </div>
             </div>

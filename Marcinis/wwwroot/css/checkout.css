@@ -120,7 +120,7 @@ hr:after {
 }
 
 .column-custom {
-    background-color: #FFF6EC;
+    background-color: #8BA973;
     float: left;
     width: 50%;
     padding: 10px;
@@ -171,4 +171,26 @@ div{
     display: block;
     float: right;
     margin-right: 26px;
+}
+
+* {
+    color: #8BA973;
+}
+
+.card-body {
+    background: #FFF6EC;
+}
+
+.card-header {
+    color: #FFF6EC;
+    background: #8BA973;
+}
+
+.card {
+    margin-bottom: 10px;
+}
+
+#scroller {
+    overflow: scroll;
+    height: 80%;
 }
