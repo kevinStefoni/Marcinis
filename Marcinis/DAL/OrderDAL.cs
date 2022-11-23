@@ -371,9 +371,23 @@ namespace Marcinis.DAL
                 new SqlParameter("@ORDER_DATE", custOrder.ORDER_DATE)
             };
 
-            DataTable dt = DAL.ExecSqlGetDataSet(sql, spParams, CommandType.StoredProcedure).Tables[0];
-            DataRow dr = dt.Rows[0];
-            custOrder.ORDER_ID = Convert.ToInt32(dr.ItemArray[0]);
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd1 = new SqlCommand(sql, conn);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                cmd1.Parameters.AddRange(spParams);
+                try
+                {
+                    conn.Open();
+                    custOrder.ORDER_ID = Convert.ToInt32(cmd1?.ExecuteScalar());
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
             AddOrderItems(custOrder);
         }
 
