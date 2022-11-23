@@ -32,6 +32,9 @@ namespace Marcinis.Pages
         [CreditCardExpiry]
         public string? CardExpiry { get; set; }
 
+        [BindProperty]
+        public string? DiscountCode { get; set; }
+
         public Dictionary<string, decimal> itemPairValues { get; set; } = new Dictionary<string, decimal>();
 
         public IList<SelectListItem> AvailableTimes { get; set; } = new List<SelectListItem>();
@@ -100,7 +103,7 @@ namespace Marcinis.Pages
 
         public void RetrieveInformation()
         {
-            Customer Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? new Customer();
+            Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? new Customer();
             CustomerOrder.ORDER_CUST_ID = Customer.CustomerId;
             CustomerOrder.ORDER_DATE = DateTime.Now.Date;
             menu = DAL.GetMenu() ?? menu;
@@ -109,7 +112,7 @@ namespace Marcinis.Pages
             // iterate through menu and add the product name and price to dictionary "itemPairValues"
             foreach (MenuItem item in menu)
             {
-                if (item.PROD_NAME != null)
+                if (item.PROD_NAME != null && !itemPairValues.ContainsKey(item.PROD_NAME))
                 {
                     itemPairValues.Add(item.PROD_NAME, item.PROD_PRICE);
                 }
@@ -118,6 +121,7 @@ namespace Marcinis.Pages
 
             // add all items that Customer selected with their respective quantities to CustomerOrder and calculate ORDER_SUBTOTAL
             Dictionary<string, string> OrderDetails = SessionHelper.GetObjectFromJson<Dictionary<string, string>>(HttpContext.Session, "OrderDetails") ?? new Dictionary<string, string>();
+            CustomerOrder.ORDER_SUBTOTAL = 0; // reset order subtotal before adding it again
             foreach (string items in OrderDetails.Keys)
             {
                 if (Int32.TryParse(OrderDetails[items], out int temp))
@@ -136,6 +140,20 @@ namespace Marcinis.Pages
             // calculate the ORDER_TOTAL by adding subtotal and tax amount and update CustomerOrder
             CustomerOrder.ORDER_TOTAL = CustomerOrder.ORDER_SUBTOTAL + CustomerOrder.ORDER_TAX;
 
+            if (DiscountCode != null)
+            {
+                decimal percentOff = DAL.GetDiscount(DiscountCode);
+                if (percentOff != -1)
+                {
+                    ViewData["ISDISC"] = "YES";
+                    CustomerOrder.ORDER_TOTAL = CustomerOrder.ORDER_TOTAL - (CustomerOrder.ORDER_TOTAL * (percentOff / 100));
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "percentOff", percentOff);
+                }
+                else
+                {
+                    ViewData["ISDISC"] = "NO";
+                }
+            }
 
         }
     }
