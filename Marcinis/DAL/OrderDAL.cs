@@ -15,6 +15,29 @@ namespace Marcinis.DAL
         private readonly MarcinisDAL DAL = new();
         private readonly string connStr = "Server=tcp:marcinis-server.database.windows.net,1433;Initial Catalog=MarcinisDB;Persist Security Info=False;User ID=cs3773group12;Password=Pa$$word1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;";
 
+        public int GetDiscount(string code)
+        {
+            int percentage = -1;
+            // select all the appetizers from the table
+            string sql = $"SELECT Percentage FROM DiscountCodes WHERE Code='{code}'";
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd1 = new SqlCommand(sql, conn);
+                try
+                {
+                    conn.Open();
+                    percentage = Convert.ToInt32(cmd1?.ExecuteScalar());
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return (percentage > 0) ? percentage : -1;
+        }
+
         public IList<MenuItem> SearchMenu(string searchTerm)
         {
             IList<MenuItem> items = new List<MenuItem>(); // create a list of MenuItems
