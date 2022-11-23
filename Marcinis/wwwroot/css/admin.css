@@ -50,6 +50,7 @@ tr:hover td {
     width: 300px;
     padding: 10px;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 /* table button */

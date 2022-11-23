@@ -117,6 +117,8 @@ namespace Marcinis.Pages
                 {
                     found = true;
                     customerRepo.UpdateCustomer(cust);
+                    if(cust.CustomerId == SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer")?.CustomerId)
+                        SessionHelper.SetObjectAsJson(HttpContext.Session, "Customer", cust);
                     customer = customerRepo.GetAllCustomers();
                     SessionHelper.SetObjectAsJson(HttpContext.Session, "customers", customer);
                 }
