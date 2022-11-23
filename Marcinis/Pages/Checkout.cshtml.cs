@@ -61,9 +61,9 @@ namespace Marcinis.Pages
                 return Page();
             }
 
+            CustomerOrder.ORDER_ID = DAL.AddOrder(CustomerOrder);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
-            DAL.AddOrder(CustomerOrder);
-            if(Customer.LoginTypeId == 3)
+            if (Customer.LoginTypeId == 3)
                 CDAL.AddCustomer(Customer);
             return Redirect("./OrderConfirmation");
         }

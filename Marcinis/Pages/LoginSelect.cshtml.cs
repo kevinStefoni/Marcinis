@@ -46,19 +46,16 @@ namespace Marcinis.Pages
             ModelState.ClearValidationState("Customer.LoginCredentials.Password");
             ModelState.MarkFieldValid("Customer.LoginCredentials.Password");
 
+            ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
             // re-match email pattern, effectively removing UnregisteredEmail attribute, but keeping the others
             Regex regex = new(".*@.*[.].*");
-            if (ModelState.GetFieldValidationState("Customer.LoginCredentials.EmailAddress") == ModelValidationState.Invalid
-                && Customer.LoginCredentials.EmailAddress != null
+            if (Customer.LoginCredentials.EmailAddress != null
                 && regex.IsMatch(Customer.LoginCredentials.EmailAddress))
             {
-                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
                 ModelState.MarkFieldValid("Customer.LoginCredentials.EmailAddress");
             }
-            // email is not registered or is not valid, so cannot login with it
             else
             {
-                ModelState.ClearValidationState("Customer.LoginCredentials.EmailAddress");
                 ModelState.AddModelError("Customer.LoginCredentials.EmailAddress", "Please enter a valid email.");
             }
 
