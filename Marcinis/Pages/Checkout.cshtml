@@ -18,7 +18,7 @@
                     <input type="hidden" asp-for="Customer.FirstName"  value=@Model.Customer.FirstName />
                     <input type="hidden" asp-for="Customer.LastName" value=@Model.Customer.LastName />
                     <input type="hidden" asp-for="Customer.PhoneNumber" value=@Model.Customer.PhoneNumber />
-                    <div id="scroller">
+                    <div>
                         <div class="card text-center">
                           <div class="card-header">
                             Contact Information
@@ -38,12 +38,11 @@
                                 </div>
                           </div>
                         </div>
-
                         <div class="card text-center">
                           <div class="card-header">
                             Schedule Pickup Time
                           </div>
-                          <div class="card-body">
+                          <div class="card-body" id="pickuptime">
                             <div style="text-align:center">
                                 @Html.DropDownListFor(m => m.CustomerOrder.ORDER_PICKUP_TIME, Model.AvailableTimes,
                                 new { @class = "div", id="time-drop-down", onmousedown="if(this.options.length>5){this.size=5;}", onchange="this.size=0;", onblur="this.size=0;"})
@@ -57,9 +56,9 @@
                         </div>
 
                         <div class="card text-center">
-                          <div class="card-header">
-                            Payment Information
-                          </div>
+                            <div class="card-header">
+                                Payment Information
+                            </div>
                           <div class="card-body">
                             <div style="text-align:center">
                                     <label>
@@ -98,20 +97,24 @@
 
                 <!--Div to hold the Cart information (item ordered, price, quantity)-->
                 <div class="items-ordered">
-                    <div class="row">
+                    <table width="100%" border="0" class="table table-hover">
                         @if(Model.CustomerOrder.ORDER_ITEMS.Count == 0)
                         {
-                            <p>Cart is empty.</p>
+                            <tr>Cart is empty.</tr>
                         }
                         else
                         {
                             @foreach (string item in Model.CustomerOrder.ORDER_ITEMS.Keys)
                             {
                                 decimal itemsPrice = Model.CustomerOrder.ORDER_ITEMS[item] * Model.itemPairValues[item];
-                                <p class="split-para"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong> @item <span>$@itemsPrice</span></p>
+                                <tr>
+                                    <td width="20%"><strong>@Model.CustomerOrder.ORDER_ITEMS[item]</strong></td>
+                                    <td width="80%">@item</td>
+                                    <td width="20%">$@itemsPrice</td>
+                                </tr>
                             }
                         }
-                    </div>
+                    </table>
                 </div>
 
                 <div class="cart-total">
