@@ -16,12 +16,13 @@ namespace Marcinis.Pages
     public class CheckoutModel : PageModel
     {
         private readonly OrderDAL DAL = new();
+        private readonly CustomerDAL CDAL = new();
 
         [BindProperty]
         public CustomerOrder CustomerOrder { get; set; } = new CustomerOrder();
 
         [BindProperty]
-        public Customer? Customer { get; set; }
+        public Customer Customer { get; set; } = new Customer();
 
 
         public IList<MenuItem> menu = new List<MenuItem>();
@@ -38,7 +39,7 @@ namespace Marcinis.Pages
         public void OnGet()
         {
             CustomerOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
-            Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer");
+            Customer = SessionHelper.GetObjectFromJson<Customer>(HttpContext.Session, "Customer") ?? Customer;
             RetrieveInformation();
             //On get we are setting customer order but we are also doing that OnPost. is this causing a bug when returning to cart and total doubling
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
@@ -57,15 +58,15 @@ namespace Marcinis.Pages
             }
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "CustomerOrder", CustomerOrder);
-            CustomerOrder custOrder = SessionHelper.GetObjectFromJson<CustomerOrder>(HttpContext.Session, "CustomerOrder") ?? CustomerOrder;
-            DAL.AddOrder(custOrder);
+            DAL.AddOrder(CustomerOrder);
+            CDAL.AddCustomer(Customer);
             return Redirect("./OrderConfirmation");
         }
 
         public void GetTimes()
         {
             int addedTime = 15;
-            while (TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).CompareTo(new DateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Year, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Month, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Day, 20, 0, 0)) < 0)
+            while (TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).CompareTo(new DateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Year, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Month, TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Day, 23, 0, 0)) < 0)
             {
                 AvailableTimes.Add(new SelectListItem { Text = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).ToString("hh:mm"), Value = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).Add(new TimeSpan(0, 0, addedTime, 0)).ToString("hh:mm") });
                 addedTime += 15;

@@ -119,3 +119,9 @@ hr:after {
 * {
     color: #8BA973;
 }
+
+.split-para span {
+    display: block;
+    float: right;
+    margin-right: 26px;
+}
