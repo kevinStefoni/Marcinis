@@ -149,7 +149,9 @@ namespace Marcinis.Pages
                 if (percentOff != -1)
                 {
                     ViewData["ISDISC"] = "YES";
-                    CustomerOrder.ORDER_TOTAL = CustomerOrder.ORDER_TOTAL - (CustomerOrder.ORDER_TOTAL * (percentOff / 100));
+                    decimal discAmt = (CustomerOrder.ORDER_TOTAL * (percentOff / 100));
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "discAmt", discAmt);
+                    CustomerOrder.ORDER_TOTAL = CustomerOrder.ORDER_TOTAL - discAmt;
                     SessionHelper.SetObjectAsJson(HttpContext.Session, "percentOff", percentOff);
                 }
                 else
