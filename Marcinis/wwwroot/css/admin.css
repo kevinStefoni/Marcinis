@@ -40,6 +40,16 @@ tr:hover td {
     color: rgb(255, 255, 255);
 }
 
+.adders {
+    color: #FFF6EC;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    background: #4A9962;
+    display: table-cell;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
 /* table button */
 .custom-btn {
     color: #fff;
@@ -198,8 +208,13 @@ input:hover {
     vertical-align: middle;
 }
 
-/* accordin */
+/* accordion */
 .accordion-button {
     font-size: 20px;
     background-color: #FFF6EC;
+    color: #4A9962;
+}
+
+.accordion {
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }

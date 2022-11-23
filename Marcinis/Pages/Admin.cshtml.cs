@@ -428,6 +428,22 @@ namespace Marcinis.Pages
             SessionHelper.SetObjectAsJson(HttpContext.Session, "discounts", discounts);
         }
 
+        public void OnPostGoToAddCustomer()
+        {
+            OnGet();
+            ViewData["WHERETO"] = "custInputAdd";
+        }
+        public void OnPostGoToAddMenuItem()
+        {
+            OnGet();
+            ViewData["WHERETO"] = "menuItemInputAdd";
+        }
+
+        public void OnPostGoToAddDiscountCode()
+        {
+            OnGet();
+            ViewData["WHERETO"] = "discountInputAdd";
+        }
 
     }
 }
